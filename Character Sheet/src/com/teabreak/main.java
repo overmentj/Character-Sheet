@@ -1,4 +1,4 @@
-package com.tbreak.core;
+package com.teabreak;
 
 public class main {
 
