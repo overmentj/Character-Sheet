@@ -11,8 +11,6 @@ public class CharacterSheet {
 	private Class charClass;
 	private Race charRace;
 	
-	
-	
 	private int level;
 	
 	private int strength;
@@ -31,5 +29,7 @@ public class CharacterSheet {
 	private String fortitudeSaveLevel;
 	
 	private long experiance;
+	
+	
 }
 
