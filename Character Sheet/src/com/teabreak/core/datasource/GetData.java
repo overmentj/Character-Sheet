@@ -9,5 +9,5 @@ import com.teabreak.core.aspects.AspectsInterface;
  *
  */
 public interface GetData {
-	public AspectsInterface getDateOfType();
+	public <T> AspectsInterface getDataOfType(String file, Class<T> classOfT);
 }
