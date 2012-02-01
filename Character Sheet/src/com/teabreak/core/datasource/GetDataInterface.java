@@ -8,6 +8,6 @@ import com.teabreak.core.aspects.AspectsInterface;
  * @author Robin
  *
  */
-public interface GetData {
+public interface GetDataInterface {
 	public AspectsInterface getDateOfType();
 }
