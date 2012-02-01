@@ -1,9 +1,7 @@
 package com.teabreak.core.aspects;
 
 public enum AspectsEnum {
-	Weapon,
-	Armour,
-	Item,
+	Equipment,
 	Class,
 	Race,
 	Feat,
