@@ -2,9 +2,7 @@ package com.teabreak.core;
 
 import java.io.FileNotFoundException;
 
-import com.teabreak.core.aspects.equipment.EquipmentImport;
-
-public class main {
+public class Main {
 
 	/**
 	 * @param args

@@ -1,7 +1,5 @@
 package com.teabreak.core.aspects.equipment;
 
-import com.teabreak.core.aspects.AspectsEnum;
-import com.teabreak.core.aspects.AspectsInterface;
 import com.teabreak.core.aspects.EquipmentAbstract;
 
 public class Weapon extends EquipmentAbstract {

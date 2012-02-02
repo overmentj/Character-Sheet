@@ -15,6 +15,8 @@ public class Race implements AspectsInterface {
 	private int flightSpeed = 0;
 	private String creatureSize;
 	
+	private String name;
+	
 	public int getBonusStrength() {
 		return bonusStrength;
 	}
@@ -57,8 +59,7 @@ public class Race implements AspectsInterface {
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return name;
 	}
 
 	@Override
