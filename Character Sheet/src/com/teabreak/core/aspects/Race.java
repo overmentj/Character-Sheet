@@ -10,6 +10,7 @@ public class Race implements AspectsInterface {
 	private int bonusIntelligence = 0;
 	private int bonusWisdom = 0;
 	private int bonusCharisma = 0;
+	private int levelAdjustment = 0;
 	
 	public int getBonusStrength() {
 		return bonusStrength;
@@ -33,6 +34,10 @@ public class Race implements AspectsInterface {
 
 	public int getBonusCharisma() {
 		return bonusCharisma;
+	}
+	
+	public int getLevelAdjustment() {
+		return levelAdjustment;
 	}
 
 	@Override
