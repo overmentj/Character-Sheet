@@ -67,5 +67,11 @@ public class Race implements AspectsInterface {
 		return TYPE;
 	}
 
+	@Override
+	public long getId() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 	
 }
