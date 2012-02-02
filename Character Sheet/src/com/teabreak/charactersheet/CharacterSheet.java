@@ -24,9 +24,7 @@ public class CharacterSheet {
 	private int reflexSave;
 	private int fortitudeSave;
 
-	private String willSaveLevel;
-	private String reflexSaveLevel;
-	private String fortitudeSaveLevel;
+	private long experience;
 
 	private long experiance;
 	private boolean levelledUp = false;

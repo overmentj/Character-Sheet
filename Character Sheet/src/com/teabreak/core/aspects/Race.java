@@ -10,6 +10,10 @@ public class Race implements AspectsInterface {
 	private int bonusIntelligence = 0;
 	private int bonusWisdom = 0;
 	private int bonusCharisma = 0;
+	private int levelAdjustment = 0;
+	private int landSpeed = 0;
+	private int flightSpeed = 0;
+	private String creatureSize;
 	
 	public int getBonusStrength() {
 		return bonusStrength;
@@ -33,6 +37,22 @@ public class Race implements AspectsInterface {
 
 	public int getBonusCharisma() {
 		return bonusCharisma;
+	}
+	
+	public int getLevelAdjustment() {
+		return levelAdjustment;
+	}
+	
+	public int getLandSpeed() {
+		return landSpeed;
+	}
+	
+	public int getFlightSpeed() {
+		return flightSpeed;
+	}
+	
+	public String getCreatureSize() {
+		return creatureSize;
 	}
 
 	@Override
