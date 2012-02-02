@@ -26,15 +26,14 @@ public class CharacterSheet {
 
 	private long experience;
 
-	private long experiance;
 	private boolean levelledUp = false;
 
 	public void addExperiance(Long experianceGained) {
-		this.experiance += experianceGained;
+		this.experience += experianceGained;
 	}
 
 	public long getExperiance() {
-		return experiance;
+		return experience;
 	}
 
 	public int getStrengthModifier() {
@@ -64,7 +63,6 @@ public class CharacterSheet {
 	public boolean isLevelledUp() {
 		return this.levelledUp;
 	}
-
 	public String getPlayerName() {
 		return playerName;
 	}

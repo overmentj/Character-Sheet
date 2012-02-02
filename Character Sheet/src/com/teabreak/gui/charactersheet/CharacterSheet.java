@@ -1,74 +1,560 @@
 package com.teabreak.gui.charactersheet;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.action.StatusLineManager;
+import org.eclipse.jface.action.ToolBarManager;
+import org.eclipse.jface.window.ApplicationWindow;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.jface.action.Action;
+import org.eclipse.swt.widgets.TabFolder;
+import org.eclipse.swt.widgets.TabItem;
+import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Label;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JTabbedPane;
-import javax.swing.JLayeredPane;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import javax.swing.JLabel;
+import com.teabreak.gui.SWTResourceManager;
 
-public class CharacterSheet extends JFrame {
-
-	private JPanel contentPane;
+public class CharacterSheet extends ApplicationWindow {
+	private Action action;
 
 	/**
-	 * Launch the application.
+	 * Create the application window.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CharacterSheet frame = new CharacterSheet();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	public CharacterSheet() {
+		super(null);
+		createActions();
+		addToolBar(SWT.FLAT | SWT.WRAP);
+		addMenuBar();
+		addStatusLine();
 	}
 
 	/**
-	 * Create the frame.
+	 * Create contents of the application window.
+	 * @param parent
 	 */
-	public CharacterSheet() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 873, 777);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{847, 0};
-		gbl_contentPane.rowHeights = new int[]{729, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, Double.MIN_VALUE};
-		contentPane.setLayout(gbl_contentPane);
+	@Override
+	protected Control createContents(Composite parent) {
+		Composite container = new Composite(parent, SWT.NONE);
+		container.setLayout(null);
 		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		GridBagConstraints gbc_tabbedPane = new GridBagConstraints();
-		gbc_tabbedPane.fill = GridBagConstraints.BOTH;
-		gbc_tabbedPane.gridx = 0;
-		gbc_tabbedPane.gridy = 0;
-		contentPane.add(tabbedPane, gbc_tabbedPane);
+		TabFolder tabFolder = new TabFolder(container, SWT.NONE);
+		tabFolder.setBounds(0, 136, 1068, 488);
 		
-		JTabbedPane tabbedPane_1 = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.addTab("Front Page", null, tabbedPane_1, null);
+		TabItem tbtmPage = new TabItem(tabFolder, SWT.NONE);
+		tbtmPage.setText("Page 1");
 		
-		JTabbedPane tabbedPane_2 = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.addTab("Inventory", null, tabbedPane_2, null);
+		Composite composite = new Composite(tabFolder, SWT.NONE);
+		tbtmPage.setControl(composite);
 		
-		JLayeredPane layeredPane = new JLayeredPane();
-		tabbedPane.addTab("Page 3", null, layeredPane, null);
+		Group grpAbilityScores = new Group(composite, SWT.NONE);
+		grpAbilityScores.setText("Ability Scores");
+		grpAbilityScores.setBounds(10, 10, 256, 185);
 		
-		JLayeredPane layeredPane_1 = new JLayeredPane();
-		tabbedPane.addTab("Skills & Feats", null, layeredPane_1, null);
+		Label lblStrength = new Label(grpAbilityScores, SWT.NONE);
+		lblStrength.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.BOLD));
+		lblStrength.setBounds(10, 60, 25, 15);
+		lblStrength.setText("Str");
 		
-		JLabel lblNewLabel = new JLabel("Ability Scores");
-		lblNewLabel.setBounds(10, 86, 99, 14);
-		layeredPane_1.add(lblNewLabel);
+		Label lblDex = new Label(grpAbilityScores, SWT.NONE);
+		lblDex.setText("Dex");
+		lblDex.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.BOLD));
+		lblDex.setBounds(10, 83, 25, 15);
+		
+		Label lblCon = new Label(grpAbilityScores, SWT.NONE);
+		lblCon.setText("Con");
+		lblCon.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.BOLD));
+		lblCon.setBounds(10, 104, 25, 15);
+		
+		Label lblInt = new Label(grpAbilityScores, SWT.NONE);
+		lblInt.setText("Int");
+		lblInt.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.BOLD));
+		lblInt.setBounds(10, 125, 25, 15);
+		
+		Label lblWis = new Label(grpAbilityScores, SWT.NONE);
+		lblWis.setText("Wis");
+		lblWis.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.BOLD));
+		lblWis.setBounds(10, 146, 25, 15);
+		
+		Label lblCha = new Label(grpAbilityScores, SWT.NONE);
+		lblCha.setText("Cha");
+		lblCha.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.BOLD));
+		lblCha.setBounds(10, 167, 25, 15);
+		
+		Label lblNewLabel = new Label(grpAbilityScores, SWT.NONE);
+		lblNewLabel.setBounds(51, 62, 15, 15);
+		lblNewLabel.setText("20");
+		
+		Label label = new Label(grpAbilityScores, SWT.NONE);
+		label.setText("20");
+		label.setBounds(51, 104, 15, 15);
+		
+		Label label_1 = new Label(grpAbilityScores, SWT.NONE);
+		label_1.setText("20");
+		label_1.setBounds(51, 125, 15, 15);
+		
+		Label label_2 = new Label(grpAbilityScores, SWT.NONE);
+		label_2.setText("20");
+		label_2.setBounds(51, 146, 15, 15);
+		
+		Label label_3 = new Label(grpAbilityScores, SWT.NONE);
+		label_3.setText("20");
+		label_3.setBounds(51, 167, 15, 15);
+		
+		Label label_4 = new Label(grpAbilityScores, SWT.NONE);
+		label_4.setText("20");
+		label_4.setBounds(51, 83, 15, 15);
+		
+		Label label_5 = new Label(grpAbilityScores, SWT.NONE);
+		label_5.setText("=");
+		label_5.setBounds(72, 60, 15, 15);
+		
+		Label label_6 = new Label(grpAbilityScores, SWT.NONE);
+		label_6.setText("=");
+		label_6.setBounds(72, 83, 15, 15);
+		
+		Label label_7 = new Label(grpAbilityScores, SWT.NONE);
+		label_7.setText("=");
+		label_7.setBounds(72, 104, 15, 15);
+		
+		Label label_8 = new Label(grpAbilityScores, SWT.NONE);
+		label_8.setText("=");
+		label_8.setBounds(72, 125, 15, 15);
+		
+		Label label_9 = new Label(grpAbilityScores, SWT.NONE);
+		label_9.setText("=");
+		label_9.setBounds(72, 146, 15, 15);
+		
+		Label label_10 = new Label(grpAbilityScores, SWT.NONE);
+		label_10.setText("=");
+		label_10.setBounds(72, 167, 15, 15);
+		
+		Label label_11 = new Label(grpAbilityScores, SWT.NONE);
+		label_11.setText("20");
+		label_11.setBounds(82, 167, 15, 15);
+		
+		Label label_12 = new Label(grpAbilityScores, SWT.NONE);
+		label_12.setText("20");
+		label_12.setBounds(82, 146, 15, 15);
+		
+		Label label_13 = new Label(grpAbilityScores, SWT.NONE);
+		label_13.setText("20");
+		label_13.setBounds(82, 125, 15, 15);
+		
+		Label label_14 = new Label(grpAbilityScores, SWT.NONE);
+		label_14.setText("20");
+		label_14.setBounds(82, 104, 15, 15);
+		
+		Label label_15 = new Label(grpAbilityScores, SWT.NONE);
+		label_15.setText("20");
+		label_15.setBounds(82, 83, 15, 15);
+		
+		Label label_16 = new Label(grpAbilityScores, SWT.NONE);
+		label_16.setText("20");
+		label_16.setBounds(82, 62, 15, 15);
+		
+		Label label_23 = new Label(grpAbilityScores, SWT.NONE);
+		label_23.setText("+");
+		label_23.setBounds(103, 167, 15, 15);
+		
+		Label label_24 = new Label(grpAbilityScores, SWT.NONE);
+		label_24.setText("+");
+		label_24.setBounds(103, 146, 15, 15);
+		
+		Label label_25 = new Label(grpAbilityScores, SWT.NONE);
+		label_25.setText("+");
+		label_25.setBounds(103, 125, 15, 15);
+		
+		Label label_26 = new Label(grpAbilityScores, SWT.NONE);
+		label_26.setText("+");
+		label_26.setBounds(103, 104, 15, 15);
+		
+		Label label_27 = new Label(grpAbilityScores, SWT.NONE);
+		label_27.setText("+");
+		label_27.setBounds(103, 83, 15, 15);
+		
+		Label label_28 = new Label(grpAbilityScores, SWT.NONE);
+		label_28.setText("+");
+		label_28.setBounds(103, 60, 15, 15);
+		
+		Label label_29 = new Label(grpAbilityScores, SWT.NONE);
+		label_29.setText("20");
+		label_29.setBounds(118, 167, 15, 15);
+		
+		Label label_30 = new Label(grpAbilityScores, SWT.NONE);
+		label_30.setText("20");
+		label_30.setBounds(118, 146, 15, 15);
+		
+		Label label_31 = new Label(grpAbilityScores, SWT.NONE);
+		label_31.setText("20");
+		label_31.setBounds(118, 125, 15, 15);
+		
+		Label label_32 = new Label(grpAbilityScores, SWT.NONE);
+		label_32.setText("20");
+		label_32.setBounds(118, 104, 15, 15);
+		
+		Label label_33 = new Label(grpAbilityScores, SWT.NONE);
+		label_33.setText("20");
+		label_33.setBounds(118, 83, 15, 15);
+		
+		Label label_34 = new Label(grpAbilityScores, SWT.NONE);
+		label_34.setText("20");
+		label_34.setBounds(118, 62, 15, 15);
+		
+		Label label_35 = new Label(grpAbilityScores, SWT.NONE);
+		label_35.setText("20");
+		label_35.setBounds(154, 167, 15, 15);
+		
+		Label label_36 = new Label(grpAbilityScores, SWT.NONE);
+		label_36.setText("20");
+		label_36.setBounds(154, 146, 15, 15);
+		
+		Label label_37 = new Label(grpAbilityScores, SWT.NONE);
+		label_37.setText("20");
+		label_37.setBounds(154, 125, 15, 15);
+		
+		Label label_38 = new Label(grpAbilityScores, SWT.NONE);
+		label_38.setText("20");
+		label_38.setBounds(154, 104, 15, 15);
+		
+		Label label_39 = new Label(grpAbilityScores, SWT.NONE);
+		label_39.setText("20");
+		label_39.setBounds(154, 83, 15, 15);
+		
+		Label label_40 = new Label(grpAbilityScores, SWT.NONE);
+		label_40.setText("20");
+		label_40.setBounds(154, 62, 15, 15);
+		
+		Label label_41 = new Label(grpAbilityScores, SWT.NONE);
+		label_41.setText("+");
+		label_41.setBounds(139, 167, 15, 15);
+		
+		Label label_42 = new Label(grpAbilityScores, SWT.NONE);
+		label_42.setText("+");
+		label_42.setBounds(139, 146, 15, 15);
+		
+		Label label_43 = new Label(grpAbilityScores, SWT.NONE);
+		label_43.setText("+");
+		label_43.setBounds(139, 125, 15, 15);
+		
+		Label label_44 = new Label(grpAbilityScores, SWT.NONE);
+		label_44.setText("+");
+		label_44.setBounds(139, 104, 15, 15);
+		
+		Label label_45 = new Label(grpAbilityScores, SWT.NONE);
+		label_45.setText("+");
+		label_45.setBounds(139, 83, 15, 15);
+		
+		Label label_46 = new Label(grpAbilityScores, SWT.NONE);
+		label_46.setText("+");
+		label_46.setBounds(139, 60, 15, 15);
+		
+		Label label_47 = new Label(grpAbilityScores, SWT.NONE);
+		label_47.setText("20");
+		label_47.setBounds(190, 167, 15, 15);
+		
+		Label label_48 = new Label(grpAbilityScores, SWT.NONE);
+		label_48.setText("20");
+		label_48.setBounds(190, 146, 15, 15);
+		
+		Label label_49 = new Label(grpAbilityScores, SWT.NONE);
+		label_49.setText("20");
+		label_49.setBounds(190, 125, 15, 15);
+		
+		Label label_50 = new Label(grpAbilityScores, SWT.NONE);
+		label_50.setText("20");
+		label_50.setBounds(190, 104, 15, 15);
+		
+		Label label_51 = new Label(grpAbilityScores, SWT.NONE);
+		label_51.setText("20");
+		label_51.setBounds(190, 83, 15, 15);
+		
+		Label label_52 = new Label(grpAbilityScores, SWT.NONE);
+		label_52.setText("20");
+		label_52.setBounds(190, 62, 15, 15);
+		
+		Label label_53 = new Label(grpAbilityScores, SWT.NONE);
+		label_53.setText("-");
+		label_53.setBounds(175, 167, 15, 15);
+		
+		Label label_54 = new Label(grpAbilityScores, SWT.NONE);
+		label_54.setText("-");
+		label_54.setBounds(175, 146, 15, 15);
+		
+		Label label_55 = new Label(grpAbilityScores, SWT.NONE);
+		label_55.setText("-");
+		label_55.setBounds(175, 125, 15, 15);
+		
+		Label label_56 = new Label(grpAbilityScores, SWT.NONE);
+		label_56.setText("-");
+		label_56.setBounds(175, 104, 15, 15);
+		
+		Label label_57 = new Label(grpAbilityScores, SWT.NONE);
+		label_57.setText("-");
+		label_57.setBounds(175, 83, 15, 15);
+		
+		Label label_58 = new Label(grpAbilityScores, SWT.NONE);
+		label_58.setText("-");
+		label_58.setBounds(175, 60, 15, 15);
+		
+		Label label_59 = new Label(grpAbilityScores, SWT.NONE);
+		label_59.setText("20");
+		label_59.setBounds(226, 167, 15, 15);
+		
+		Label label_60 = new Label(grpAbilityScores, SWT.NONE);
+		label_60.setText("20");
+		label_60.setBounds(226, 146, 15, 15);
+		
+		Label label_61 = new Label(grpAbilityScores, SWT.NONE);
+		label_61.setText("20");
+		label_61.setBounds(226, 125, 15, 15);
+		
+		Label label_62 = new Label(grpAbilityScores, SWT.NONE);
+		label_62.setText("20");
+		label_62.setBounds(226, 104, 15, 15);
+		
+		Label label_63 = new Label(grpAbilityScores, SWT.NONE);
+		label_63.setText("20");
+		label_63.setBounds(226, 83, 15, 15);
+		
+		Label label_64 = new Label(grpAbilityScores, SWT.NONE);
+		label_64.setText("20");
+		label_64.setBounds(226, 62, 15, 15);
+		
+		Group grpSavingThrows = new Group(composite, SWT.NONE);
+		grpSavingThrows.setText("Saving Throws");
+		grpSavingThrows.setBounds(10, 201, 270, 111);
+		
+		Label lblFortitude = new Label(grpSavingThrows, SWT.NONE);
+		lblFortitude.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.BOLD));
+		lblFortitude.setBounds(10, 44, 60, 15);
+		lblFortitude.setText("Fortitude");
+		
+		Label lblReflex = new Label(grpSavingThrows, SWT.NONE);
+		lblReflex.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.BOLD));
+		lblReflex.setText("Reflex");
+		lblReflex.setBounds(10, 65, 60, 15);
+		
+		Label lblWill = new Label(grpSavingThrows, SWT.NONE);
+		lblWill.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.BOLD));
+		lblWill.setText("Will");
+		lblWill.setBounds(10, 86, 60, 15);
+		
+		Label label_17 = new Label(grpSavingThrows, SWT.NONE);
+		label_17.setBounds(76, 44, 15, 15);
+		label_17.setText("00");
+		
+		Label label_18 = new Label(grpSavingThrows, SWT.NONE);
+		label_18.setText("00");
+		label_18.setBounds(76, 65, 15, 15);
+		
+		Label label_19 = new Label(grpSavingThrows, SWT.NONE);
+		label_19.setText("00");
+		label_19.setBounds(76, 86, 15, 15);
+		
+		Label label_20 = new Label(grpSavingThrows, SWT.NONE);
+		label_20.setText("=");
+		label_20.setBounds(97, 86, 15, 15);
+		
+		Label label_21 = new Label(grpSavingThrows, SWT.NONE);
+		label_21.setText("=");
+		label_21.setBounds(97, 65, 15, 15);
+		
+		Label label_22 = new Label(grpSavingThrows, SWT.NONE);
+		label_22.setText("=");
+		label_22.setBounds(97, 44, 15, 15);
+		
+		Label label_65 = new Label(grpSavingThrows, SWT.NONE);
+		label_65.setText("00");
+		label_65.setBounds(118, 86, 15, 15);
+		
+		Label label_66 = new Label(grpSavingThrows, SWT.NONE);
+		label_66.setText("00");
+		label_66.setBounds(118, 65, 15, 15);
+		
+		Label label_67 = new Label(grpSavingThrows, SWT.NONE);
+		label_67.setText("00");
+		label_67.setBounds(118, 44, 15, 15);
+		
+		Label label_68 = new Label(grpSavingThrows, SWT.NONE);
+		label_68.setText("+");
+		label_68.setBounds(139, 86, 15, 15);
+		
+		Label label_69 = new Label(grpSavingThrows, SWT.NONE);
+		label_69.setText("+");
+		label_69.setBounds(139, 65, 15, 15);
+		
+		Label label_70 = new Label(grpSavingThrows, SWT.NONE);
+		label_70.setText("+");
+		label_70.setBounds(139, 44, 15, 15);
+		
+		Label label_71 = new Label(grpSavingThrows, SWT.NONE);
+		label_71.setText("00");
+		label_71.setBounds(149, 86, 15, 15);
+		
+		Label label_72 = new Label(grpSavingThrows, SWT.NONE);
+		label_72.setText("00");
+		label_72.setBounds(149, 65, 15, 15);
+		
+		Label label_73 = new Label(grpSavingThrows, SWT.NONE);
+		label_73.setText("00");
+		label_73.setBounds(149, 44, 15, 15);
+		
+		Label label_74 = new Label(grpSavingThrows, SWT.NONE);
+		label_74.setText("+");
+		label_74.setBounds(170, 44, 15, 15);
+		
+		Label label_75 = new Label(grpSavingThrows, SWT.NONE);
+		label_75.setText("00");
+		label_75.setBounds(180, 44, 15, 15);
+		
+		Label label_76 = new Label(grpSavingThrows, SWT.NONE);
+		label_76.setText("+");
+		label_76.setBounds(170, 65, 15, 15);
+		
+		Label label_77 = new Label(grpSavingThrows, SWT.NONE);
+		label_77.setText("00");
+		label_77.setBounds(180, 65, 15, 15);
+		
+		Label label_78 = new Label(grpSavingThrows, SWT.NONE);
+		label_78.setText("+");
+		label_78.setBounds(170, 86, 15, 15);
+		
+		Label label_79 = new Label(grpSavingThrows, SWT.NONE);
+		label_79.setText("00");
+		label_79.setBounds(180, 86, 15, 15);
+		
+		Label label_80 = new Label(grpSavingThrows, SWT.NONE);
+		label_80.setText("+");
+		label_80.setBounds(201, 44, 15, 15);
+		
+		Label label_81 = new Label(grpSavingThrows, SWT.NONE);
+		label_81.setText("00");
+		label_81.setBounds(211, 44, 15, 15);
+		
+		Label label_82 = new Label(grpSavingThrows, SWT.NONE);
+		label_82.setText("+");
+		label_82.setBounds(201, 65, 15, 15);
+		
+		Label label_83 = new Label(grpSavingThrows, SWT.NONE);
+		label_83.setText("00");
+		label_83.setBounds(211, 65, 15, 15);
+		
+		Label label_84 = new Label(grpSavingThrows, SWT.NONE);
+		label_84.setText("+");
+		label_84.setBounds(201, 86, 15, 15);
+		
+		Label label_85 = new Label(grpSavingThrows, SWT.NONE);
+		label_85.setText("00");
+		label_85.setBounds(211, 86, 15, 15);
+		
+		Label label_86 = new Label(grpSavingThrows, SWT.NONE);
+		label_86.setText("+");
+		label_86.setBounds(232, 44, 15, 15);
+		
+		Label label_87 = new Label(grpSavingThrows, SWT.NONE);
+		label_87.setText("00");
+		label_87.setBounds(242, 44, 15, 15);
+		
+		Label label_88 = new Label(grpSavingThrows, SWT.NONE);
+		label_88.setText("+");
+		label_88.setBounds(232, 65, 15, 15);
+		
+		Label label_89 = new Label(grpSavingThrows, SWT.NONE);
+		label_89.setText("00");
+		label_89.setBounds(242, 65, 15, 15);
+		
+		Label label_90 = new Label(grpSavingThrows, SWT.NONE);
+		label_90.setText("+");
+		label_90.setBounds(232, 86, 15, 15);
+		
+		Label label_91 = new Label(grpSavingThrows, SWT.NONE);
+		label_91.setText("00");
+		label_91.setBounds(242, 86, 15, 15);
+
+		return container;
+	}
+
+	/**
+	 * Create the actions.
+	 */
+	private void createActions() {
+		// Create the actions
+		{
+			action = new Action("Save Character") {
+			};
+		}
+	}
+
+	/**
+	 * Create the menu manager.
+	 * @return the menu manager
+	 */
+	@Override
+	protected MenuManager createMenuManager() {
+		MenuManager menuManager = new MenuManager("menu");
+		{
+			MenuManager menuManager_1 = new MenuManager("File");
+			menuManager.add(menuManager_1);
+			menuManager_1.add(action);
+			menuManager_1.add(action);
+		}
+		return menuManager;
+	}
+
+	/**
+	 * Create the toolbar manager.
+	 * @return the toolbar manager
+	 */
+	@Override
+	protected ToolBarManager createToolBarManager(int style) {
+		ToolBarManager toolBarManager = new ToolBarManager(style);
+		return toolBarManager;
+	}
+
+	/**
+	 * Create the status line manager.
+	 * @return the status line manager
+	 */
+	@Override
+	protected StatusLineManager createStatusLineManager() {
+		StatusLineManager statusLineManager = new StatusLineManager();
+		return statusLineManager;
+	}
+
+	/**
+	 * Launch the application.
+	 * @param args
+	 */
+	public static void main(String args[]) {
+		try {
+			CharacterSheet window = new CharacterSheet();
+			window.setBlockOnOpen(true);
+			window.open();
+			Display.getCurrent().dispose();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Configure the shell.
+	 * @param newShell
+	 */
+	@Override
+	protected void configureShell(Shell newShell) {
+		super.configureShell(newShell);
+		newShell.setText("New Application");
+	}
+
+	/**
+	 * Return the initial size of the window.
+	 */
+	@Override
+	protected Point getInitialSize() {
+		return new Point(994, 713);
 	}
 }
