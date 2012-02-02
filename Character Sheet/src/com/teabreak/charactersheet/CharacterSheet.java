@@ -26,15 +26,14 @@ public class CharacterSheet {
 
 	private long experience;
 
-	private long experiance;
 	private boolean levelledUp = false;
 
-	public void addExperiance(Long experianceGained) {
-		this.experiance += experianceGained;
+	public void addExperience(Long experienceGained) {
+		this.experience += experienceGained;
 	}
 
-	public long getExperiance() {
-		return experiance;
+	public long getExperience() {
+		return experience;
 	}
 
 	public int getStrengthModifier() {
