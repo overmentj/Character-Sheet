@@ -70,6 +70,12 @@ public class Armour extends EquipmentAbstract {
 		System.out.println(NAME + " " + DAMAGE + " " + REACH + " " + BLURB);
 		
 	}
+
+	@Override
+	public long getId() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 
 

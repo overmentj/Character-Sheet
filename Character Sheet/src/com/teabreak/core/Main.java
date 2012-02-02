@@ -10,7 +10,10 @@ public class Main {
 	 */
 	public static void main(String[] args){
 	
-
+		// Start by loading the data and opening a loading window
+		
+		
+		// Start main window
 	
 	}
 }

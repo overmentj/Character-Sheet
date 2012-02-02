@@ -28,11 +28,20 @@ public class CharacterSheet {
 
 	private boolean levelledUp = false;
 
+<<<<<<< HEAD
 	public void addExperience(Long experienceGained) {
 		this.experience += experienceGained;
+=======
+	public void addExperiance(Long experianceGained) {
+		this.experience += experianceGained;
+>>>>>>> branch 'master' of https://Overminty@github.com/LupusUmbrae/Character-Sheet-D-D-3.5.git
 	}
 
+<<<<<<< HEAD
 	public long getExperience() {
+=======
+	public long getExperiance() {
+>>>>>>> branch 'master' of https://Overminty@github.com/LupusUmbrae/Character-Sheet-D-D-3.5.git
 		return experience;
 	}
 
@@ -63,7 +72,6 @@ public class CharacterSheet {
 	public boolean isLevelledUp() {
 		return this.levelledUp;
 	}
-
 	public String getPlayerName() {
 		return playerName;
 	}
