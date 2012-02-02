@@ -4,6 +4,10 @@ public class Class implements AspectsInterface {
 
 	private final AspectsEnum TYPE = AspectsEnum.Class;
 	
+	private String willSaveLevel;
+	private String reflexSaveLevel;
+	private String fortitudeSaveLevel;
+	
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
