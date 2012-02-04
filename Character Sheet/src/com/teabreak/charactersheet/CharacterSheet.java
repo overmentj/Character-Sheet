@@ -1,9 +1,12 @@
 package com.teabreak.charactersheet;
 
+import com.teabreak.core.aspects.enums.AlignmentEnum;
 import com.teabreak.core.aspects.Class;
 import com.teabreak.core.aspects.Race;
+import com.teabreak.core.aspects.enums.AbilityEnum;
 
-public class CharacterSheet {
+public class CharacterSheet
+{
 
 	private String playerName;
 	private String characterName;
@@ -29,12 +32,13 @@ public class CharacterSheet {
 
 	private boolean levelledUp = false;
 
-
-	public void addExperience(Long experienceGained) {
+	public void addExperience(Long experienceGained)
+	{
 		this.experience += experienceGained;
 	}
 
-	public long getExperience() {
+	public long getExperience()
+	{
 
 		return experience;
 	}
@@ -49,58 +53,72 @@ public class CharacterSheet {
 		return alignment;
 	}
 
-	public int getStrengthModifier() {
-		return getModifier(strength);
+	public int getAbilityModifier(AbilityEnum ability)
+	{
+		int mod = 0;
+		switch (ability)
+		{
+		case Str:
+			mod = getModifier(strength);
+			break;
+		case Dex:
+			mod = getModifier(dexterity);
+			break;
+		case Con:
+			mod = getModifier(constitution);
+			break;
+		case Int:
+			mod = getModifier(intelligence);
+			break;
+		case Wis:
+			mod = getModifier(wisdom);
+			break;
+		case Cha:
+			mod = getModifier(charisma);
+			break;
+		}
+
+		return mod;
 	}
 
-	public int getDexterityModifier() {
-		return getModifier(dexterity);
-	}
-
-	public int getConsitituionModifier() {
-		return getModifier(constitution);
-	}
-
-	public int getIntelligenceModifier() {
-		return getModifier(intelligence);
-	}
-
-	public int getWisdomModifier() {
-		return getModifier(wisdom);
-	}
-
-	public int getCharismaModifier() {
-		return getModifier(charisma);
-	}
-
-	public boolean isLevelledUp() {
+	public boolean isLevelledUp()
+	{
 		return this.levelledUp;
 	}
-	public String getPlayerName() {
+
+	public String getPlayerName()
+	{
 		return playerName;
 	}
 
-	public void setPlayerName(String playerName) {
+	public void setPlayerName(String playerName)
+	{
 		this.playerName = playerName;
 	}
 
-	public String getCharacterName() {
+	public String getCharacterName()
+	{
 		return characterName;
 	}
 
-	public void setCharacterName(String characterName) {
+	public void setCharacterName(String characterName)
+	{
 		this.characterName = characterName;
 	}
 
-	private int getModifier(int attribute) {
-		if (attribute > 10) {
+	private int getModifier(int attribute)
+	{
+		if (attribute > 10)
+		{
 			return (attribute - 10) / 2;
-		} else {
+		} else
+		{
 			return 0 - ((10 - attribute) / 2);
 		}
 	}
 
-	private void checkLevelledUp() {
+	private void checkLevelledUp()
+	{
 
 	}
 }
