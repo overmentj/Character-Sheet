@@ -1,0 +1,41 @@
+package com.teabreak.core.aspects.enums;
+
+public enum SkillEnum
+{
+	Appraise,
+	Balance,
+	Bluff,
+	Climb,
+	Concentration,
+	Craft,
+	DecipherScript,
+	Diplomacy,
+	DiableDevice,
+	Disguise,
+	EscapeArtist,
+	Forgery,
+	GatherInformation,
+	HandleAnimal,
+	Heal,
+	Hide,
+	Intimidate,
+	Jump,
+	Knowledge,
+	Listen,
+	MoveSilently,
+	OpenLock,
+	Perform,
+	Profession,
+	Ride,
+	Search,
+	SenseMotive,
+	SlightOfHand,
+	SpellCraft,
+	Spt,
+	Survival,
+	Swim,
+	Tumble,
+	UseMagicDevice,
+	UseRope;
+
+}

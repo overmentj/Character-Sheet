@@ -1,91 +1,66 @@
 package com.teabreak.core.aspects;
 
+import java.util.ArrayList;
+import java.util.Map;
+
+import com.teabreak.core.aspects.enums.AbilityEnum;
+import com.teabreak.core.aspects.enums.SkillEnum;
+
 public class Race implements AspectsInterface {
 
 	private final AspectsEnum TYPE = AspectsEnum.Race;
 	
-	private int bonusStrength = 0;
-	private int bonusDexterity = 0;
-	private int bonusConstitution = 0;
-	private int bonusIntelligence = 0;
-	private int bonusWisdom = 0;
-	private int bonusCharisma = 0;
+	// Ability Score Modifiers
+	private Map<AbilityEnum, Integer> abilityBonuses;
+	
 	private int levelAdjustment = 0;
+	
+	// Creature Stats
 	private int landSpeed = 0;
 	private int flightSpeed = 0;
 	private String creatureSize;
 	
-	private int bonusAppraise = 0;
-	private int bonusBalance = 0;
-	private int bonusBluff = 0;
-	private int bonusClimb = 0;
-	private int bonusConcentration = 0; 
-	private int bonusCraftWeapon = 0;
-	private int bonusCraftArmour = 0;
-	private int bonusCraftTrap = 0;
-	private int bonusCraftAlchemy = 0;
-	private int bonusDecipherScript = 0;
-	private int bonusDiplomacy = 0;
-	private int bonusDisableDevice = 0;
-	private int bonusDisguise = 0;
-	private int bonusEscapeArtist = 0;
-	private int bonusForgery = 0;
-	private int bonusGatherInformation = 0;
-	private int bonusHandleAnimal = 0;
-	private int bonusHeal = 0;
-	private int bonusHide = 0;
-	private int bonusIntimidate = 0;
-	private int bonusJump = 0;
-	private int bonusKnowledgeArcana = 0;
-	private int bonusKnowledgeArchitectureAndEngineering = 0;
-	private int bonusKnowledgeDungeoneering = 0;
-	private int bonusKnowledgeGeography = 0; 
-	private int bonusKnowledgeHistory = 0;
-	private int bonusKnowledgeLocal = 0;
-	private int bonusKnowledgeNature = 0;
-	private int bonusKnowledgeNobilityAndRoyalty = 0;
-	private int bonusKnowledgeReligion = 0;
-	private int bonusKnowledgeThePlanes = 0;
-	private int bonusListen = 0;
-	private int bonusMoveSilently = 0;
-	private int bonusOpenLock = 0;
-	private int bonusPerformAct = 0;
-	private int bonusPerformComedy = 0;
-	private int bonusPerformDance = 0;
-	private int bonusPerformKeyboard = 0;
-	private int bonusPerformOratory = 0;
-	private int bonusPerformPercussion = 0;
-	private int bonusPerformString = 0;
-	private int bonusPerformWind = 0;
-	private int bonusPerformSing = 0;
+	/**
+	 * Array of all the skill bonuses that this class has, using the skill object
+	 */
+	private ArrayList<Skill> skillBonuses = new ArrayList<Skill>();
 	
 	
+	/**
+	 * Returns all the skill bonuses for this race
+	 * 
+	 * @return ArrayList<Skill>
+	 */
+	public ArrayList<Skill> getSkillBonuses()
+	{
+		return skillBonuses;
+	}
 	
+	/**
+	 * Returns skills based on inputed parameters 
+	 * 
+	 * @param skill SkillEnum Which skill to look for
+	 * @param conditional boolean Return conditional skills or just unconditional
+	 * @return
+	 */
+	public ArrayList<Skill> getSkillBonuses(SkillEnum skill, boolean conditional)
+	{
+		ArrayList<Skill> skillBonus = new ArrayList<Skill>();
+		for (Skill curSkill : skillBonus)
+		{
+			if(curSkill.getSkills() == skill && curSkill.isConditional() == conditional){
+				skillBonus.add(curSkill);
+			}
+		}
+		return skillBonuses;
+	}
+
 	private String name;
 	
-	public int getBonusStrength() {
-		return bonusStrength;
+	public Integer getBonusAbility(AbilityEnum ability) {
+		return abilityBonuses.get(ability);
 	}
 
-	public int getBonusDexterity() {
-		return bonusDexterity;
-	}
-
-	public int getBonusConstitution() {
-		return bonusConstitution;
-	}
-
-	public int getBonusIntelligence() {
-		return bonusIntelligence;
-	}
-
-	public int getBonusWisdom() {
-		return bonusWisdom;
-	}
-
-	public int getBonusCharisma() {
-		return bonusCharisma;
-	}
 	
 	public int getLevelAdjustment() {
 		return levelAdjustment;

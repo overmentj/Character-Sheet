@@ -1,24 +1,71 @@
 package com.teabreak.core.aspects;
 
-public class Skill implements AspectsInterface {
+import com.teabreak.core.aspects.enums.AbilityEnum;
+import com.teabreak.core.aspects.enums.SkillEnum;
 
+public class Skill implements AspectsInterface
+{
+
+	private int id;
+
+	// Skill details
 	private final AspectsEnum TYPE = AspectsEnum.Skill;
-	
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	private SkillEnum skills;
+	private boolean conditional;
+	private AbilityEnum AbilityModifier;
 
-	@Override
-	public AspectsEnum getType() {
+	// Skill Descriptions
+	private String name;
+	private String description;
+	private String condition;
+
+	public AspectsEnum getTYPE()
+	{
 		return TYPE;
 	}
 
+	public SkillEnum getSkills()
+	{
+		return skills;
+	}
+
+	public boolean isConditional()
+	{
+		return conditional;
+	}
+
+	public AbilityEnum getAbilityModifier()
+	{
+		return AbilityModifier;
+	}
+
+	public String getDescription()
+	{
+		return description;
+	}
+
+	public String getCondition()
+	{
+		return condition;
+	}
+
 	@Override
-	public long getId() {
+	public String getName()
+	{
 		// TODO Auto-generated method stub
-		return 0;
+		return this.name;
+	}
+
+	@Override
+	public AspectsEnum getType()
+	{
+		return this.TYPE;
+	}
+
+	@Override
+	public long getId()
+	{
+		return this.id;
 	}
 
 }
