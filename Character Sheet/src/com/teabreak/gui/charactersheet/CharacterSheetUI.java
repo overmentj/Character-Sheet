@@ -16,14 +16,15 @@ import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 
-import com.teabreak.core.RandomNumberGenerator;
+import com.teabreak.core.Alignment;
 import com.teabreak.gui.SWTResourceManager;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.Text;
 
-public class CharacterSheet extends ApplicationWindow{
+
+public class CharacterSheetUI extends ApplicationWindow{
 	private Action action;
 	private Text txtCharacterName;
 	private Text txtCharacterName_1;
@@ -31,7 +32,7 @@ public class CharacterSheet extends ApplicationWindow{
 	/**
 	 * Create the application window.
 	 */
-	public CharacterSheet() {
+	public CharacterSheetUI() {
 		super(null);
 		createActions();
 		addToolBar(SWT.FLAT | SWT.WRAP);
@@ -483,38 +484,32 @@ public class CharacterSheet extends ApplicationWindow{
 		label_91.setBounds(242, 86, 15, 15);
 		
 		Button button = new Button(composite, SWT.NONE);
-		button.addSelectionListener(RandomNumberGenerator.rollStats());
 		button.setBounds(272, 71, 40, 15);
 		button.setText("Roll");
 		
 		Button button_1 = new Button(composite, SWT.NONE);
-		button_1.addSelectionListener(RandomNumberGenerator.rollStats());
 		button_1.setText("Roll");
 		button_1.setBounds(272, 92, 40, 15);
 		
 		Button button_2 = new Button(composite, SWT.NONE);
-		button_2.addSelectionListener(RandomNumberGenerator.rollStats());
 		button_2.setText("Roll");
 		button_2.setBounds(272, 113, 40, 15);
 		
 		Button button_3 = new Button(composite, SWT.NONE);
-		button_3.addSelectionListener(RandomNumberGenerator.rollStats());
 		button_3.setText("Roll");
 		button_3.setBounds(272, 134, 40, 15);
 		
 		Button button_4 = new Button(composite, SWT.NONE);
-		button_4.addSelectionListener(RandomNumberGenerator.rollStats());
 		button_4.setText("Roll");
 		button_4.setBounds(272, 155, 40, 15);
 		
 		Button button_5 = new Button(composite, SWT.NONE);
-		button_5.addSelectionListener(RandomNumberGenerator.rollStats());
 		button_5.setText("Roll");
 		button_5.setBounds(272, 176, 40, 15);
 		
 		Group grpCharacter = new Group(composite, SWT.NONE);
 		grpCharacter.setText("Character");
-		grpCharacter.setBounds(318, 10, 288, 185);
+		grpCharacter.setBounds(318, 10, 288, 213);
 		
 		txtCharacterName = new Text(grpCharacter, SWT.BORDER);
 		txtCharacterName.setText("Player Name");
@@ -578,6 +573,50 @@ public class CharacterSheet extends ApplicationWindow{
 		
 		ToolItem tltmMale = new ToolItem(toolBar_1, SWT.DROP_DOWN);
 		tltmMale.setText("Male");
+		
+		Label lblNewLabel_1 = new Label(grpCharacter, SWT.NONE);
+		lblNewLabel_1.setBounds(10, 110, 55, 15);
+		lblNewLabel_1.setText("Morality");
+		
+		Alignment alignment = new Alignment();
+		
+		ToolBar toolBar_2 = new ToolBar(grpCharacter, SWT.FLAT | SWT.RIGHT);
+		toolBar_2.setBounds(10, 131, 89, 23);
+		
+		ToolItem tltmGood = new ToolItem(toolBar_2, SWT.DROP_DOWN);
+		tltmGood.addSelectionListener(alignment);
+		tltmGood.setText("Good");
+		
+		ToolItem tltmNeutral = new ToolItem(toolBar_2, SWT.DROP_DOWN);
+		tltmNeutral.addSelectionListener(alignment);
+		tltmNeutral.setText("Neutral");
+		
+		ToolItem tltmEvil = new ToolItem(toolBar_2, SWT.DROP_DOWN);
+		tltmEvil.addSelectionListener(alignment);
+		tltmEvil.setText("Evil");
+		
+		Label lblOrder = new Label(grpCharacter, SWT.NONE);
+		lblOrder.setBounds(10, 160, 55, 15);
+		lblOrder.setText("Order");
+		
+		ToolBar toolBar_3 = new ToolBar(grpCharacter, SWT.FLAT | SWT.RIGHT);
+		toolBar_3.setBounds(10, 180, 89, 23);
+		
+		ToolItem tltmLawful = new ToolItem(toolBar_3, SWT.DROP_DOWN);
+		tltmLawful.addSelectionListener(alignment);
+		tltmLawful.setText("Lawful");
+		
+		ToolItem tltmNeutral_1 = new ToolItem(toolBar_3, SWT.DROP_DOWN);
+		tltmNeutral_1.addSelectionListener(alignment);
+		tltmNeutral_1.setText("Neutral");
+		
+		ToolItem tltmChaotic = new ToolItem(toolBar_3, SWT.DROP_DOWN);
+		tltmChaotic.addSelectionListener(alignment);
+		tltmChaotic.setText("Chaotic");
+		
+		Label lblNewLabel_2 = new Label(grpCharacter, SWT.NONE);
+		lblNewLabel_2.setBounds(107, 110, 173, 93);
+		lblNewLabel_2.setText(alignment.getAlignment());
 
 		return container;
 	}
@@ -635,7 +674,7 @@ public class CharacterSheet extends ApplicationWindow{
 	 */
 	public static void main(String args[]) {
 		try {
-			CharacterSheet window = new CharacterSheet();
+			CharacterSheetUI window = new CharacterSheetUI();
 			window.setBlockOnOpen(true);
 			window.open();
 			Display.getCurrent().dispose();
@@ -661,4 +700,5 @@ public class CharacterSheet extends ApplicationWindow{
 	protected Point getInitialSize() {
 		return new Point(994, 713);
 	}
+
 }

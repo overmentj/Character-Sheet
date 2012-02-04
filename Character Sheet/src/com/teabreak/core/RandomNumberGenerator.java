@@ -49,7 +49,7 @@ public class RandomNumberGenerator implements SelectionListener {
 	@Override
 	public void widgetDefaultSelected(SelectionEvent arg0) {
 		
-		// TODO Mike : This is the default selection for a button when RandomNumberGenerator is called. This will probably end up being a default stub
+		return;// TODO Mike : This is the default selection for a button when RandomNumberGenerator is called. This will probably end up being a default stub
 		
 	}
 
@@ -58,7 +58,7 @@ public class RandomNumberGenerator implements SelectionListener {
 		
 		// TODO Mike : This is the standard selection for a button when RandomNumberGenerator is called. It returns SelectionEvent, which will hopefully
 		// be set up with information to determine how the dice need to be returned. These are implemented by the SelectionListener interface
-		
+		return;
 	}
 
 	public static SelectionListener rollStats() {
