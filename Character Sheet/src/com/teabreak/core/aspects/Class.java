@@ -1,5 +1,14 @@
 package com.teabreak.core.aspects;
 
+import java.util.ArrayList;
+
+import com.teabreak.core.aspects.enums.SkillEnum;
+
+/**
+ * 
+ * @author Robin
+ *
+ */
 public class Class implements AspectsInterface {
 
 	private final AspectsEnum TYPE = AspectsEnum.Class;
@@ -7,6 +16,8 @@ public class Class implements AspectsInterface {
 	private String willSaveLevel;
 	private String reflexSaveLevel;
 	private String fortitudeSaveLevel;
+	
+	private ArrayList<SkillEnum> classSkills;
 	
 	@Override
 	public String getName() {
