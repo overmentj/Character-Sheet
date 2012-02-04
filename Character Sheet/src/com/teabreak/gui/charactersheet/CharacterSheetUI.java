@@ -543,33 +543,6 @@ public class CharacterSheetUI extends ApplicationWindow{
 		lblSize.setBounds(10, 80, 34, 15);
 		lblSize.setText("Size");
 		
-		ToolBar toolBar = new ToolBar(grpCharacter, SWT.FLAT | SWT.RIGHT | SWT.DROP_DOWN);
-		toolBar.setBounds(35, 76, 89, 23);
-		
-		ToolItem tltmTitanic = new ToolItem(toolBar, SWT.DROP_DOWN);
-		tltmTitanic.setText("Titanic");
-		
-		ToolItem tltmCollosal = new ToolItem(toolBar, SWT.DROP_DOWN);
-		tltmCollosal.setText("Collosal");
-		
-		ToolItem tltmGigantic = new ToolItem(toolBar, SWT.DROP_DOWN);
-		tltmGigantic.setText("Gigantic");
-		
-		ToolItem tltmLarge = new ToolItem(toolBar, SWT.DROP_DOWN);
-		tltmLarge.setText("Large");
-		
-		ToolItem tltmMedium = new ToolItem(toolBar, SWT.DROP_DOWN);
-		tltmMedium.setText("Medium");
-		
-		ToolItem tltmSmall = new ToolItem(toolBar, SWT.DROP_DOWN);
-		tltmSmall.setText("Small");
-		
-		ToolItem tltmDiminuitive = new ToolItem(toolBar, SWT.DROP_DOWN);
-		tltmDiminuitive.setText("Diminuitive");
-		
-		ToolItem tltmFine = new ToolItem(toolBar, SWT.DROP_DOWN);
-		tltmFine.setText("Fine");
-		
 		Label lblGender = new Label(grpCharacter, SWT.NONE);
 		lblGender.setBounds(141, 80, 44, 15);
 		lblGender.setText("Gender");
@@ -618,6 +591,9 @@ public class CharacterSheetUI extends ApplicationWindow{
 		
 		text = new Text(grpCharacter, SWT.BORDER | SWT.WRAP | SWT.V_SCROLL);
 		text.setBounds(109, 107, 171, 185);
+		
+		Combo combo_2 = new Combo(grpCharacter, SWT.NONE);
+		combo_2.setBounds(39, 76, 91, 23);
 		
 		combo_1.addSelectionListener(new SelectionListener() {
 
