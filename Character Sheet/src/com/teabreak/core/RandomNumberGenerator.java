@@ -1,8 +1,11 @@
 package com.teabreak.core;
 
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
+
 // Written by Mike .. 02/12
 
-public class RandomNumberGenerator {
+public class RandomNumberGenerator implements SelectionListener {
 
 	// Pseudo random numer stream placeholder variables
 	private static double Current_Stream_Value = 0.1; // Current Stream Value
@@ -41,6 +44,26 @@ public class RandomNumberGenerator {
 				(Die_Size * Create_Uniform_Random_Number(Current_Stream_Value));
 
 		return Return_Value;
+	}
+
+	@Override
+	public void widgetDefaultSelected(SelectionEvent arg0) {
+		
+		// TODO Mike : This is the default selection for a button when RandomNumberGenerator is called. This will probably end up being a default stub
+		
+	}
+
+	@Override
+	public void widgetSelected(SelectionEvent arg0) {
+		
+		// TODO Mike : This is the standard selection for a button when RandomNumberGenerator is called. It returns SelectionEvent, which will hopefully
+		// be set up with information to determine how the dice need to be returned. These are implemented by the SelectionListener interface
+		
+	}
+
+	public static SelectionListener rollStats() {
+		// TODO Rolls stats for main attributes. Will need to pull information from a label regarding which roll to do. For now, just do 4d6 best of.
+		return null;
 	}
 
 }

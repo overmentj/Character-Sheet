@@ -16,10 +16,17 @@ import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 
+import com.teabreak.core.RandomNumberGenerator;
 import com.teabreak.gui.SWTResourceManager;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.ToolBar;
+import org.eclipse.swt.widgets.ToolItem;
+import org.eclipse.swt.widgets.Text;
 
-public class CharacterSheet extends ApplicationWindow {
+public class CharacterSheet extends ApplicationWindow{
 	private Action action;
+	private Text txtCharacterName;
+	private Text txtCharacterName_1;
 
 	/**
 	 * Create the application window.
@@ -474,6 +481,103 @@ public class CharacterSheet extends ApplicationWindow {
 		Label label_91 = new Label(grpSavingThrows, SWT.NONE);
 		label_91.setText("00");
 		label_91.setBounds(242, 86, 15, 15);
+		
+		Button button = new Button(composite, SWT.NONE);
+		button.addSelectionListener(RandomNumberGenerator.rollStats());
+		button.setBounds(272, 71, 40, 15);
+		button.setText("Roll");
+		
+		Button button_1 = new Button(composite, SWT.NONE);
+		button_1.addSelectionListener(RandomNumberGenerator.rollStats());
+		button_1.setText("Roll");
+		button_1.setBounds(272, 92, 40, 15);
+		
+		Button button_2 = new Button(composite, SWT.NONE);
+		button_2.addSelectionListener(RandomNumberGenerator.rollStats());
+		button_2.setText("Roll");
+		button_2.setBounds(272, 113, 40, 15);
+		
+		Button button_3 = new Button(composite, SWT.NONE);
+		button_3.addSelectionListener(RandomNumberGenerator.rollStats());
+		button_3.setText("Roll");
+		button_3.setBounds(272, 134, 40, 15);
+		
+		Button button_4 = new Button(composite, SWT.NONE);
+		button_4.addSelectionListener(RandomNumberGenerator.rollStats());
+		button_4.setText("Roll");
+		button_4.setBounds(272, 155, 40, 15);
+		
+		Button button_5 = new Button(composite, SWT.NONE);
+		button_5.addSelectionListener(RandomNumberGenerator.rollStats());
+		button_5.setText("Roll");
+		button_5.setBounds(272, 176, 40, 15);
+		
+		Group grpCharacter = new Group(composite, SWT.NONE);
+		grpCharacter.setText("Character");
+		grpCharacter.setBounds(318, 10, 288, 185);
+		
+		txtCharacterName = new Text(grpCharacter, SWT.BORDER);
+		txtCharacterName.setText("Player Name");
+		txtCharacterName.setBounds(150, 49, 130, 21);
+		
+		txtCharacterName_1 = new Text(grpCharacter, SWT.BORDER);
+		txtCharacterName_1.setText("Character Name");
+		txtCharacterName_1.setBounds(10, 49, 130, 21);
+		
+		Label lblCharacterName = new Label(grpCharacter, SWT.NONE);
+		lblCharacterName.setBounds(10, 28, 96, 15);
+		lblCharacterName.setText("Character Name");
+		
+		Label lblPlayerName = new Label(grpCharacter, SWT.NONE);
+		lblPlayerName.setBounds(150, 28, 86, 15);
+		lblPlayerName.setText("Player Name");
+		
+		Label lblSize = new Label(grpCharacter, SWT.NONE);
+		lblSize.setBounds(10, 80, 34, 15);
+		lblSize.setText("Size");
+		
+		ToolBar toolBar = new ToolBar(grpCharacter, SWT.FLAT | SWT.RIGHT);
+		toolBar.setBounds(35, 76, 89, 23);
+		
+		ToolItem tltmTitanic = new ToolItem(toolBar, SWT.DROP_DOWN);
+		tltmTitanic.setText("Titanic");
+		
+		ToolItem tltmCollosal = new ToolItem(toolBar, SWT.DROP_DOWN);
+		tltmCollosal.setText("Collosal");
+		
+		ToolItem tltmGigantic = new ToolItem(toolBar, SWT.DROP_DOWN);
+		tltmGigantic.setText("Gigantic");
+		
+		ToolItem tltmLarge = new ToolItem(toolBar, SWT.DROP_DOWN);
+		tltmLarge.setText("Large");
+		
+		ToolItem tltmMedium = new ToolItem(toolBar, SWT.DROP_DOWN);
+		tltmMedium.setText("Medium");
+		
+		ToolItem tltmSmall = new ToolItem(toolBar, SWT.DROP_DOWN);
+		tltmSmall.setText("Small");
+		
+		ToolItem tltmDiminuitive = new ToolItem(toolBar, SWT.DROP_DOWN);
+		tltmDiminuitive.setText("Diminuitive");
+		
+		ToolItem tltmFine = new ToolItem(toolBar, SWT.DROP_DOWN);
+		tltmFine.setText("Fine");
+		
+		Label lblGender = new Label(grpCharacter, SWT.NONE);
+		lblGender.setBounds(141, 80, 44, 15);
+		lblGender.setText("Gender");
+		
+		ToolBar toolBar_1 = new ToolBar(grpCharacter, SWT.FLAT | SWT.RIGHT);
+		toolBar_1.setBounds(191, 76, 89, 23);
+		
+		ToolItem tltmFemale = new ToolItem(toolBar_1, SWT.DROP_DOWN);
+		tltmFemale.setText("Female");
+		
+		ToolItem tltmNondescript = new ToolItem(toolBar_1, SWT.DROP_DOWN);
+		tltmNondescript.setText("Nondescript");
+		
+		ToolItem tltmMale = new ToolItem(toolBar_1, SWT.DROP_DOWN);
+		tltmMale.setText("Male");
 
 		return container;
 	}
