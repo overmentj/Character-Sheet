@@ -16,18 +16,27 @@ import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 
-import com.teabreak.core.Alignment;
+import com.teabreak.charactersheet.CharacterSheet;
+import com.teabreak.core.aspects.Alignment;
 import com.teabreak.gui.SWTResourceManager;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Combo;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 
 
 public class CharacterSheetUI extends ApplicationWindow{
 	private Action action;
 	private Text txtCharacterName;
 	private Text txtCharacterName_1;
+	Alignment alignment;
+	CharacterSheet charSheet;
+	private Text text;
 
 	/**
 	 * Create the application window.
@@ -38,6 +47,9 @@ public class CharacterSheetUI extends ApplicationWindow{
 		addToolBar(SWT.FLAT | SWT.WRAP);
 		addMenuBar();
 		addStatusLine();
+		
+		charSheet = new CharacterSheet();
+		alignment = new Alignment(charSheet);
 	}
 
 	/**
@@ -509,7 +521,7 @@ public class CharacterSheetUI extends ApplicationWindow{
 		
 		Group grpCharacter = new Group(composite, SWT.NONE);
 		grpCharacter.setText("Character");
-		grpCharacter.setBounds(318, 10, 288, 213);
+		grpCharacter.setBounds(318, 10, 290, 302);
 		
 		txtCharacterName = new Text(grpCharacter, SWT.BORDER);
 		txtCharacterName.setText("Player Name");
@@ -531,41 +543,11 @@ public class CharacterSheetUI extends ApplicationWindow{
 		lblSize.setBounds(10, 80, 34, 15);
 		lblSize.setText("Size");
 		
-<<<<<<< OURS
-		ToolBar toolBar = new ToolBar(grpCharacter, SWT.FLAT | SWT.RIGHT);
-		toolBar.setBounds(35, 76, 89, 23);
-		
-		ToolItem tltmTitanic = new ToolItem(toolBar, SWT.DROP_DOWN);
-		tltmTitanic.setText("Titanic");
-		
-		ToolItem tltmCollosal = new ToolItem(toolBar, SWT.DROP_DOWN);
-		tltmCollosal.setText("Collosal");
-		
-		ToolItem tltmGigantic = new ToolItem(toolBar, SWT.DROP_DOWN);
-		tltmGigantic.setText("Gigantic");
-		
-		ToolItem tltmLarge = new ToolItem(toolBar, SWT.DROP_DOWN);
-		tltmLarge.setText("Large");
-		
-		ToolItem tltmMedium = new ToolItem(toolBar, SWT.DROP_DOWN);
-		tltmMedium.setText("Medium");
-		
-		ToolItem tltmSmall = new ToolItem(toolBar, SWT.DROP_DOWN);
-		tltmSmall.setText("Small");
-		
-		ToolItem tltmDiminuitive = new ToolItem(toolBar, SWT.DROP_DOWN);
-		tltmDiminuitive.setText("Diminuitive");
-		
-		ToolItem tltmFine = new ToolItem(toolBar, SWT.DROP_DOWN);
-		tltmFine.setText("Fine");
-		
-=======
->>>>>>> THEIRS
 		Label lblGender = new Label(grpCharacter, SWT.NONE);
 		lblGender.setBounds(141, 80, 44, 15);
 		lblGender.setText("Gender");
 		
-		ToolBar toolBar_1 = new ToolBar(grpCharacter, SWT.FLAT | SWT.RIGHT);
+		ToolBar toolBar_1 = new ToolBar(grpCharacter, SWT.FLAT | SWT.RIGHT  | SWT.DROP_DOWN);
 		toolBar_1.setBounds(191, 76, 89, 23);
 		
 		ToolItem tltmFemale = new ToolItem(toolBar_1, SWT.DROP_DOWN);
@@ -581,49 +563,39 @@ public class CharacterSheetUI extends ApplicationWindow{
 		lblNewLabel_1.setBounds(10, 110, 55, 15);
 		lblNewLabel_1.setText("Morality");
 		
-		Alignment alignment = new Alignment();
-		
-		ToolBar toolBar_2 = new ToolBar(grpCharacter, SWT.FLAT | SWT.RIGHT);
-		toolBar_2.setBounds(10, 131, 89, 23);
-		
-		ToolItem tltmGood = new ToolItem(toolBar_2, SWT.DROP_DOWN);
-		tltmGood.addSelectionListener(alignment);
-		tltmGood.setText("Good");
-		
-		ToolItem tltmNeutral = new ToolItem(toolBar_2, SWT.DROP_DOWN);
-		tltmNeutral.addSelectionListener(alignment);
-		tltmNeutral.setText("Neutral");
-		
-		ToolItem tltmEvil = new ToolItem(toolBar_2, SWT.DROP_DOWN);
-		tltmEvil.addSelectionListener(alignment);
-		tltmEvil.setText("Evil");
-		
 		Label lblOrder = new Label(grpCharacter, SWT.NONE);
 		lblOrder.setBounds(10, 160, 55, 15);
 		lblOrder.setText("Order");
 		
-		ToolBar toolBar_3 = new ToolBar(grpCharacter, SWT.FLAT | SWT.RIGHT);
-		toolBar_3.setBounds(10, 180, 89, 23);
+		final Combo combo = new Combo(grpCharacter, SWT.NONE);
+		combo.setItems(new String[] {"Good", "Neutral", "Evil"});
+		combo.setBounds(10, 131, 91, 23);
+		combo.addSelectionListener(new SelectionListener() {
+
+		      public void widgetSelected(SelectionEvent event) {
+		        int a = combo.getSelectionIndex();
+		        if( a >= 0 ) alignment.assign(combo.getItem(a),'M');
+		        update(text);
+		      }
+
+		      public void widgetDefaultSelected(SelectionEvent event) {
+			        int a = combo.getSelectionIndex();
+			        if( a >= 0 ) alignment.assign(combo.getItem(a),'M');
+			        update(text);
+		      }
+		    });
+				
+		final Combo combo_1 = new Combo(grpCharacter, SWT.NONE);
+		combo_1.setItems(new String[] {"Lawful", "Neutral", "Chaotic"});
+		combo_1.setBounds(10, 181, 91, 23);
 		
-		ToolItem tltmLawful = new ToolItem(toolBar_3, SWT.DROP_DOWN);
-		tltmLawful.addSelectionListener(alignment);
-		tltmLawful.setText("Lawful");
+		text = new Text(grpCharacter, SWT.BORDER | SWT.READ_ONLY | SWT.WRAP | SWT.V_SCROLL);
+		text.setBounds(109, 107, 171, 185);
 		
-<<<<<<< OURS
-		ToolItem tltmNeutral_1 = new ToolItem(toolBar_3, SWT.DROP_DOWN);
-		tltmNeutral_1.addSelectionListener(alignment);
-		tltmNeutral_1.setText("Neutral");
-		
-		ToolItem tltmChaotic = new ToolItem(toolBar_3, SWT.DROP_DOWN);
-		tltmChaotic.addSelectionListener(alignment);
-		tltmChaotic.setText("Chaotic");
-		
-		Label lblNewLabel_2 = new Label(grpCharacter, SWT.NONE);
-		lblNewLabel_2.setBounds(107, 110, 173, 93);
-		lblNewLabel_2.setText(alignment.getAlignment());
-=======
 		Combo combo_2 = new Combo(grpCharacter, SWT.NONE);
+		combo_2.setItems(new String[] {"Fine", "Diminuitive", "Tiny", "Small", "Medium", "Large", "Huge", "Gargantuan", "Colossal"});
 		combo_2.setBounds(39, 76, 91, 23);
+		combo_2.select(4);
 		
 		combo_1.addSelectionListener(new SelectionListener() {
 
@@ -639,7 +611,6 @@ public class CharacterSheetUI extends ApplicationWindow{
 			        update(text);
 		      }
 		    });
->>>>>>> THEIRS
 
 		return container;
 	}
@@ -723,5 +694,8 @@ public class CharacterSheetUI extends ApplicationWindow{
 	protected Point getInitialSize() {
 		return new Point(994, 713);
 	}
-
+	
+	public void update(Text text) {
+		text.setText(alignment.getAlignmentText());
+	}
 }

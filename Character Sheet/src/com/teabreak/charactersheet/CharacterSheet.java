@@ -1,6 +1,6 @@
 package com.teabreak.charactersheet;
 
-import com.teabreak.core.aspects.AlignmentEnum;
+import com.teabreak.core.aspects.enums.AlignmentEnum;
 import com.teabreak.core.aspects.Class;
 import com.teabreak.core.aspects.Race;
 import com.teabreak.core.aspects.enums.AbilityEnum;
@@ -26,7 +26,8 @@ public class CharacterSheet
 	private int willSave;
 	private int reflexSave;
 	private int fortitudeSave;
-
+	private String alignment;
+	
 	private long experience;
 
 	private boolean levelledUp = false;
@@ -40,6 +41,16 @@ public class CharacterSheet
 	{
 
 		return experience;
+	}
+	
+	public void setCharacterAlignment(String alignment)
+	{
+		this.alignment = alignment;
+	}
+	
+	public String getCharacterAlignment()
+	{
+		return alignment;
 	}
 
 	public int getAbilityModifier(AbilityEnum ability)
