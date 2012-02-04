@@ -589,11 +589,13 @@ public class CharacterSheetUI extends ApplicationWindow{
 		combo_1.setItems(new String[] {"Lawful", "Neutral", "Chaotic"});
 		combo_1.setBounds(10, 181, 91, 23);
 		
-		text = new Text(grpCharacter, SWT.BORDER | SWT.WRAP | SWT.V_SCROLL);
+		text = new Text(grpCharacter, SWT.BORDER | SWT.READ_ONLY | SWT.WRAP | SWT.V_SCROLL);
 		text.setBounds(109, 107, 171, 185);
 		
 		Combo combo_2 = new Combo(grpCharacter, SWT.NONE);
+		combo_2.setItems(new String[] {"Fine", "Diminuitive", "Tiny", "Small", "Medium", "Large", "Huge", "Gargantuan", "Colossal"});
 		combo_2.setBounds(39, 76, 91, 23);
+		combo_2.select(4);
 		
 		combo_1.addSelectionListener(new SelectionListener() {
 
