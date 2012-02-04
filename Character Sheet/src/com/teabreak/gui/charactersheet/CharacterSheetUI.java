@@ -531,6 +531,7 @@ public class CharacterSheetUI extends ApplicationWindow{
 		lblSize.setBounds(10, 80, 34, 15);
 		lblSize.setText("Size");
 		
+<<<<<<< OURS
 		ToolBar toolBar = new ToolBar(grpCharacter, SWT.FLAT | SWT.RIGHT);
 		toolBar.setBounds(35, 76, 89, 23);
 		
@@ -558,6 +559,8 @@ public class CharacterSheetUI extends ApplicationWindow{
 		ToolItem tltmFine = new ToolItem(toolBar, SWT.DROP_DOWN);
 		tltmFine.setText("Fine");
 		
+=======
+>>>>>>> THEIRS
 		Label lblGender = new Label(grpCharacter, SWT.NONE);
 		lblGender.setBounds(141, 80, 44, 15);
 		lblGender.setText("Gender");
@@ -606,6 +609,7 @@ public class CharacterSheetUI extends ApplicationWindow{
 		tltmLawful.addSelectionListener(alignment);
 		tltmLawful.setText("Lawful");
 		
+<<<<<<< OURS
 		ToolItem tltmNeutral_1 = new ToolItem(toolBar_3, SWT.DROP_DOWN);
 		tltmNeutral_1.addSelectionListener(alignment);
 		tltmNeutral_1.setText("Neutral");
@@ -617,6 +621,25 @@ public class CharacterSheetUI extends ApplicationWindow{
 		Label lblNewLabel_2 = new Label(grpCharacter, SWT.NONE);
 		lblNewLabel_2.setBounds(107, 110, 173, 93);
 		lblNewLabel_2.setText(alignment.getAlignment());
+=======
+		Combo combo_2 = new Combo(grpCharacter, SWT.NONE);
+		combo_2.setBounds(39, 76, 91, 23);
+		
+		combo_1.addSelectionListener(new SelectionListener() {
+
+		      public void widgetSelected(SelectionEvent event) {
+		        int a = combo_1.getSelectionIndex();
+		        if( a >= 0 ) alignment.assign(combo_1.getItem(a), 'O');
+		        update(text);
+		      }
+
+		      public void widgetDefaultSelected(SelectionEvent event) {
+			        int a = combo_1.getSelectionIndex();
+			        if( a >= 0 ) alignment.assign(combo_1.getItem(a), 'O');
+			        update(text);
+		      }
+		    });
+>>>>>>> THEIRS
 
 		return container;
 	}
