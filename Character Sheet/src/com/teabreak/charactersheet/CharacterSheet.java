@@ -23,7 +23,8 @@ public class CharacterSheet {
 	private int willSave;
 	private int reflexSave;
 	private int fortitudeSave;
-
+	private String alignment;
+	
 	private long experience;
 
 	private boolean levelledUp = false;
@@ -36,6 +37,16 @@ public class CharacterSheet {
 	public long getExperience() {
 
 		return experience;
+	}
+	
+	public void setCharacterAlignment(String alignment)
+	{
+		this.alignment = alignment;
+	}
+	
+	public String getCharacterAlignment()
+	{
+		return alignment;
 	}
 
 	public int getStrengthModifier() {
