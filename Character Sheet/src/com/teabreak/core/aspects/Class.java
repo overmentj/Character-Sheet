@@ -25,4 +25,10 @@ public class Class implements AspectsInterface {
 		return 0;
 	}
 
+	@Override
+	public String gitBook() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

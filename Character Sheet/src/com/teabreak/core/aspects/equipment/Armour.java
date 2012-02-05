@@ -76,6 +76,12 @@ public class Armour extends EquipmentAbstract {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public String gitBook() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 
 

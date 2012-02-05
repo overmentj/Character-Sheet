@@ -336,14 +336,14 @@ public class CreationAbilityScores extends WizardPage {
 	private String bonus(int a) {
 		String b = "ERR";
 		if (a > 0) {
-			if (a == 9)
+			if (a <= 9)
 			{
-				a = -1;
+				if (a%2 == 1)
+				{
+					a--;
+				}
 			}
-			else
-			{
 			a = ((a - 10) / 2);
-			}
 			b = "" + a;
 		} else {
 			System.out.println("Error, Invalid value");

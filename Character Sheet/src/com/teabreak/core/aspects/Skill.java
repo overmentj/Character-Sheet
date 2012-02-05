@@ -68,4 +68,10 @@ public class Skill implements AspectsInterface
 		return this.id;
 	}
 
+	@Override
+	public String gitBook() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -73,5 +73,11 @@ public class Weapon extends EquipmentAbstract {
 		return 0;
 	}
 
+	@Override
+	public String gitBook() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }
