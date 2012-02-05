@@ -95,7 +95,7 @@ public class Race implements AspectsInterface {
 	}
 
 	@Override
-	public String gitBook() {
+	public String getBook() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -8,6 +8,6 @@ public interface AspectsInterface {
 	
 	public AspectsEnum getType();
 	
-	public String gitBook();
+	public String getBook();
 	
 }
