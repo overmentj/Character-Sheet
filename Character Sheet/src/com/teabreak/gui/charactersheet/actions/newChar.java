@@ -4,7 +4,7 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.wizard.WizardDialog;
 
 import com.teabreak.gui.HomeUI;
-import com.teabreak.gui.charactersheet.CharacterCreationWizard;
+import com.teabreak.gui.charactersheet.charactercreation.CharacterCreationWizard;
 
 public class newChar extends Action
 {
