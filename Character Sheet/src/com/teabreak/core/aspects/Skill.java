@@ -19,6 +19,18 @@ public class Skill implements AspectsInterface
 	private String description;
 	private String condition;
 
+	public Skill(SkillEnum skills, boolean conditional,
+			AbilityEnum AbilityModifier, String name, String description,
+			String condition)
+	{
+		this.skills = skills;
+		this.conditional = conditional;
+		this.AbilityModifier = AbilityModifier;
+		this.name = name;
+		this.description = description;
+		this.condition = condition;
+	}
+
 	public AspectsEnum getTYPE()
 	{
 		return TYPE;
@@ -69,7 +81,8 @@ public class Skill implements AspectsInterface
 	}
 
 	@Override
-	public String getBook() {
+	public String getBook()
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}

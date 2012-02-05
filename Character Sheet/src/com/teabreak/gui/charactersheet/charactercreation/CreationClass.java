@@ -1,5 +1,7 @@
 package com.teabreak.gui.charactersheet.charactercreation;
 
+import java.util.ArrayList;
+
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
@@ -9,6 +11,10 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
+
+import com.teabreak.core.aspects.Class;
+
+import com.teabreak.core.Main;
 
 public class CreationClass extends WizardPage implements Listener
 {
@@ -37,10 +43,15 @@ public class CreationClass extends WizardPage implements Listener
 		container.setLayout(null);
 		
 		comboClasses = new Combo(container, SWT.NONE);
-		comboClasses.setItems(new String[] {"Fighter", "Bard", "Tom"});
 		comboClasses.setBounds(10, 31, 91, 23);
 		comboClasses.addListener(SWT.Selection, this);
-		
+		ArrayList<Class> classes = Main.getInstace().getClassesList();
+		for (Class curClass : classes)
+		{
+			String className = curClass.getName();
+			comboClasses.add(className);
+		}
+				
 		textClassDetails = new Text(container, SWT.BORDER);
 		textClassDetails.setEditable(false);
 		textClassDetails.setEnabled(false);

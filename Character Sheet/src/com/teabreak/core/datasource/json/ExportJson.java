@@ -5,6 +5,8 @@ import java.io.IOException;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.teabreak.core.aspects.AspectsInterface;
+import com.teabreak.core.datasource.DataSourceInterface;
 import com.teabreak.core.datasource.PutData;
 
 /**
@@ -13,12 +15,13 @@ import com.teabreak.core.datasource.PutData;
  * @author Robin
  *
  */
-public class ExportJson implements PutData{
+public class ExportJson{
+
 
 	String fileName;
 	FileWriter writer;
 	
-	@Override
+
 	public boolean putDataOfType(String fileName, Object object) {
 		if (fileName == null)
 		{
@@ -47,6 +50,7 @@ public class ExportJson implements PutData{
 		}
 		return true;
 	}
+
 
 
 }
