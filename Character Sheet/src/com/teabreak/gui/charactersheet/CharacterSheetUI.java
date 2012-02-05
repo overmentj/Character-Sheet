@@ -550,19 +550,6 @@ public class CharacterSheetUI extends ApplicationWindow
 		lblGender.setBounds(141, 80, 44, 15);
 		lblGender.setText("Gender");
 
-		ToolBar toolBar_1 = new ToolBar(grpCharacter, SWT.FLAT | SWT.RIGHT
-				| SWT.DROP_DOWN);
-		toolBar_1.setBounds(191, 76, 89, 23);
-
-		ToolItem tltmFemale = new ToolItem(toolBar_1, SWT.DROP_DOWN);
-		tltmFemale.setText("Female");
-
-		ToolItem tltmNondescript = new ToolItem(toolBar_1, SWT.DROP_DOWN);
-		tltmNondescript.setText("Nondescript");
-
-		ToolItem tltmMale = new ToolItem(toolBar_1, SWT.DROP_DOWN);
-		tltmMale.setText("Male");
-
 		Label lblNewLabel_1 = new Label(grpCharacter, SWT.NONE);
 		lblNewLabel_1.setBounds(10, 110, 55, 15);
 		lblNewLabel_1.setText("Morality");
@@ -610,6 +597,42 @@ public class CharacterSheetUI extends ApplicationWindow
 				"Gargantuan", "Colossal" });
 		combo_2.setBounds(39, 76, 91, 23);
 		combo_2.select(4);
+		
+		Combo combo_3 = new Combo(grpCharacter, SWT.NONE);
+		combo_3.setItems(new String[] {"Male", "Female", "Nondescript"});
+		combo_3.setBounds(189, 76, 91, 23);
+		
+		Group grpAttackBonus = new Group(composite, SWT.NONE);
+		grpAttackBonus.setText("Attack Bonus");
+		grpAttackBonus.setBounds(10, 318, 270, 95);
+		
+		Label lblBaseAttackBonus = new Label(grpAttackBonus, SWT.NONE);
+		lblBaseAttackBonus.setBounds(10, 21, 97, 15);
+		lblBaseAttackBonus.setText("Base Attack Bonus");
+		
+		Label lblWeapon = new Label(grpAttackBonus, SWT.NONE);
+		lblWeapon.setBounds(10, 42, 55, 15);
+		lblWeapon.setText("Weapon");
+		
+		Label lblWeapon_1 = new Label(grpAttackBonus, SWT.NONE);
+		lblWeapon_1.setBounds(10, 63, 55, 15);
+		lblWeapon_1.setText("Weapon1");
+		
+		Label label_92 = new Label(grpAttackBonus, SWT.NONE);
+		label_92.setBounds(127, 21, 115, 15);
+		label_92.setText("+20 / +15 / +10 / +5");
+		
+		Label label_93 = new Label(grpAttackBonus, SWT.NONE);
+		label_93.setBounds(113, 21, 8, 15);
+		label_93.setText("=");
+		
+		Label label_94 = new Label(grpAttackBonus, SWT.NONE);
+		label_94.setText("=");
+		label_94.setBounds(113, 42, 8, 15);
+		
+		Label label_95 = new Label(grpAttackBonus, SWT.NONE);
+		label_95.setText("=");
+		label_95.setBounds(113, 63, 8, 15);
 
 		combo_1.addSelectionListener(new SelectionListener()
 		{

@@ -1,8 +1,5 @@
 package com.teabreak.core.aspects;
 
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-
 import com.teabreak.charactersheet.CharacterSheet;
 import com.teabreak.core.aspects.enums.AlignmentEnum;
 
