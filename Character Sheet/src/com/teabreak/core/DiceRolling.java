@@ -1,11 +1,11 @@
 package com.teabreak.core;
 
+import java.util.Arrays;
+
 // Written by Mike .. 02/12
 
 public class DiceRolling {
 	private RandomNumberGenerator rng = new RandomNumberGenerator();
-	
-	//TODO: Mike, can you fill out functions?
 	
 	String methodList;
 	
@@ -45,6 +45,41 @@ public class DiceRolling {
 		return Total;
 	}
 
+	/**
+	 * Takes the number of D6 to roll (values of best n used) to determine the value of a stat.
+	 * @param numDice the number of dice rolled (3,4 or 5 at present)
+	 * @param bestOf the best n dice used to generate the value
+	 * @return the final value.
+	 */
+	public int rollDice(int numDice, int bestOf){
+	
+	// 3D6 - take best 3
+	// 4D6 - take best 3
+	// 5D6 - take best 3
+		int Total = 0;
+		int[] Rolls = new int[numDice];
+		
+		// Populate the array with values
+		for (int Index1 = 0; Index1 < numDice; Index1++)
+		{
+			Rolls[Index1] = rng.Roll_Die(6);
+		}
+		
+		// Sort the array into ASCENDING numerical order
+		Arrays.sort(Rolls);
+		
+		// get the length of the array
+		int RollsLength = Rolls.length;
+		
+		for (int Index2 = RollsLength - bestOf; Index2 < bestOf; Index2++)
+		{
+			Total = Total + Rolls[Index2];
+		}
+	
+		return Total;
+		
+	}
+		
 	/**
 	 * Rolls a number of dice and returns an int
 	 * @param method gives information on how to set the dice
