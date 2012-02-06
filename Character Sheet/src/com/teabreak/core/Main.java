@@ -1,44 +1,45 @@
 package com.teabreak.core;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashMap;
 
 import org.apache.log4j.Logger;
 
 import com.teabreak.charactersheet.CharacterSheet;
+import com.teabreak.core.aspects.Skill;
+import com.teabreak.core.data.LoadedData;
 import com.teabreak.core.datasource.DataSourceInterface;
 import com.teabreak.core.datasource.TestDataSource;
-import com.teabreak.core.aspects.AspectsEnum;
-import com.teabreak.core.aspects.Class;
-import com.teabreak.core.aspects.Feat;
-import com.teabreak.core.aspects.Race;
-import com.teabreak.core.aspects.Skill;
 
 public class Main
 {
 
+	public HashMap<String, Skill> getSkillsMap()
+	{
+		return skillsMap;
+	}
+
 	private Logger logger = Logger.getLogger("com.teabreak.core");
 	private CharacterSheet charSheet = null;
 	private DataSourceInterface dataSource;
-	
-	// All the amazing data we pain stakingly copy and pasted :P
-	private ArrayList<Skill> skillsList = new ArrayList<Skill>();
-	private ArrayList<Feat> featsList = new ArrayList<Feat>();
-	private ArrayList<Class> classesList = new ArrayList<Class>();
-	private ArrayList<Race> racesList = new ArrayList<Race>();
-	
+
+	private LoadedData data = new LoadedData();
+
+	private HashMap<String, Skill> skillsMap = new HashMap<String, Skill>();
+
 	private static Main instance = null;
 
-	public static Main getInstace(){
-		if(instance == null){
+	public static Main getInstace()
+	{
+		if (instance == null)
+		{
 			instance = new Main();
 			instance.dataSource = new TestDataSource();
-			instance.loadData();
+			instance.data.loadData(instance.dataSource);
 		}
 		return instance;
 	}
-	
+
 	/**
 	 * @param args
 	 * @throws FileNotFoundException
@@ -47,10 +48,9 @@ public class Main
 	{
 		Main main = Main.getInstace();
 		main.dataSource = new TestDataSource();
-		main.loadData();
+		main.data.loadData(main.dataSource);
 		// Start by loading the data and opening a loading window
-		
-		
+
 		// Start main window
 	}
 
@@ -63,41 +63,10 @@ public class Main
 	{
 		this.charSheet = charSheet;
 	}
-	
-	@SuppressWarnings("unchecked")
-	private void loadData(){
-		// Load classes
-		classesList.addAll((Collection<? extends Class>) dataSource.getDataSetOfType(AspectsEnum.Class));
-		// Load Races
-		racesList.addAll((Collection<? extends Race>) dataSource.getDataSetOfType(AspectsEnum.Race));
-		// Load Skills
-		
-		// Load Feats
-		
-		// Load Spells
-		
-		// Load Equipment
-	}
 
-	public ArrayList<Skill> getSkillsList()
+	public LoadedData getData()
 	{
-		return skillsList;
+		return data;
 	}
-
-	public ArrayList<Feat> getFeatsList()
-	{
-		return featsList;
-	}
-
-	public ArrayList<Class> getClassesList()
-	{
-		return classesList;
-	}
-
-	public ArrayList<Race> getRacesList()
-	{
-		return racesList;
-	}
-
 
 }

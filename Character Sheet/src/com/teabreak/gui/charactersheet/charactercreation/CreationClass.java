@@ -1,6 +1,7 @@
 package com.teabreak.gui.charactersheet.charactercreation;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
@@ -12,6 +13,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 
+import com.teabreak.core.aspects.AspectsEnum;
 import com.teabreak.core.aspects.Class;
 
 import com.teabreak.core.Main;
@@ -45,11 +47,10 @@ public class CreationClass extends WizardPage implements Listener
 		comboClasses = new Combo(container, SWT.NONE);
 		comboClasses.setBounds(10, 31, 91, 23);
 		comboClasses.addListener(SWT.Selection, this);
-		ArrayList<Class> classes = Main.getInstace().getClassesList();
-		for (Class curClass : classes)
+		Set<String> classes = Main.getInstace().getData().getTypeKeys(AspectsEnum.Class);
+		for (String curClass : classes)
 		{
-			String className = curClass.getName();
-			comboClasses.add(className);
+			comboClasses.add(curClass);
 		}
 				
 		textClassDetails = new Text(container, SWT.BORDER);
@@ -68,6 +69,8 @@ public class CreationClass extends WizardPage implements Listener
 		Button btnClassTable = new Button(container, SWT.NONE);
 		btnClassTable.setBounds(107, 250, 75, 25);
 		btnClassTable.setText("Class Table");
+		
+		setPageComplete(false);
 	}
 
 	@Override
@@ -78,11 +81,16 @@ public class CreationClass extends WizardPage implements Listener
 				|| comboClasses.getItem(comboClasses.getSelectionIndex()) != "")
 		{
 			setPageComplete(true);
-			CharacterCreationWizard wizard = (CharacterCreationWizard) getWizard();
-			wizard.model.charRace = comboClasses.getItem(comboClasses
-					.getSelectionIndex());
-			textClassDetails.setText("The class you've chosen is: " + comboClasses.getItem(comboClasses
+			// Get Class object
+			Class selClass = (Class) Main.getInstace().getData().getSingleObjectOfType(AspectsEnum.Class, comboClasses.getItem(comboClasses
 					.getSelectionIndex()));
+			
+			CharacterCreationWizard wizard = (CharacterCreationWizard) getWizard();
+			wizard.model.charRace = selClass.getName();
+			textClassDetails.setText(selClass.getDescription());
+			setPageComplete(true);
+		}else{
+			setPageComplete(false);
 		}
 	}
 }

@@ -22,6 +22,7 @@ public class Race implements AspectsInterface
 	private String creatureSize;
 
 	private String name;
+	private String description;
 
 	/**
 	 * Array of all the skill bonuses that this class has, using the skill
@@ -31,7 +32,7 @@ public class Race implements AspectsInterface
 
 	public Race(Map<AbilityEnum, Integer> abilityBonuses,
 			ArrayList<Skill> skillBonuses, int landSpeed, int flightSpeed,
-			String creatureSize, String name)
+			String creatureSize, String name, String description)
 	{
 		this.abilityBonuses = abilityBonuses;
 		this.skillBonuses = skillBonuses;
@@ -39,6 +40,7 @@ public class Race implements AspectsInterface
 		this.flightSpeed = flightSpeed;
 		this.creatureSize = creatureSize;
 		this.name = name;
+		this.description = description;
 	}
 
 	/**
@@ -116,6 +118,11 @@ public class Race implements AspectsInterface
 	{
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	public String getDescription()
+	{
+		return description;
 	}
 
 	@Override

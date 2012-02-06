@@ -1,5 +1,8 @@
 package com.teabreak.gui.charactersheet.charactercreation;
 
+import java.util.ArrayList;
+import java.util.Set;
+
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -9,11 +12,15 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Label;
 
+import com.teabreak.core.Main;
+import com.teabreak.core.aspects.AspectsEnum;
+import com.teabreak.core.aspects.Race;
+
 public class CreationRace extends WizardPage implements Listener
 {
 	private Text textRace;
 
-	Combo comboRace;
+	Combo comboRaces;
 
 	/**
 	 * Create the wizard.
@@ -41,11 +48,14 @@ public class CreationRace extends WizardPage implements Listener
 		textRace.setEditable(false);
 		textRace.setBounds(107, 31, 457, 241);
 
-		comboRace = new Combo(container, SWT.NONE);
-		comboRace.setItems(new String[]
-		{ "Fighter", "Bard", "Tom" });
-		comboRace.setBounds(10, 31, 91, 23);
-		comboRace.addListener(SWT.Selection, this);
+		comboRaces = new Combo(container, SWT.NONE);
+		comboRaces.setBounds(10, 31, 91, 23);
+		comboRaces.addListener(SWT.Selection, this);
+		Set<String> races = Main.getInstace().getData().getTypeKeys(AspectsEnum.Race);
+		for (String curRace : races)
+		{
+			comboRaces.add(curRace);
+		}
 
 		Label lblRace = new Label(container, SWT.NONE);
 		lblRace.setText("Race");
@@ -61,15 +71,17 @@ public class CreationRace extends WizardPage implements Listener
 	public void handleEvent(Event e)
 	{
 		// Update text box with race details
-		if (comboRace.getItem(comboRace.getSelectionIndex()) != null
-				|| comboRace.getItem(comboRace.getSelectionIndex()) != "")
+		if (comboRaces.getItem(comboRaces.getSelectionIndex()) != null
+				|| comboRaces.getItem(comboRaces.getSelectionIndex()) != "")
 		{
 			setPageComplete(true);
-			CharacterCreationWizard wizard = (CharacterCreationWizard) getWizard();
-			wizard.model.charRace = comboRace.getItem(comboRace
-					.getSelectionIndex());
-			textRace.setText("The race you've chosen is: " + comboRace.getItem(comboRace
+			Race selRace = (Race) Main.getInstace().getData().getSingleObjectOfType(AspectsEnum.Race, comboRaces.getItem(comboRaces
 					.getSelectionIndex()));
+			
+			CharacterCreationWizard wizard = (CharacterCreationWizard) getWizard();
+			wizard.model.charRace = comboRaces.getItem(comboRaces
+					.getSelectionIndex());
+			textRace.setText(selRace.getDescription());
 		}
 	}
 

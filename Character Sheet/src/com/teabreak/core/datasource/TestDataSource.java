@@ -1,6 +1,7 @@
 package com.teabreak.core.datasource;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.teabreak.core.aspects.AspectsEnum;
 import com.teabreak.core.aspects.AspectsInterface;
@@ -21,30 +22,35 @@ public class TestDataSource implements DataSourceInterface
 	}
 
 	@Override
-	public ArrayList<AspectsInterface> getDataSetOfType(AspectsEnum dataType)
+	public HashMap<String, AspectsInterface> getDataSetOfType(
+			AspectsEnum dataType)
 	{
-		ArrayList<AspectsInterface> data = new ArrayList<AspectsInterface>();
+		HashMap<String, AspectsInterface> data = new HashMap<String, AspectsInterface>();
 		switch (dataType)
 		{
 		case Skill:
-			data.add(new Skill(SkillEnum.Appraise, false, AbilityEnum.Int,
-					"Appraise", "Appraise stuff", null));
-			data.add(new Skill(SkillEnum.Balance, false, AbilityEnum.Dex,
-					"Balance", "Balance stuff", null));
-			data.add(new Skill(SkillEnum.Bluff, false, AbilityEnum.Cha,
-					"Bluff", "Bluff stuff", null));
+			// data.put("Apraise", new Skill(SkillEnum.Appraise, false,
+			// AbilityEnum.Int,
+			// "Appraise", "Appraise stuff", null))
+			// data.add(new Skill(SkillEnum.Appraise, false, AbilityEnum.Int,
+			// "Appraise", "Appraise stuff", null));
+			// data.add(new Skill(SkillEnum.Balance, false, AbilityEnum.Dex,
+			// "Balance", "Balance stuff", null));
+			// data.add(new Skill(SkillEnum.Bluff, false, AbilityEnum.Cha,
+			// "Bluff", "Bluff stuff", null));
 			break;
 
 		case Class:
-			data.add(new Class("Good", "Ave", "Shit", "Fighter"));
-			data.add(new Class("Good", "Ave", "Shit", "Bard"));
-			data.add(new Class("Good", "Ave", "Shit", "Cleric"));
+			data.put("Fighter", new Class("Good", "Ave", "Shit", "Fighter", "Fighter is a class, the only one we don't actually have :S"));
+			data.put("Bard", new Class("Good", "Ave", "Shit", "Bard", "Mike makes an amazingly sexy bard that Tom cannot resist"));
+			data.put("Cleric", new Class("Good", "Ave", "Shit", "Cleric", "Danny's a cleric.. yes he is.. he is"));
 			break;
 
 		case Race:
-			data.add(new Race(null, null, 20, 0, "Small", "Gnome"));
-			data.add(new Race(null, null, 30, 0, "Medium", "Human"));
-			data.add(new Race(null, null, 30, 0, "Medium", "Elf"));
+			data.put("Gnome", new Race(null, null, 20, 0, "Small", "Gnome",
+					"Short stop.. aka mike"));
+			data.put("Human", new Race(null, null, 30, 0, "Medium", "Human", "Boring"));
+			data.put("Elf", new Race(null, null, 30, 0, "Medium", "Elf", "In the words of Linda \"Pointy Features\""));
 			break;
 
 		case Feat:

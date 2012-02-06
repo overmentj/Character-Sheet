@@ -39,22 +39,30 @@ public class CreationFeats extends WizardPage
 		
 		Label lblDesc = new Label(container, SWT.NONE);
 		lblDesc.setText("Description");
-		lblDesc.setBounds(215, 10, 65, 15);
+		lblDesc.setBounds(236, 10, 65, 15);
 		
 		textFeat = new Text(container, SWT.BORDER);
 		textFeat.setEnabled(false);
 		textFeat.setEditable(false);
-		textFeat.setBounds(215, 31, 349, 241);
-		
-		Button btnAdd = new Button(container, SWT.NONE);
-		btnAdd.setBounds(10, 247, 75, 25);
-		btnAdd.setText("Add");
+		textFeat.setBounds(236, 31, 328, 241);
 		
 		List listCurFeats = new List(container, SWT.BORDER | SWT.V_SCROLL);
 		listCurFeats.setItems(new String[] {});
-		listCurFeats.setBounds(118, 31, 90, 241);
+		listCurFeats.setBounds(140, 30, 90, 241);
 		
 		List listFeats = new List(container, SWT.BORDER | SWT.V_SCROLL);
-		listFeats.setBounds(10, 31, 90, 210);
+		listFeats.setBounds(10, 31, 90, 241);
+		
+		Button btnAddFeats = new Button(container, SWT.NONE);
+		btnAddFeats.setBounds(106, 109, 28, 25);
+		btnAddFeats.setText(">");
+		
+		Button btnRemoveFeat = new Button(container, SWT.NONE);
+		btnRemoveFeat.setText("<");
+		btnRemoveFeat.setBounds(106, 140, 28, 25);
+		
+		Label lblCurrentFeats = new Label(container, SWT.NONE);
+		lblCurrentFeats.setText("Current Feats");
+		lblCurrentFeats.setBounds(140, 10, 90, 15);
 	}
 }

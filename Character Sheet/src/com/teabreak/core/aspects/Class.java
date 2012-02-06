@@ -10,14 +10,16 @@ public class Class implements AspectsInterface
 	private String fortitudeSaveLevel;
 
 	private String name;
+	private String description;
 
 	public Class(String willSaveLevel, String reflexSaveLevel,
-			String fortitudeSaveLevel, String name)
+			String fortitudeSaveLevel, String name, String description)
 	{
 		this.willSaveLevel = willSaveLevel;
 		this.reflexSaveLevel = reflexSaveLevel;
 		this.fortitudeSaveLevel = fortitudeSaveLevel;
 		this.name = name;
+		this.description = description;
 	}
 
 	@Override
@@ -45,5 +47,8 @@ public class Class implements AspectsInterface
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	public String getDescription(){
+		return description;
+	}
 }

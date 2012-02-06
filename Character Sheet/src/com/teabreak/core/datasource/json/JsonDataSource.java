@@ -2,6 +2,7 @@ package com.teabreak.core.datasource.json;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.teabreak.core.aspects.AspectsEnum;
 import com.teabreak.core.aspects.AspectsInterface;
@@ -18,7 +19,7 @@ public class JsonDataSource implements DataSourceInterface
 	}
 
 	@Override
-	public ArrayList<AspectsInterface> getDataSetOfType(AspectsEnum dataType)
+	public HashMap<String, AspectsInterface> getDataSetOfType(AspectsEnum dataType)
 	{
 
 		String fileSearch = "";
