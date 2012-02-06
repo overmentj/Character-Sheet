@@ -1,13 +1,10 @@
 package com.teabreak.core;
 
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
-
 // Written by Mike .. 02/12
 
 public class RandomNumberGenerator {
 
-	// Pseudo random numer stream placeholder variables
+	// Pseudo random number stream placeholder variables
 	private static double Current_Stream_Value = 0.1; // Current Stream Value
 	private static int Counter = 99999; // Counter variable
 
@@ -30,7 +27,7 @@ public class RandomNumberGenerator {
 	// Method to generate a RN scaled by Die No. (SINGLE DIE)
 	// Input Die size (e.g: 6 for D6, 10 for D10 .....)
 	// Return Integer value (result for die)
-	public int Roll_Die(int Die_Size) {
+	protected int Roll_Die(int Die_Size) {
 
 		// Reset stream variable IF we are 1000 entries into the stream
 		if (Counter >= 3000) {

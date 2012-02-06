@@ -1,6 +1,9 @@
 package com.teabreak.core;
 
+// Written by Mike .. 02/12
+
 public class DiceRolling {
+	private RandomNumberGenerator rng = new RandomNumberGenerator();
 	
 	//TODO: Mike, can you fill out functions?
 	
@@ -12,10 +15,12 @@ public class DiceRolling {
 	 * @return dice value
 	 */
 	
-	static public int rollDice(int diceSize){
-	
+	public int rollDice(int diceSize){
 		
-		return 0;
+		// Forward call to the Random_Number_Generator package
+		int Return_Value = rng.Roll_Die(diceSize);
+		
+		return Return_Value;
 	}
 	
 	/**
@@ -26,9 +31,18 @@ public class DiceRolling {
 	 * @return dice value
 	 */
 	
-	static public int rollDice(int diceSize, int numDice, int modifiers){
+	public int rollDice(int diceSize, int numDice, int modifiers){
+		
+		int Total = 0;
+		
+		for (int Index = 0; Index < numDice; Index++)
+		{
+			Total = Total + rng.Roll_Die(diceSize);
+		}
+		
+		Total = Total + modifiers;
 					
-		return 0;
+		return Total;
 	}
 
 	/**
@@ -37,7 +51,7 @@ public class DiceRolling {
 	 * @return dice value
 	 */
 	
-	static public int rollDice(String method)
+	public int rollDice(String method) // Tom's Temporary Thing.
 	{
 		return 1;
 	}
