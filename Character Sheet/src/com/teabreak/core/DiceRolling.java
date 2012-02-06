@@ -71,6 +71,7 @@ public class DiceRolling {
 		// get the length of the array
 		int RollsLength = Rolls.length;
 		
+		// take the highest n dice and add them together
 		for (int Index2 = RollsLength - bestOf; Index2 < bestOf; Index2++)
 		{
 			Total = Total + Rolls[Index2];
