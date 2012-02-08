@@ -14,6 +14,7 @@ import com.teabreak.gui.charactersheet.charactercreation.CharacterCreationWizard
 public class HomeUI extends Shell
 {
 	private static HomeUI instance = null;
+	
 
 	/**
 	 * Launch the application.

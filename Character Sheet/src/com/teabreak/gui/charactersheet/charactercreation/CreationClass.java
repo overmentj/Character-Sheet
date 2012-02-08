@@ -14,7 +14,7 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 
 import com.teabreak.core.aspects.AspectsEnum;
-import com.teabreak.core.aspects.Class;
+import com.teabreak.core.aspects.CharClass;
 
 import com.teabreak.core.Main;
 
@@ -82,11 +82,11 @@ public class CreationClass extends WizardPage implements Listener
 		{
 			setPageComplete(true);
 			// Get Class object
-			Class selClass = (Class) Main.getInstace().getData().getSingleObjectOfType(AspectsEnum.Class, comboClasses.getItem(comboClasses
+			CharClass selClass = (CharClass) Main.getInstace().getData().getSingleObjectOfType(AspectsEnum.Class, comboClasses.getItem(comboClasses
 					.getSelectionIndex()));
 			
 			CharacterCreationWizard wizard = (CharacterCreationWizard) getWizard();
-			wizard.model.charRace = selClass.getName();
+			wizard.model.charClass = selClass;
 			textClassDetails.setText(selClass.getDescription());
 			setPageComplete(true);
 		}else{

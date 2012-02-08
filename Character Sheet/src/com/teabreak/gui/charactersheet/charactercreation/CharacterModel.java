@@ -1,16 +1,20 @@
 package com.teabreak.gui.charactersheet.charactercreation;
 
+import com.teabreak.core.aspects.CharClass;
+import com.teabreak.core.aspects.Race;
+
 public class CharacterModel
 {
-	protected String charRace;
+	protected Race charRace = null;
 	
-	protected String charClass;
+	protected CharClass charClass = null;
 	
-	protected int strength;
-	protected int dexterity;
-	protected int constitution;
-	protected int intelligence;
-	protected int wisdom;
-	protected int charisma;
+	
+	protected int strength = 0;
+	protected int dexterity = 0;
+	protected int constitution = 0;
+	protected int intelligence = 0;
+	protected int wisdom = 0;
+	protected int charisma = 0;
 	
 }

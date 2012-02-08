@@ -1,6 +1,6 @@
 package com.teabreak.core.aspects;
 
-public class Class implements AspectsInterface
+public class CharClass implements AspectsInterface
 {
 
 	private final AspectsEnum TYPE = AspectsEnum.Class;
@@ -12,7 +12,7 @@ public class Class implements AspectsInterface
 	private String name;
 	private String description;
 
-	public Class(String willSaveLevel, String reflexSaveLevel,
+	public CharClass(String willSaveLevel, String reflexSaveLevel,
 			String fortitudeSaveLevel, String name, String description)
 	{
 		this.willSaveLevel = willSaveLevel;

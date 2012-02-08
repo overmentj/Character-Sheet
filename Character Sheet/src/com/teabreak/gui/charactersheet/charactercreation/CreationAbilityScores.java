@@ -359,32 +359,39 @@ public class CreationAbilityScores extends WizardPage implements Listener
 		{
 			int score = Integer.parseInt(text.getText());
 			String bonus = calcBonus(score);
+			CharacterCreationWizard wizard = (CharacterCreationWizard) getWizard();
 			// Update the correct label for modifier
 			if (text == textStr)
 			{
 				lblBonStr.setText(bonus);
+				wizard.model.strength = score;
 			} else if (text == textDex)
 			{
 				lblBonDex.setText(bonus);
+				wizard.model.dexterity = score;
 			} else if (text == textCon)
 			{
 				lblBonCon.setText(bonus);
+				wizard.model.constitution = score;
 			} else if (text == textInt)
 			{
 				lblBonInt.setText(bonus);
+				wizard.model.intelligence = score;
 			} else if (text == textWis)
 			{
 				lblBonWis.setText(bonus);
+				wizard.model.wisdom = score;
 			} else if (text == textCha)
 			{
 				lblBonCha.setText(bonus);
+				wizard.model.charisma = score;
 			}
 		}
 	}
 
 	private void rollDice()
 	{
-		// TODO: Meh... need to talk to Tom aobut why each stat has its own roll
+		// TODO: Meh... need to talk to Tom about why each stat has its own roll
 
 	}
 

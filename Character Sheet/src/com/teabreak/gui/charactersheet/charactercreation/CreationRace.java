@@ -79,8 +79,7 @@ public class CreationRace extends WizardPage implements Listener
 					.getSelectionIndex()));
 			
 			CharacterCreationWizard wizard = (CharacterCreationWizard) getWizard();
-			wizard.model.charRace = comboRaces.getItem(comboRaces
-					.getSelectionIndex());
+			wizard.model.charRace = selRace;
 			textRace.setText(selRace.getDescription());
 		}
 	}

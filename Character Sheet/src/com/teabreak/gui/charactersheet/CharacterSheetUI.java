@@ -13,18 +13,16 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.ToolBar;
-import org.eclipse.swt.widgets.ToolItem;
 
 import com.teabreak.charactersheet.CharacterSheet;
 import com.teabreak.core.aspects.Alignment;
+import com.teabreak.core.aspects.enums.AbilityEnum;
 import com.teabreak.gui.SWTResourceManager;
 import com.teabreak.gui.charactersheet.actions.newChar;
 
@@ -33,8 +31,16 @@ public class CharacterSheetUI extends ApplicationWindow
 	private Text txtCharacterName;
 	private Text txtCharacterName_1;
 	Alignment alignment;
-	CharacterSheet charSheet;
+	CharacterSheet charSheet = null;
 	private Text text;
+	
+	// Create all the character sheet objects
+	Label lblStrBase;
+	Label lblDexBase;
+	Label lblConBase;
+	Label lblIntBase;
+	Label lblWisBase;
+	Label lblChaBase;
 	
 	/**
 	 * Create the application window.
@@ -47,7 +53,7 @@ public class CharacterSheetUI extends ApplicationWindow
 		addMenuBar();
 		addStatusLine();
 
-		charSheet = new CharacterSheet();
+
 		alignment = new Alignment(charSheet);
 	}
 
@@ -154,29 +160,29 @@ public class CharacterSheetUI extends ApplicationWindow
 		label_10.setText("=");
 		label_10.setBounds(72, 167, 15, 15);
 
-		Label label_11 = new Label(grpAbilityScores, SWT.NONE);
-		label_11.setText("20");
-		label_11.setBounds(82, 167, 15, 15);
+		lblChaBase = new Label(grpAbilityScores, SWT.NONE);
+		lblChaBase.setText("20");
+		lblChaBase.setBounds(82, 167, 15, 15);
 
-		Label label_12 = new Label(grpAbilityScores, SWT.NONE);
-		label_12.setText("20");
-		label_12.setBounds(82, 146, 15, 15);
+		lblWisBase = new Label(grpAbilityScores, SWT.NONE);
+		lblWisBase.setText("20");
+		lblWisBase.setBounds(82, 146, 15, 15);
 
-		Label label_13 = new Label(grpAbilityScores, SWT.NONE);
-		label_13.setText("20");
-		label_13.setBounds(82, 125, 15, 15);
+		lblIntBase = new Label(grpAbilityScores, SWT.NONE);
+		lblIntBase.setText("20");
+		lblIntBase.setBounds(82, 125, 15, 15);
 
-		Label label_14 = new Label(grpAbilityScores, SWT.NONE);
-		label_14.setText("20");
-		label_14.setBounds(82, 104, 15, 15);
+		lblConBase = new Label(grpAbilityScores, SWT.NONE);
+		lblConBase.setText("20");
+		lblConBase.setBounds(82, 104, 15, 15);
 
-		Label label_15 = new Label(grpAbilityScores, SWT.NONE);
-		label_15.setText("20");
-		label_15.setBounds(82, 83, 15, 15);
+		lblDexBase = new Label(grpAbilityScores, SWT.NONE);
+		lblDexBase.setText("20");
+		lblDexBase.setBounds(82, 83, 15, 15);
 
-		Label label_16 = new Label(grpAbilityScores, SWT.NONE);
-		label_16.setText("20");
-		label_16.setBounds(82, 62, 15, 15);
+		lblStrBase = new Label(grpAbilityScores, SWT.NONE);
+		lblStrBase.setText("20");
+		lblStrBase.setBounds(82, 62, 15, 15);
 
 		Label label_23 = new Label(grpAbilityScores, SWT.NONE);
 		label_23.setText("+");
@@ -753,6 +759,14 @@ public class CharacterSheetUI extends ApplicationWindow
 
 	public void update(Text text)
 	{
-		text.setText(alignment.getAlignmentText());
+		//text.setText(alignment.getAlignmentText());
+		if(charSheet != null){
+			lblStrBase.setText(Integer.toString(charSheet.getAbilityModifier(AbilityEnum.Str)));
+			lblDexBase.setText(Integer.toString(charSheet.getAbilityModifier(AbilityEnum.Dex))); 
+			lblConBase.setText(Integer.toString(charSheet.getAbilityModifier(AbilityEnum.Con))); 
+			lblIntBase.setText(Integer.toString(charSheet.getAbilityModifier(AbilityEnum.Int))); 
+			lblWisBase.setText(Integer.toString(charSheet.getAbilityModifier(AbilityEnum.Wis))); 
+			lblChaBase.setText(Integer.toString(charSheet.getAbilityModifier(AbilityEnum.Cha))); 					
+		}
 	}
 }

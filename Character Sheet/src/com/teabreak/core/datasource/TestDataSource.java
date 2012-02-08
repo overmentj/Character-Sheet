@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 import com.teabreak.core.aspects.AspectsEnum;
 import com.teabreak.core.aspects.AspectsInterface;
-import com.teabreak.core.aspects.Class;
+import com.teabreak.core.aspects.CharClass;
 import com.teabreak.core.aspects.Race;
 import com.teabreak.core.aspects.Skill;
 import com.teabreak.core.aspects.enums.AbilityEnum;
@@ -41,9 +41,9 @@ public class TestDataSource implements DataSourceInterface
 			break;
 
 		case Class:
-			data.put("Fighter", new Class("Good", "Ave", "Shit", "Fighter", "Fighter is a class, the only one we don't actually have :S"));
-			data.put("Bard", new Class("Good", "Ave", "Shit", "Bard", "Mike makes an amazingly sexy bard that Tom cannot resist"));
-			data.put("Cleric", new Class("Good", "Ave", "Shit", "Cleric", "Danny's a cleric.. yes he is.. he is"));
+			data.put("Fighter", new CharClass("Good", "Ave", "Shit", "Fighter", "Fighter is a class, the only one we don't actually have :S"));
+			data.put("Bard", new CharClass("Good", "Ave", "Shit", "Bard", "Mike makes an amazingly sexy bard that Tom cannot resist"));
+			data.put("Cleric", new CharClass("Good", "Ave", "Shit", "Cleric", "Danny's a cleric.. yes he is.. he is"));
 			break;
 
 		case Race:

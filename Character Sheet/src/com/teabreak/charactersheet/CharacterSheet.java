@@ -1,7 +1,7 @@
 package com.teabreak.charactersheet;
 
 import com.teabreak.core.aspects.enums.AlignmentEnum;
-import com.teabreak.core.aspects.Class;
+import com.teabreak.core.aspects.CharClass;
 import com.teabreak.core.aspects.Race;
 import com.teabreak.core.aspects.enums.AbilityEnum;
 
@@ -11,7 +11,7 @@ public class CharacterSheet
 	private String playerName;
 	private String characterName;
 
-	private Class charClass;
+	private CharClass charClass;
 	private Race charRace;
 
 	private int level;
@@ -27,10 +27,23 @@ public class CharacterSheet
 	private int reflexSave;
 	private int fortitudeSave;
 	private String alignment;
-	
+
 	private long experience;
 
 	private boolean levelledUp = false;
+
+	public CharacterSheet(Race charRace, CharClass charClass, int strength,
+			int dexterity, int consitution, int intelligence, int wisdom,
+			int charisma)
+	{
+		this.charRace = charRace;
+		this.charClass = charClass;
+		this.strength = strength;
+		this.dexterity = dexterity;
+		this.constitution = consitution;
+		this.wisdom = wisdom;
+		this.charisma = charisma;
+	}
 
 	public void addExperience(Long experienceGained)
 	{
@@ -42,12 +55,12 @@ public class CharacterSheet
 
 		return experience;
 	}
-	
+
 	public void setCharacterAlignment(String alignment)
 	{
 		this.alignment = alignment;
 	}
-	
+
 	public String getCharacterAlignment()
 	{
 		return alignment;
