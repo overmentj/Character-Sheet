@@ -66,6 +66,33 @@ public class CharacterSheet
 		return alignment;
 	}
 
+	public int getAbilityScore(AbilityEnum ability)
+	{
+		int score = 0;
+		switch (ability)
+		{
+		case Str:
+			score = strength;
+			break;
+		case Dex:
+			score = dexterity;
+			break;
+		case Con:
+			score = constitution;
+			break;
+		case Int:
+			score = intelligence;
+			break;
+		case Wis:
+			score = wisdom;
+			break;
+		case Cha:
+			score = charisma;
+			break;
+		}
+		return score;
+	}
+
 	public int getAbilityModifier(AbilityEnum ability)
 	{
 		int mod = 0;

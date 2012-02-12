@@ -4,6 +4,7 @@ import org.eclipse.jface.wizard.Wizard;
 
 import com.teabreak.charactersheet.CharacterSheet;
 import com.teabreak.core.Main;
+import com.teabreak.gui.HomeUI;
 
 public class CharacterCreationWizard extends Wizard
 {
@@ -49,6 +50,7 @@ public class CharacterCreationWizard extends Wizard
 							model.strength, model.dexterity,
 							model.constitution, model.intelligence,
 							model.wisdom, model.charisma));
+			HomeUI.getInstance().getCharacterSheetUi().update();
 			return true;
 		}
 		return false;

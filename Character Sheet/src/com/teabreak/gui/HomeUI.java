@@ -14,7 +14,12 @@ import com.teabreak.gui.charactersheet.charactercreation.CharacterCreationWizard
 public class HomeUI extends Shell
 {
 	private static HomeUI instance = null;
-	
+	private CharacterSheetUI characterSheet = null;
+
+	public CharacterSheetUI getCharacterSheetUi()
+	{
+		return characterSheet;
+	}
 
 	/**
 	 * Launch the application.
@@ -73,9 +78,9 @@ public class HomeUI extends Shell
 			{
 				try
 				{
-					CharacterSheetUI window = new CharacterSheetUI();
-					window.setBlockOnOpen(true);
-					window.open();
+					characterSheet = new CharacterSheetUI();
+					characterSheet.setBlockOnOpen(true);
+					characterSheet.open();
 					HomeUI.getInstance().setVisible(false);
 				} catch (Exception e)
 				{

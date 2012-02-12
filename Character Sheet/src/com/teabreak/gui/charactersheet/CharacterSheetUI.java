@@ -21,6 +21,7 @@ import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Text;
 
 import com.teabreak.charactersheet.CharacterSheet;
+import com.teabreak.core.Main;
 import com.teabreak.core.aspects.Alignment;
 import com.teabreak.core.aspects.enums.AbilityEnum;
 import com.teabreak.gui.SWTResourceManager;
@@ -576,7 +577,7 @@ public class CharacterSheetUI extends ApplicationWindow
 				int a = combo.getSelectionIndex();
 				if (a >= 0)
 					alignment.assign(combo.getItem(a), 'M');
-				update(text);
+				//update(text);
 			}
 
 			public void widgetDefaultSelected(SelectionEvent event)
@@ -584,7 +585,7 @@ public class CharacterSheetUI extends ApplicationWindow
 				int a = combo.getSelectionIndex();
 				if (a >= 0)
 					alignment.assign(combo.getItem(a), 'M');
-				update(text);
+				//update(text);
 			}
 		});
 
@@ -648,7 +649,7 @@ public class CharacterSheetUI extends ApplicationWindow
 				int a = combo_1.getSelectionIndex();
 				if (a >= 0)
 					alignment.assign(combo_1.getItem(a), 'O');
-				update(text);
+				//update(text);
 			}
 
 			public void widgetDefaultSelected(SelectionEvent event)
@@ -656,7 +657,7 @@ public class CharacterSheetUI extends ApplicationWindow
 				int a = combo_1.getSelectionIndex();
 				if (a >= 0)
 					alignment.assign(combo_1.getItem(a), 'O');
-				update(text);
+				//update(text);
 			}
 		});
 
@@ -757,16 +758,17 @@ public class CharacterSheetUI extends ApplicationWindow
 		return new Point(994, 713);
 	}
 
-	public void update(Text text)
+	public void update()
 	{
+		this.charSheet = Main.getInstace().getCharSheet();
 		//text.setText(alignment.getAlignmentText());
 		if(charSheet != null){
-			lblStrBase.setText(Integer.toString(charSheet.getAbilityModifier(AbilityEnum.Str)));
-			lblDexBase.setText(Integer.toString(charSheet.getAbilityModifier(AbilityEnum.Dex))); 
-			lblConBase.setText(Integer.toString(charSheet.getAbilityModifier(AbilityEnum.Con))); 
-			lblIntBase.setText(Integer.toString(charSheet.getAbilityModifier(AbilityEnum.Int))); 
-			lblWisBase.setText(Integer.toString(charSheet.getAbilityModifier(AbilityEnum.Wis))); 
-			lblChaBase.setText(Integer.toString(charSheet.getAbilityModifier(AbilityEnum.Cha))); 					
+			lblStrBase.setText(Integer.toString(charSheet.getAbilityScore(AbilityEnum.Str)));
+			lblDexBase.setText(Integer.toString(charSheet.getAbilityScore(AbilityEnum.Dex))); 
+			lblConBase.setText(Integer.toString(charSheet.getAbilityScore(AbilityEnum.Con))); 
+			lblIntBase.setText(Integer.toString(charSheet.getAbilityScore(AbilityEnum.Int))); 
+			lblWisBase.setText(Integer.toString(charSheet.getAbilityScore(AbilityEnum.Wis))); 
+			lblChaBase.setText(Integer.toString(charSheet.getAbilityScore(AbilityEnum.Cha))); 					
 		}
 	}
 }
