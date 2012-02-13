@@ -51,7 +51,7 @@ public class DiceRolling {
 	 * @param bestOf the best n dice used to generate the value
 	 * @return the final value.
 	 */
-	public int rollDice(int numDice, int bestOf){
+	public int rollDice(int numDice, int bestOf, int diceSize, int modifiers){
 	
 	// 3D6 - take best 3
 	// 4D6 - take best 3
@@ -62,7 +62,7 @@ public class DiceRolling {
 		// Populate the array with values
 		for (int Index1 = 0; Index1 < numDice; Index1++)
 		{
-			Rolls[Index1] = rng.Roll_Die(6);
+			Rolls[Index1] = rng.Roll_Die(diceSize);
 		}
 		
 		// Sort the array into ASCENDING numerical order
@@ -76,6 +76,8 @@ public class DiceRolling {
 		{
 			Total = Total + Rolls[Index2];
 		}
+		
+		Total = Total + modifiers;
 	
 		return Total;
 		
