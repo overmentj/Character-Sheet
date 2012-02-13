@@ -1,4 +1,4 @@
-package com.teabreak.core;
+package com.teabreak.core.dicebag;
 
 // Written by Mike .. 02/12
 
@@ -11,16 +11,17 @@ public class RandomNumberGenerator {
 	// Method to generate a URN in the range 0..1
 	// Input current stream value
 	// Return Double (will need scalar modification).
-	private double Create_Uniform_Random_Number(double Prev_Number) {
+	private double Create_Uniform_Random_Number() {
 		// Define Variables
 
 		final double a = 15107.0; // Multiplicative PRIME index
 		final double m = 7237.0; // Numeric base (PRIME)
 		final double c = 54321.0; // Step-wise Distorter
-
+		
 		// Calculate next number in stream based on
-		double Return_Value = ((a * Prev_Number + c) % m) / (m - 1);
-
+		double Return_Value = ((a * Current_Stream_Value + c) % m) / (m - 1);
+		Current_Stream_Value = Return_Value;
+		
 		return Return_Value;
 	}
 
@@ -38,7 +39,7 @@ public class RandomNumberGenerator {
 
 		// Return value is Ceiling(rand{0..1} * Die_No)
 		int Return_Value = (int) Math.ceil
-				(Die_Size * Create_Uniform_Random_Number(Current_Stream_Value));
+				(Die_Size * Create_Uniform_Random_Number());
 
 		return Return_Value;
 	}

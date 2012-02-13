@@ -13,7 +13,8 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Widget;
 
-import com.teabreak.core.DiceRolling;
+import com.teabreak.core.aspects.enums.AbilityEnum;
+import com.teabreak.core.dicebag.DiceRolling;
 
 public class CreationAbilityScores extends WizardPage implements Listener
 {
@@ -31,6 +32,22 @@ public class CreationAbilityScores extends WizardPage implements Listener
 	private Label lblBonWis;
 	private Label lblBonCha;
 	private Label lblBonCon;
+
+	private Label lblStr;
+	private Label lblDex;
+	private Label lblCon;
+	private Label lblInt;
+	private Label lblWis;
+	private Label lblCha;
+
+	private Button btnRollStr;
+	private Button btnRollDex;
+	private Button btnRollCon;
+	private Button btnRollInt;
+	private Button btnRollWis;
+	private Button btnRollCha;
+
+	private Button btnRollAll;
 
 	private Combo comboRollOptions;
 
@@ -57,51 +74,50 @@ public class CreationAbilityScores extends WizardPage implements Listener
 
 		setControl(container);
 
-		Label lblStr = new Label(container, SWT.NONE);
-		lblStr.setBounds(10, 41, 28, 15);
-		lblStr.setText("STR");
-
-		Label lblDex = new Label(container, SWT.NONE);
-		lblDex.setText("DEX");
-		lblDex.setBounds(10, 68, 28, 15);
-
-		Label lblInt = new Label(container, SWT.NONE);
-		lblInt.setText("INT");
-		lblInt.setBounds(10, 125, 28, 15);
-
-		Label lblWis = new Label(container, SWT.NONE);
-		lblWis.setText("WIS");
-		lblWis.setBounds(10, 152, 28, 15);
-
-		Label lblCha = new Label(container, SWT.NONE);
-		lblCha.setText("CHA");
-		lblCha.setBounds(10, 179, 28, 15);
-
-		Label lblCon = new Label(container, SWT.NONE);
-		lblCon.setText("CON");
-		lblCon.setBounds(10, 98, 28, 15);
+		// Ability Score Labels
+		lblStr = new Label(container, SWT.NONE);
+		lblDex = new Label(container, SWT.NONE);
+		lblInt = new Label(container, SWT.NONE);
+		lblWis = new Label(container, SWT.NONE);
+		lblCha = new Label(container, SWT.NONE);
+		lblCon = new Label(container, SWT.NONE);
 
 		lblBonStr = new Label(container, SWT.NONE);
+		lblBonDex = new Label(container, SWT.NONE);
+		lblBonCon = new Label(container, SWT.NONE);
+		lblBonInt = new Label(container, SWT.NONE);
+		lblBonWis = new Label(container, SWT.NONE);
+		lblBonCha = new Label(container, SWT.NONE);
+
+		lblStr.setText("STR");
+		lblDex.setText("DEX");
+		lblCon.setText("CON");
+		lblInt.setText("INT");
+		lblWis.setText("WIS");
+		lblCha.setText("CHA");
+
+		lblStr.setBounds(10, 41, 28, 15);
+		lblDex.setBounds(10, 68, 28, 15);
+		lblInt.setBounds(10, 125, 28, 15);
+		lblWis.setBounds(10, 152, 28, 15);
+		lblCha.setBounds(10, 179, 28, 15);
+		lblCon.setBounds(10, 98, 28, 15);
+
 		lblBonStr.setBounds(89, 41, 28, 15);
 		lblBonStr.setText("Bon");
 
-		lblBonDex = new Label(container, SWT.NONE);
 		lblBonDex.setText("Bon");
 		lblBonDex.setBounds(89, 68, 28, 15);
 
-		lblBonCon = new Label(container, SWT.NONE);
 		lblBonCon.setText("Bon");
 		lblBonCon.setBounds(89, 95, 28, 15);
 
-		lblBonInt = new Label(container, SWT.NONE);
 		lblBonInt.setText("Bon");
 		lblBonInt.setBounds(89, 122, 28, 15);
 
-		lblBonWis = new Label(container, SWT.NONE);
 		lblBonWis.setText("Bon");
 		lblBonWis.setBounds(89, 149, 28, 15);
 
-		lblBonCha = new Label(container, SWT.NONE);
 		lblBonCha.setText("Bon");
 		lblBonCha.setBounds(89, 176, 28, 15);
 
@@ -156,144 +172,41 @@ public class CreationAbilityScores extends WizardPage implements Listener
 		textCha.setBounds(44, 173, 39, 21);
 		textCha.setEditable(false);
 
-		final Button btnRollStr = new Button(container, SWT.NONE);
+		btnRollStr = new Button(container, SWT.NONE);
 		btnRollStr.setBounds(123, 38, 53, 21);
 		btnRollStr.setText("Roll");
-		btnRollStr.addSelectionListener(new SelectionListener()
-		{
+		btnRollStr.addListener(SWT.Selection, this);
 
-			public void widgetSelected(SelectionEvent event)
-			{
-				String alpha = comboRollOptions.getItem(comboRollOptions
-						.getSelectionIndex());
-				//int a = DiceRolling.rollDice(alpha);
-				textStr.setText(Integer.toString(1));
-			}
-
-			public void widgetDefaultSelected(SelectionEvent event)
-			{
-				String alpha = comboRollOptions.getItem(comboRollOptions
-						.getSelectionIndex());
-				//int a = DiceRolling.rollDice(alpha);
-				textStr.setText(Integer.toString(1));
-			}
-		});
-
-		final Button btnRollDex = new Button(container, SWT.NONE);
+		btnRollDex = new Button(container, SWT.NONE);
 		btnRollDex.setText("Roll");
 		btnRollDex.setBounds(123, 65, 53, 21);
-		btnRollDex.addSelectionListener(new SelectionListener()
-		{
+		btnRollDex.addListener(SWT.Selection, this);
 
-			public void widgetSelected(SelectionEvent event)
-			{
-				String alpha = comboRollOptions.getItem(comboRollOptions
-						.getSelectionIndex());
-				//int a = DiceRolling.rollDice(alpha);
-				textDex.setText(Integer.toString(1));
-			}
-
-			public void widgetDefaultSelected(SelectionEvent event)
-			{
-				String alpha = comboRollOptions.getItem(comboRollOptions
-						.getSelectionIndex());
-				//int a = DiceRolling.rollDice(alpha);
-				textDex.setText(Integer.toString(1));
-			}
-		});
-
-		final Button btnRollCon = new Button(container, SWT.NONE);
+		btnRollCon = new Button(container, SWT.NONE);
 		btnRollCon.setText("Roll");
 		btnRollCon.setBounds(123, 92, 53, 21);
-		btnRollCon.addSelectionListener(new SelectionListener()
-		{
+		btnRollCon.addListener(SWT.Selection, this);
 
-			public void widgetSelected(SelectionEvent event)
-			{
-				String alpha = comboRollOptions.getItem(comboRollOptions
-						.getSelectionIndex());
-				//int a = DiceRolling.rollDice(alpha);
-				textCon.setText(Integer.toString(1));
-			}
-
-			public void widgetDefaultSelected(SelectionEvent event)
-			{
-				String alpha = comboRollOptions.getItem(comboRollOptions
-						.getSelectionIndex());
-				//int a = DiceRolling.rollDice(alpha);
-				textCon.setText(Integer.toString(1));
-			}
-		});
-
-		final Button btnRollInt = new Button(container, SWT.NONE);
+		btnRollInt = new Button(container, SWT.NONE);
 		btnRollInt.setText("Roll");
 		btnRollInt.setBounds(123, 119, 53, 21);
-		btnRollInt.addSelectionListener(new SelectionListener()
-		{
+		btnRollInt.addListener(SWT.Selection, this);
 
-			public void widgetSelected(SelectionEvent event)
-			{
-				String alpha = comboRollOptions.getItem(comboRollOptions
-						.getSelectionIndex());
-				//int a = DiceRolling.rollDice(alpha);
-				textInt.setText(Integer.toString(1));
-			}
-
-			public void widgetDefaultSelected(SelectionEvent event)
-			{
-				String alpha = comboRollOptions.getItem(comboRollOptions
-						.getSelectionIndex());
-				//int a = DiceRolling.rollDice(alpha);
-				textInt.setText(Integer.toString(1));
-			}
-		});
-
-		final Button btnRollWis = new Button(container, SWT.NONE);
+		btnRollWis = new Button(container, SWT.NONE);
 		btnRollWis.setText("Roll");
 		btnRollWis.setBounds(123, 146, 53, 21);
-		btnRollWis.addSelectionListener(new SelectionListener()
-		{
+		btnRollWis.addListener(SWT.Selection, this);
 
-			public void widgetSelected(SelectionEvent event)
-			{
-				String alpha = comboRollOptions.getItem(comboRollOptions
-						.getSelectionIndex());
-				//int a = DiceRolling.rollDice(alpha);
-				textWis.setText(Integer.toString(1));
-			}
-
-			public void widgetDefaultSelected(SelectionEvent event)
-			{
-				String alpha = comboRollOptions.getItem(comboRollOptions
-						.getSelectionIndex());
-				//int a = DiceRolling.rollDice(alpha);
-				textWis.setText(Integer.toString(1));
-			}
-		});
-
-		final Button btnRollCha = new Button(container, SWT.NONE);
+		btnRollCha = new Button(container, SWT.NONE);
 		btnRollCha.setText("Roll");
 		btnRollCha.setBounds(123, 173, 53, 21);
-		btnRollCha.addSelectionListener(new SelectionListener()
-		{
+		btnRollCha.addListener(SWT.Selection, this);
 
-			public void widgetSelected(SelectionEvent event)
-			{
-				String alpha = comboRollOptions.getItem(comboRollOptions
-						.getSelectionIndex());
-				//int a = DiceRolling.rollDice(alpha);
-				textCha.setText(Integer.toString(1));
-			}
+		btnRollAll = new Button(container, SWT.NONE);
+		btnRollAll.setText("Roll All");
+		btnRollAll.setBounds(123, 200, 53, 21);
+		btnRollAll.addListener(SWT.Selection, this);
 
-			public void widgetDefaultSelected(SelectionEvent event)
-			{
-				String alpha = comboRollOptions.getItem(comboRollOptions
-						.getSelectionIndex());
-				//int a = DiceRolling.rollDice(alpha);
-				textCha.setText(Integer.toString(1));
-			}
-		});
-		setPageComplete(false);
 	}
 
 	// TODO: Make a seperate class for restricted entries
@@ -389,10 +302,62 @@ public class CreationAbilityScores extends WizardPage implements Listener
 		}
 	}
 
-	private void rollDice()
+	private Integer rollDice()
 	{
-		// TODO: Meh... need to talk to Tom about why each stat has its own roll
+		DiceRolling dice = new DiceRolling();
+		int roll = 0;
+		// Find system first
+		switch (comboRollOptions.getSelectionIndex())
+		{
+		case 1:
+		case 2:
+			// Roll 3d6
+			roll = dice.rollDice(6, 3, 0);
+			break;
+		case 3:
+			// roll 4d6 best 3
+			roll = dice.rollDice(6, 3, 0, 3);
+			break;
+		case 4:
+			// roll 5d6 best 3
+			roll = dice.rollDice(6, 5, 0, 3);
+			break;
+		default:
+			// and the rest but can't be bothered
+			break;
+		}
+		return roll;
+	}
 
+	private void abilityScore(Widget widget)
+	{
+		if (widget == btnRollAll)
+		{
+			this.textStr.setText(rollDice().toString());
+			this.textDex.setText(rollDice().toString());
+			this.textCon.setText(rollDice().toString());
+			this.textInt.setText(rollDice().toString());
+			this.textWis.setText(rollDice().toString());
+			this.textCha.setText(rollDice().toString());
+		} else if (widget == btnRollStr)
+		{
+			this.textStr.setText(rollDice().toString());
+		} else if (widget == btnRollDex)
+		{
+			this.textDex.setText(rollDice().toString());
+		} else if (widget == btnRollCon)
+		{
+			this.textCon.setText(rollDice().toString());
+		} else if (widget == btnRollInt)
+		{
+			this.textInt.setText(rollDice().toString());
+		} else if (widget == btnRollWis)
+		{
+			this.textWis.setText(rollDice().toString());
+		} else if (widget == btnRollCha)
+		{
+			this.textCha.setText(rollDice().toString());
+		}
 	}
 
 	private void pageCompeted()
@@ -424,23 +389,12 @@ public class CreationAbilityScores extends WizardPage implements Listener
 				enableManual(false);
 			}
 
+		} else if (event.type == SWT.Selection)
+		{
+			abilityScore(event.widget);
 		} else
 		{
-			//
-			// Find system first
-			switch (comboRollOptions.getSelectionIndex())
-			{
-			case 1:
-			case 2:
-				// Roll 3d6
-				break;
-			case 3:
-				// roll 4d6 best 3
-				break;
-			default:
-				// and the rest but can't be bothered
-				break;
-			}
+
 		}
 		pageCompeted();
 	}

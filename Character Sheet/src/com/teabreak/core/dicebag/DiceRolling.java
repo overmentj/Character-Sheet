@@ -1,4 +1,4 @@
-package com.teabreak.core;
+package com.teabreak.core.dicebag;
 
 import java.util.Arrays;
 
@@ -51,7 +51,7 @@ public class DiceRolling {
 	 * @param bestOf the best n dice used to generate the value
 	 * @return the final value.
 	 */
-	public int rollDice(int numDice, int bestOf, int diceSize, int modifiers){
+	public int rollDice(int diceSize, int numDice, int modifiers, int bestOf){
 	
 	// 3D6 - take best 3
 	// 4D6 - take best 3
@@ -72,7 +72,7 @@ public class DiceRolling {
 		int RollsLength = Rolls.length;
 		
 		// take the highest n dice and add them together
-		for (int Index2 = RollsLength - bestOf; Index2 < bestOf; Index2++)
+		for (int Index2 = RollsLength - bestOf; Index2 < RollsLength; Index2++)
 		{
 			Total = Total + Rolls[Index2];
 		}
