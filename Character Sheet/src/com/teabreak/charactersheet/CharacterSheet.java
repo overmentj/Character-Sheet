@@ -43,6 +43,7 @@ public class CharacterSheet
 		this.constitution = consitution;
 		this.wisdom = wisdom;
 		this.charisma = charisma;
+		
 	}
 
 	public void addExperience(Long experienceGained)

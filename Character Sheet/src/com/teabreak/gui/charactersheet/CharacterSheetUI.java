@@ -114,52 +114,52 @@ public class CharacterSheetUI extends ApplicationWindow
 		lblCha.setBounds(10, 167, 25, 15);
 
 		Label lblNewLabel = new Label(grpAbilityScores, SWT.NONE);
-		lblNewLabel.setBounds(51, 62, 15, 15);
+		lblNewLabel.setBounds(41, 60, 15, 15);
 		lblNewLabel.setText("20");
 
 		Label label = new Label(grpAbilityScores, SWT.NONE);
 		label.setText("20");
-		label.setBounds(51, 104, 15, 15);
+		label.setBounds(41, 102, 15, 15);
 
 		Label label_1 = new Label(grpAbilityScores, SWT.NONE);
 		label_1.setText("20");
-		label_1.setBounds(51, 125, 15, 15);
+		label_1.setBounds(41, 123, 15, 15);
 
 		Label label_2 = new Label(grpAbilityScores, SWT.NONE);
 		label_2.setText("20");
-		label_2.setBounds(51, 146, 15, 15);
+		label_2.setBounds(41, 144, 15, 15);
 
 		Label label_3 = new Label(grpAbilityScores, SWT.NONE);
 		label_3.setText("20");
-		label_3.setBounds(51, 167, 15, 15);
+		label_3.setBounds(41, 165, 15, 15);
 
 		Label label_4 = new Label(grpAbilityScores, SWT.NONE);
 		label_4.setText("20");
-		label_4.setBounds(51, 83, 15, 15);
+		label_4.setBounds(41, 81, 15, 15);
 
 		Label label_5 = new Label(grpAbilityScores, SWT.NONE);
 		label_5.setText("=");
-		label_5.setBounds(72, 60, 15, 15);
+		label_5.setBounds(62, 60, 15, 15);
 
 		Label label_6 = new Label(grpAbilityScores, SWT.NONE);
 		label_6.setText("=");
-		label_6.setBounds(72, 83, 15, 15);
+		label_6.setBounds(62, 83, 15, 15);
 
 		Label label_7 = new Label(grpAbilityScores, SWT.NONE);
 		label_7.setText("=");
-		label_7.setBounds(72, 104, 15, 15);
+		label_7.setBounds(62, 104, 15, 15);
 
 		Label label_8 = new Label(grpAbilityScores, SWT.NONE);
 		label_8.setText("=");
-		label_8.setBounds(72, 125, 15, 15);
+		label_8.setBounds(62, 125, 15, 15);
 
 		Label label_9 = new Label(grpAbilityScores, SWT.NONE);
 		label_9.setText("=");
-		label_9.setBounds(72, 146, 15, 15);
+		label_9.setBounds(62, 146, 15, 15);
 
 		Label label_10 = new Label(grpAbilityScores, SWT.NONE);
 		label_10.setText("=");
-		label_10.setBounds(72, 167, 15, 15);
+		label_10.setBounds(62, 167, 15, 15);
 
 		lblChaBase = new Label(grpAbilityScores, SWT.NONE);
 		lblChaBase.setText("20");
@@ -537,14 +537,6 @@ public class CharacterSheetUI extends ApplicationWindow
 		txtCharacterName.setText("Player Name");
 		txtCharacterName.setBounds(150, 49, 130, 21);
 
-		txtCharacterName_1 = new Text(grpCharacter, SWT.BORDER);
-		txtCharacterName_1.setText("Character Name");
-		txtCharacterName_1.setBounds(10, 49, 130, 21);
-
-		Label lblCharacterName = new Label(grpCharacter, SWT.NONE);
-		lblCharacterName.setBounds(10, 28, 96, 15);
-		lblCharacterName.setText("Character Name");
-
 		Label lblPlayerName = new Label(grpCharacter, SWT.NONE);
 		lblPlayerName.setBounds(150, 28, 86, 15);
 		lblPlayerName.setText("Player Name");
@@ -608,6 +600,14 @@ public class CharacterSheetUI extends ApplicationWindow
 		Combo combo_3 = new Combo(grpCharacter, SWT.NONE);
 		combo_3.setItems(new String[] {"Male", "Female", "Nondescript"});
 		combo_3.setBounds(189, 76, 91, 23);
+		
+				txtCharacterName_1 = new Text(grpCharacter, SWT.BORDER);
+				txtCharacterName_1.setBounds(14, 49, 130, 21);
+				txtCharacterName_1.setText("Character Name");
+				
+						Label lblCharacterName = new Label(grpCharacter, SWT.NONE);
+						lblCharacterName.setBounds(14, 28, 96, 15);
+						lblCharacterName.setText("Character Name");
 		
 		Group grpAttackBonus = new Group(composite, SWT.NONE);
 		grpAttackBonus.setText("Attack Bonus");

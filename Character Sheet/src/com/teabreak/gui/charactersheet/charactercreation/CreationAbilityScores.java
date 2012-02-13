@@ -316,7 +316,7 @@ public class CreationAbilityScores extends WizardPage implements Listener
 			break;
 		case 3:
 			// roll 4d6 best 3
-			roll = dice.rollDice(6, 3, 0, 3);
+			roll = dice.rollDice(6, 4, 0, 3);
 			break;
 		case 4:
 			// roll 5d6 best 3
