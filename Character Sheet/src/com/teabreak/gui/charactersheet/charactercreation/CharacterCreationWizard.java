@@ -40,9 +40,9 @@ public class CharacterCreationWizard extends Wizard
 	{
 		// Make sure everything's set.. this will be long
 		if (model.charClass != null && model.charRace != null
-				&& model.strength != 0 && model.dexterity != 0
-				&& model.constitution != 0 && model.intelligence != 0
-				&& model.wisdom != 0 && model.charisma != 0)
+				&& model.strength != null && model.dexterity != null
+				&& model.constitution != null && model.intelligence != null
+				&& model.wisdom != null && model.charisma != null)
 		{
 
 			Main.getInstace().setCharSheet(
@@ -51,6 +51,17 @@ public class CharacterCreationWizard extends Wizard
 							model.constitution, model.intelligence,
 							model.wisdom, model.charisma));
 			HomeUI.getInstance().getCharacterSheetUi().update();
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean canFinish(){
+		if (model.charClass != null && model.charRace != null
+				&& model.strength != null && model.dexterity != null
+				&& model.constitution != null && model.intelligence != null
+				&& model.wisdom != null && model.charisma != null)
+		{
 			return true;
 		}
 		return false;

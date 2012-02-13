@@ -41,6 +41,7 @@ public class CharacterSheet
 		this.strength = strength;
 		this.dexterity = dexterity;
 		this.constitution = consitution;
+		this.intelligence = intelligence;
 		this.wisdom = wisdom;
 		this.charisma = charisma;
 		

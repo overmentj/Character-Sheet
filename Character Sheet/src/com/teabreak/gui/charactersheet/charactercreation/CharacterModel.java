@@ -10,11 +10,11 @@ public class CharacterModel
 	protected CharClass charClass = null;
 	
 	
-	protected int strength = 0;
-	protected int dexterity = 0;
-	protected int constitution = 0;
-	protected int intelligence = 0;
-	protected int wisdom = 0;
-	protected int charisma = 0;
+	protected Integer strength = null;
+	protected Integer dexterity = null;
+	protected Integer constitution = null;
+	protected Integer intelligence = null;
+	protected Integer wisdom = null;
+	protected Integer charisma = null;
 	
 }
