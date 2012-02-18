@@ -19,10 +19,11 @@ public class Skill implements AspectsInterface
 	private String description;
 	private String condition;
 
-	public Skill(SkillEnum skills, boolean conditional,
+	public Skill(int id, SkillEnum skills, boolean conditional,
 			AbilityEnum AbilityModifier, String name, String description,
 			String condition)
 	{
+		this.id = id;
 		this.skills = skills;
 		this.conditional = conditional;
 		this.AbilityModifier = AbilityModifier;

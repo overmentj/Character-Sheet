@@ -29,28 +29,32 @@ public class TestDataSource implements DataSourceInterface
 		switch (dataType)
 		{
 		case Skill:
-			// data.put("Apraise", new Skill(SkillEnum.Appraise, false,
-			// AbilityEnum.Int,
-			// "Appraise", "Appraise stuff", null))
-			// data.add(new Skill(SkillEnum.Appraise, false, AbilityEnum.Int,
-			// "Appraise", "Appraise stuff", null));
-			// data.add(new Skill(SkillEnum.Balance, false, AbilityEnum.Dex,
-			// "Balance", "Balance stuff", null));
-			// data.add(new Skill(SkillEnum.Bluff, false, AbilityEnum.Cha,
-			// "Bluff", "Bluff stuff", null));
+			data.put("Apraise", new Skill(1, SkillEnum.Appraise, false,
+					AbilityEnum.Int, "Appraise", "Appraise stuff", null));
+			data.put("Balance", new Skill(2, SkillEnum.Balance, false,
+					AbilityEnum.Dex, "Balance", "Balance stuff", null));
+			data.put("Bluff", new Skill(3, SkillEnum.Bluff, false,
+					AbilityEnum.Cha, "Bluff", "Bluff stuff", null));
 			break;
 
 		case Class:
-			data.put("Fighter", new CharClass("Good", "Ave", "Shit", "Fighter", "Fighter is a class, the only one we don't actually have :S"));
-			data.put("Bard", new CharClass("Good", "Ave", "Shit", "Bard", "Mike makes an amazingly sexy bard that Tom cannot resist"));
-			data.put("Cleric", new CharClass("Good", "Ave", "Shit", "Cleric", "Danny's a cleric.. yes he is.. he is"));
+			data.put(
+					"Fighter",
+					new CharClass("Good", "Ave", "Shit", "Fighter",
+							"Fighter is a class, the only one we don't actually have :S"));
+			data.put("Bard", new CharClass("Good", "Ave", "Shit", "Bard",
+					"Mike makes an amazingly sexy bard that Tom cannot resist"));
+			data.put("Cleric", new CharClass("Good", "Ave", "Shit", "Cleric",
+					"Danny's a cleric.. yes he is.. he is"));
 			break;
 
 		case Race:
 			data.put("Gnome", new Race(null, null, 20, 0, "Small", "Gnome",
 					"Short stop.. aka mike"));
-			data.put("Human", new Race(null, null, 30, 0, "Medium", "Human", "Boring"));
-			data.put("Elf", new Race(null, null, 30, 0, "Medium", "Elf", "In the words of Linda \"Pointy Features\""));
+			data.put("Human", new Race(null, null, 30, 0, "Medium", "Human",
+					"Boring"));
+			data.put("Elf", new Race(null, null, 30, 0, "Medium", "Elf",
+					"In the words of Linda \"Pointy Features\""));
 			break;
 
 		case Feat:
