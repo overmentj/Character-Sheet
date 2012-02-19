@@ -1,5 +1,6 @@
 package com.teabreak.gui.charactersheet.charactercreation;
 
+import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
@@ -65,5 +66,12 @@ public class CreationFeats extends WizardPage
 		Label lblCurrentFeats = new Label(container, SWT.NONE);
 		lblCurrentFeats.setText("Current Feats");
 		lblCurrentFeats.setBounds(140, 10, 90, 15);
+	}
+	
+	public IWizardPage getNextPage()
+	{
+		CreationSkills skillsPage = ((CharacterCreationWizard) getWizard()).charSkills;
+		skillsPage.updatePage();
+		return skillsPage;
 	}
 }

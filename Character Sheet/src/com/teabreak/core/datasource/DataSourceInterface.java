@@ -1,7 +1,7 @@
 package com.teabreak.core.datasource;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.SortedMap;
 
 import com.teabreak.core.aspects.AspectsEnum;
 import com.teabreak.core.aspects.AspectsInterface;
@@ -17,7 +17,7 @@ public interface DataSourceInterface
 
 	// public abstract ArrayList<AspectsInterface> getDataSetOfType(AspectsEnum
 	// dataType);
-	public abstract HashMap<String, AspectsInterface> getDataSetOfType(
+	public abstract SortedMap<String, AspectsInterface> getDataSetOfType(
 			AspectsEnum dataType);
 
 	public abstract void putData(ArrayList<AspectsInterface> data,

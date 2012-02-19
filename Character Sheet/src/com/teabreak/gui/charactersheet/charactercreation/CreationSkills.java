@@ -1,7 +1,9 @@
 package com.teabreak.gui.charactersheet.charactercreation;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
@@ -22,8 +24,13 @@ public class CreationSkills extends WizardPage implements Listener
 {
 	private Text text;
 	private Text text_1;
+	private Composite compositeSkills;
+	
 
-	HashMap<String, ArrayList<Widget>> skillsWidgets = new HashMap<String, ArrayList<Widget>>();
+	private CharacterCreationWizard wizard;
+
+	SortedMap<String, ArrayList<Widget>> skillsWidgets = new TreeMap<String, ArrayList<Widget>>();
+	private Integer points;
 
 	/**
 	 * Create the wizard.
@@ -48,7 +55,7 @@ public class CreationSkills extends WizardPage implements Listener
 		setControl(container);
 		container.setLayout(null);
 
-		Composite compositeSkills = new Composite(container, SWT.V_SCROLL);
+		compositeSkills = new Composite(container, SWT.V_SCROLL);
 		compositeSkills.setBounds(0, 0, 254, 282);
 
 		text = new Text(container, SWT.BORDER);
@@ -61,49 +68,6 @@ public class CreationSkills extends WizardPage implements Listener
 		text_1 = new Text(container, SWT.BORDER);
 		text_1.setText("0");
 		text_1.setBounds(284, 24, 35, 21);
-
-		Integer yPos = 10;
-
-		@SuppressWarnings("unchecked")
-		HashMap<String, Skill> skillsMap = (HashMap<String, Skill>) Main
-				.getInstace().getData().getDataSetOfType(AspectsEnum.Skill);
-		for (Skill skill : skillsMap.values())
-		{
-			ArrayList<Widget> skillRow = new ArrayList<Widget>();
-
-			Label classSkill = new Label(container, SWT.NONE);
-			classSkill.setText("Y"); // TODO: Do this correctly
-			classSkill.setBounds(10, yPos, 15, 15);
-			skillRow.add(classSkill);
-
-			Label skillName = new Label(compositeSkills, SWT.NONE);
-			skillName.setBounds(30, yPos, 130, 15);
-			skillName.setText(skill.getName());
-			skillRow.add(skillName);
-
-			Button minus = new Button(compositeSkills, SWT.NONE);
-			minus.setBounds(165, yPos, 15, 15);
-			minus.setText("-");
-			minus.setToolTipText(skill.getName() + " minus");
-			minus.addListener(SWT.Selection, this);
-			skillRow.add(minus);
-
-			Text rank = new Text(compositeSkills, SWT.BORDER);
-			rank.setFont(SWTResourceManager.getFont("Segoe UI", 8, SWT.NORMAL));
-			rank.setText("0");
-			rank.setBounds(180, yPos, 25, 15);
-			skillRow.add(rank);
-
-			Button add = new Button(compositeSkills, SWT.NONE);
-			add.setBounds(210, yPos, 15, 15);
-			add.setText("+");
-			add.setToolTipText(skill.getName() + " add");
-			add.addListener(SWT.Selection, this);
-			skillRow.add(add);
-
-			skillsWidgets.put(skill.getName(), skillRow);
-			yPos += 20;
-		}
 
 		/*
 		 * For each loop for skills - Create the following options (add to
@@ -136,6 +100,10 @@ public class CreationSkills extends WizardPage implements Listener
 
 	}
 
+	/**
+	 * Decrements the sent skills rank, returning the points
+	 * @param skill String Key in skillsWidget
+	 */
 	private void reduceRank(String skill)
 	{
 		ArrayList<Widget> widgets = skillsWidgets.get(skill);
@@ -145,6 +113,10 @@ public class CreationSkills extends WizardPage implements Listener
 		rank.setText(ranks.toString());
 	}
 
+	/**
+	 * Increments the sent skills rank, if their is enough points
+	 * @param skill String Key in skillsWidget
+	 */
 	private void increaseRank(String skill)
 	{
 		ArrayList<Widget> widgets = skillsWidgets.get(skill);
@@ -152,5 +124,98 @@ public class CreationSkills extends WizardPage implements Listener
 		Integer ranks = Integer.parseInt(rank.getText());
 		ranks++;
 		rank.setText(ranks.toString());
+	}
+
+	/**
+	 * Updates the page contents, this uses data from the wizard model
+	 */
+	public void updatePage()
+	{
+		wizard = (CharacterCreationWizard) getWizard();
+		Integer yPos = 10;
+
+		if (!skillsWidgets.isEmpty())
+		{
+			removeOldSkills();
+		}
+
+		@SuppressWarnings("unchecked")
+		SortedMap<String, Skill> skillsMap = (SortedMap<String, Skill>) Main
+				.getInstace().getData().getDataSetOfType(AspectsEnum.Skill);
+
+		String[] classSkills = wizard.model.charClass.getClassSkills();
+
+		for (Skill skill : skillsMap.values())
+		{
+			ArrayList<Widget> skillRow = new ArrayList<Widget>();
+			boolean isClassSkill = false;
+			boolean isUntrained = skill.isUntrained();
+
+			if (Arrays.asList(classSkills).contains(skill.getName()))
+			{
+				isClassSkill = true;
+			}
+
+			Label classSkill = new Label(compositeSkills, SWT.NONE);
+			if (isClassSkill)
+			{
+				classSkill.setText("Y");
+			} else
+			{
+				classSkill.setText("N");
+			}
+
+			classSkill.setBounds(10, yPos, 15, 15);
+
+			Label skillName = new Label(compositeSkills, SWT.NONE);
+			skillName.setBounds(30, yPos, 130, 15);
+			skillName.setText(skill.getName());
+
+			Button minus = new Button(compositeSkills, SWT.NONE);
+			minus.setBounds(165, yPos, 15, 15);
+			minus.setText("-");
+			minus.setToolTipText(skill.getName() + " minus");
+			minus.addListener(SWT.Selection, this);
+
+			Text rank = new Text(compositeSkills, SWT.BORDER);
+			rank.setFont(SWTResourceManager.getFont("Segoe UI", 8, SWT.NORMAL));
+			rank.setText("0");
+			rank.setBounds(180, yPos, 25, 15);
+
+			Button add = new Button(compositeSkills, SWT.NONE);
+			add.setBounds(210, yPos, 15, 15);
+			add.setText("+");
+			add.setToolTipText(skill.getName() + " add");
+			add.addListener(SWT.Selection, this);
+
+			if (!isUntrained && !isClassSkill)
+			{
+				minus.setEnabled(false);
+				add.setEnabled(false);
+			}
+
+			skillRow.add(classSkill);
+			skillRow.add(skillName);
+			skillRow.add(minus);
+			skillRow.add(rank);
+			skillRow.add(add);
+
+			skillsWidgets.put(skill.getName(), skillRow);
+			yPos += 20;
+		}
+	}
+
+	/**
+	 * This is needed if someone swaps class, removes the old widgets.
+	 */
+	private void removeOldSkills()
+	{
+		for (ArrayList<Widget> widgets : skillsWidgets.values())
+		{
+			for (Widget widget : widgets)
+			{
+				widget.dispose();
+			}
+		}
 	}
 }

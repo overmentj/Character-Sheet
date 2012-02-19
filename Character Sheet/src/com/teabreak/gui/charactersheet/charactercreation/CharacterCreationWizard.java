@@ -11,21 +11,28 @@ public class CharacterCreationWizard extends Wizard
 
 	CharacterModel model;
 
+	CreationRace charRace;
+	CreationClass charClass;
+	CreationAbilityScores charScores;
+	CreationFeats charFeats;
+	CreationSkills charSkills;
+	CreationDescription charDesc;
+
 	public CharacterCreationWizard()
 	{
-		setWindowTitle("New Wizard");
+		setWindowTitle("Character Creation");
 		model = new CharacterModel();
 	}
 
 	@Override
 	public void addPages()
 	{
-		CreationRace charRace = new CreationRace();
-		CreationClass charClass = new CreationClass();
-		CreationAbilityScores charScores = new CreationAbilityScores();
-		CreationFeats charFeats = new CreationFeats();
-		CreationSkills charSkills = new CreationSkills();
-		CreationDescription charDesc = new CreationDescription();
+		charRace = new CreationRace();
+		charClass = new CreationClass();
+		charScores = new CreationAbilityScores();
+		charFeats = new CreationFeats();
+		charSkills = new CreationSkills();
+		charDesc = new CreationDescription();
 
 		this.addPage(charRace);
 		this.addPage(charClass);
@@ -45,12 +52,11 @@ public class CharacterCreationWizard extends Wizard
 				&& model.wisdom != null && model.charisma != null)
 		{
 
-			Main.getInstace().setCharSheet(
-					new CharacterSheet(model.charRace, model.charClass,
-							model.strength, model.dexterity,
-							model.constitution, model.intelligence,
-							model.wisdom, model.charisma));
-			HomeUI.getInstance().getCharacterSheetUi().update();
+			Main.getInstace().setCharSheet(new CharacterSheet(model.charRace,
+					model.charClass, model.strength, model.dexterity,
+					model.constitution, model.intelligence, model.wisdom,
+					model.charisma));
+			HomeUI.getInstance().getCharacterSheetUi().updatePage();
 			return true;
 		}
 		return false;

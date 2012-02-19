@@ -13,6 +13,7 @@ public class Skill implements AspectsInterface
 	private SkillEnum skills;
 	private boolean conditional;
 	private AbilityEnum AbilityModifier;
+	private boolean untrained;
 
 	// Skill Descriptions
 	private String name;
@@ -21,7 +22,7 @@ public class Skill implements AspectsInterface
 
 	public Skill(int id, SkillEnum skills, boolean conditional,
 			AbilityEnum AbilityModifier, String name, String description,
-			String condition)
+			String condition, boolean untrained)
 	{
 		this.id = id;
 		this.skills = skills;
@@ -30,6 +31,7 @@ public class Skill implements AspectsInterface
 		this.name = name;
 		this.description = description;
 		this.condition = condition;
+		this.untrained = untrained;
 	}
 
 	public AspectsEnum getTYPE()
@@ -88,4 +90,8 @@ public class Skill implements AspectsInterface
 		return null;
 	}
 
+	public boolean isUntrained()
+	{
+		return untrained;
+	}
 }

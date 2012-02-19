@@ -1,5 +1,9 @@
 package com.teabreak.gui.charactersheet;
 
+import java.util.ArrayList;
+import java.util.SortedMap;
+import java.util.TreeMap;
+
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.StatusLineManager;
@@ -9,7 +13,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -26,22 +29,21 @@ import com.teabreak.core.aspects.Alignment;
 import com.teabreak.core.aspects.enums.AbilityEnum;
 import com.teabreak.gui.SWTResourceManager;
 import com.teabreak.gui.charactersheet.actions.newChar;
+import org.eclipse.swt.dnd.DropTarget;
+import org.eclipse.swt.dnd.DND;
 
 public class CharacterSheetUI extends ApplicationWindow
 {
-	private Text txtCharacterName;
-	private Text txtCharacterName_1;
 	Alignment alignment;
 	CharacterSheet charSheet = null;
-	private Text text;
 
 	// Create all the character sheet objects
-	Label lblStrBase;
-	Label lblDexBase;
-	Label lblConBase;
-	Label lblIntBase;
-	Label lblWisBase;
-	Label lblChaBase;
+
+	/**
+	 * Attributes maps: Total, Base, Misc+, Misc-, mod
+	 */
+	SortedMap<AbilityEnum, ArrayList<Label>> attrMap = new TreeMap<AbilityEnum, ArrayList<Label>>();
+	SortedMap<String, Label> saveMap = new TreeMap<String, Label>();
 
 	/**
 	 * Create the application window.
@@ -49,7 +51,6 @@ public class CharacterSheetUI extends ApplicationWindow
 	public CharacterSheetUI()
 	{
 		super(null);
-		createActions();
 		addToolBar(SWT.FLAT | SWT.WRAP);
 		addMenuBar();
 		addStatusLine();
@@ -65,6 +66,9 @@ public class CharacterSheetUI extends ApplicationWindow
 	@Override
 	protected Control createContents(Composite parent)
 	{
+		// This integer is used for auto label generation
+		Integer yPos = 0;
+
 		Composite container = new Composite(parent, SWT.NONE);
 		container.setLayout(null);
 
@@ -77,300 +81,79 @@ public class CharacterSheetUI extends ApplicationWindow
 		Composite composite = new Composite(tabFolder, SWT.NONE);
 		tbtmPage.setControl(composite);
 
+		// Display Ability Scores
 		Group grpAbilityScores = new Group(composite, SWT.NONE);
 		grpAbilityScores.setText("Ability Scores");
 		grpAbilityScores.setBounds(10, 10, 256, 185);
 
-		Label lblStrength = new Label(grpAbilityScores, SWT.NONE);
-		lblStrength.setFont(SWTResourceManager
-				.getFont("Segoe UI", 10, SWT.BOLD));
-		lblStrength.setBounds(10, 60, 25, 15);
-		lblStrength.setText("Str");
-
-		Label lblDex = new Label(grpAbilityScores, SWT.NONE);
-		lblDex.setText("Dex");
-		lblDex.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.BOLD));
-		lblDex.setBounds(10, 83, 25, 15);
-
-		Label lblCon = new Label(grpAbilityScores, SWT.NONE);
-		lblCon.setText("Con");
-		lblCon.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.BOLD));
-		lblCon.setBounds(10, 104, 25, 15);
-
-		Label lblInt = new Label(grpAbilityScores, SWT.NONE);
-		lblInt.setText("Int");
-		lblInt.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.BOLD));
-		lblInt.setBounds(10, 125, 25, 15);
-
-		Label lblWis = new Label(grpAbilityScores, SWT.NONE);
-		lblWis.setText("Wis");
-		lblWis.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.BOLD));
-		lblWis.setBounds(10, 146, 25, 15);
-
-		Label lblCha = new Label(grpAbilityScores, SWT.NONE);
-		lblCha.setText("Cha");
-		lblCha.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.BOLD));
-		lblCha.setBounds(10, 167, 25, 15);
-
-		Label lblNewLabel = new Label(grpAbilityScores, SWT.NONE);
-		lblNewLabel.setBounds(41, 60, 15, 15);
-		lblNewLabel.setText("20");
-
-		Label label = new Label(grpAbilityScores, SWT.NONE);
-		label.setText("20");
-		label.setBounds(41, 102, 15, 15);
-
-		Label label_1 = new Label(grpAbilityScores, SWT.NONE);
-		label_1.setText("20");
-		label_1.setBounds(41, 123, 15, 15);
-
-		Label label_2 = new Label(grpAbilityScores, SWT.NONE);
-		label_2.setText("20");
-		label_2.setBounds(41, 144, 15, 15);
-
-		Label label_3 = new Label(grpAbilityScores, SWT.NONE);
-		label_3.setText("20");
-		label_3.setBounds(41, 165, 15, 15);
-
-		Label label_4 = new Label(grpAbilityScores, SWT.NONE);
-		label_4.setText("20");
-		label_4.setBounds(41, 81, 15, 15);
-
-		Label label_5 = new Label(grpAbilityScores, SWT.NONE);
-		label_5.setText("=");
-		label_5.setBounds(62, 60, 15, 15);
-
-		Label label_6 = new Label(grpAbilityScores, SWT.NONE);
-		label_6.setText("=");
-		label_6.setBounds(62, 83, 15, 15);
-
-		Label label_7 = new Label(grpAbilityScores, SWT.NONE);
-		label_7.setText("=");
-		label_7.setBounds(62, 104, 15, 15);
-
-		Label label_8 = new Label(grpAbilityScores, SWT.NONE);
-		label_8.setText("=");
-		label_8.setBounds(62, 125, 15, 15);
-
-		Label label_9 = new Label(grpAbilityScores, SWT.NONE);
-		label_9.setText("=");
-		label_9.setBounds(62, 146, 15, 15);
-
-		Label label_10 = new Label(grpAbilityScores, SWT.NONE);
-		label_10.setText("=");
-		label_10.setBounds(62, 167, 15, 15);
-
-		lblChaBase = new Label(grpAbilityScores, SWT.NONE);
-		lblChaBase.setText("20");
-		lblChaBase.setBounds(82, 167, 15, 15);
-
-		lblWisBase = new Label(grpAbilityScores, SWT.NONE);
-		lblWisBase.setText("20");
-		lblWisBase.setBounds(82, 146, 15, 15);
-
-		lblIntBase = new Label(grpAbilityScores, SWT.NONE);
-		lblIntBase.setText("20");
-		lblIntBase.setBounds(82, 125, 15, 15);
-
-		lblConBase = new Label(grpAbilityScores, SWT.NONE);
-		lblConBase.setText("20");
-		lblConBase.setBounds(82, 104, 15, 15);
-
-		lblDexBase = new Label(grpAbilityScores, SWT.NONE);
-		lblDexBase.setText("20");
-		lblDexBase.setBounds(82, 83, 15, 15);
-
-		lblStrBase = new Label(grpAbilityScores, SWT.NONE);
-		lblStrBase.setText("20");
-		lblStrBase.setBounds(82, 62, 15, 15);
-
-		Label label_23 = new Label(grpAbilityScores, SWT.NONE);
-		label_23.setText("+");
-		label_23.setBounds(103, 167, 15, 15);
-
-		Label label_24 = new Label(grpAbilityScores, SWT.NONE);
-		label_24.setText("+");
-		label_24.setBounds(103, 146, 15, 15);
-
-		Label label_25 = new Label(grpAbilityScores, SWT.NONE);
-		label_25.setText("+");
-		label_25.setBounds(103, 125, 15, 15);
-
-		Label label_26 = new Label(grpAbilityScores, SWT.NONE);
-		label_26.setText("+");
-		label_26.setBounds(103, 104, 15, 15);
-
-		Label label_27 = new Label(grpAbilityScores, SWT.NONE);
-		label_27.setText("+");
-		label_27.setBounds(103, 83, 15, 15);
-
-		Label label_28 = new Label(grpAbilityScores, SWT.NONE);
-		label_28.setText("+");
-		label_28.setBounds(103, 60, 15, 15);
-
-		Label label_29 = new Label(grpAbilityScores, SWT.NONE);
-		label_29.setText("20");
-		label_29.setBounds(118, 167, 15, 15);
-
-		Label label_30 = new Label(grpAbilityScores, SWT.NONE);
-		label_30.setText("20");
-		label_30.setBounds(118, 146, 15, 15);
-
-		Label label_31 = new Label(grpAbilityScores, SWT.NONE);
-		label_31.setText("20");
-		label_31.setBounds(118, 125, 15, 15);
-
-		Label label_32 = new Label(grpAbilityScores, SWT.NONE);
-		label_32.setText("20");
-		label_32.setBounds(118, 104, 15, 15);
-
-		Label label_33 = new Label(grpAbilityScores, SWT.NONE);
-		label_33.setText("20");
-		label_33.setBounds(118, 83, 15, 15);
-
-		Label label_34 = new Label(grpAbilityScores, SWT.NONE);
-		label_34.setText("20");
-		label_34.setBounds(118, 62, 15, 15);
-
-		Label label_35 = new Label(grpAbilityScores, SWT.NONE);
-		label_35.setText("20");
-		label_35.setBounds(154, 167, 15, 15);
-
-		Label label_36 = new Label(grpAbilityScores, SWT.NONE);
-		label_36.setText("20");
-		label_36.setBounds(154, 146, 15, 15);
-
-		Label label_37 = new Label(grpAbilityScores, SWT.NONE);
-		label_37.setText("20");
-		label_37.setBounds(154, 125, 15, 15);
-
-		Label label_38 = new Label(grpAbilityScores, SWT.NONE);
-		label_38.setText("20");
-		label_38.setBounds(154, 104, 15, 15);
-
-		Label label_39 = new Label(grpAbilityScores, SWT.NONE);
-		label_39.setText("20");
-		label_39.setBounds(154, 83, 15, 15);
-
-		Label label_40 = new Label(grpAbilityScores, SWT.NONE);
-		label_40.setText("20");
-		label_40.setBounds(154, 62, 15, 15);
-
-		Label label_41 = new Label(grpAbilityScores, SWT.NONE);
-		label_41.setText("+");
-		label_41.setBounds(139, 167, 15, 15);
-
-		Label label_42 = new Label(grpAbilityScores, SWT.NONE);
-		label_42.setText("+");
-		label_42.setBounds(139, 146, 15, 15);
-
-		Label label_43 = new Label(grpAbilityScores, SWT.NONE);
-		label_43.setText("+");
-		label_43.setBounds(139, 125, 15, 15);
-
-		Label label_44 = new Label(grpAbilityScores, SWT.NONE);
-		label_44.setText("+");
-		label_44.setBounds(139, 104, 15, 15);
-
-		Label label_45 = new Label(grpAbilityScores, SWT.NONE);
-		label_45.setText("+");
-		label_45.setBounds(139, 83, 15, 15);
-
-		Label label_46 = new Label(grpAbilityScores, SWT.NONE);
-		label_46.setText("+");
-		label_46.setBounds(139, 60, 15, 15);
-
-		Label label_47 = new Label(grpAbilityScores, SWT.NONE);
-		label_47.setText("20");
-		label_47.setBounds(190, 167, 15, 15);
-
-		Label label_48 = new Label(grpAbilityScores, SWT.NONE);
-		label_48.setText("20");
-		label_48.setBounds(190, 146, 15, 15);
-
-		Label label_49 = new Label(grpAbilityScores, SWT.NONE);
-		label_49.setText("20");
-		label_49.setBounds(190, 125, 15, 15);
-
-		Label label_50 = new Label(grpAbilityScores, SWT.NONE);
-		label_50.setText("20");
-		label_50.setBounds(190, 104, 15, 15);
-
-		Label label_51 = new Label(grpAbilityScores, SWT.NONE);
-		label_51.setText("20");
-		label_51.setBounds(190, 83, 15, 15);
-
-		Label label_52 = new Label(grpAbilityScores, SWT.NONE);
-		label_52.setText("20");
-		label_52.setBounds(190, 62, 15, 15);
-
-		Label label_53 = new Label(grpAbilityScores, SWT.NONE);
-		label_53.setText("-");
-		label_53.setBounds(175, 167, 15, 15);
-
-		Label label_54 = new Label(grpAbilityScores, SWT.NONE);
-		label_54.setText("-");
-		label_54.setBounds(175, 146, 15, 15);
-
-		Label label_55 = new Label(grpAbilityScores, SWT.NONE);
-		label_55.setText("-");
-		label_55.setBounds(175, 125, 15, 15);
-
-		Label label_56 = new Label(grpAbilityScores, SWT.NONE);
-		label_56.setText("-");
-		label_56.setBounds(175, 104, 15, 15);
-
-		Label label_57 = new Label(grpAbilityScores, SWT.NONE);
-		label_57.setText("-");
-		label_57.setBounds(175, 83, 15, 15);
-
-		Label label_58 = new Label(grpAbilityScores, SWT.NONE);
-		label_58.setText("-");
-		label_58.setBounds(175, 60, 15, 15);
-
-		Label label_59 = new Label(grpAbilityScores, SWT.NONE);
-		label_59.setText("20");
-		label_59.setBounds(226, 167, 15, 15);
-
-		Label label_60 = new Label(grpAbilityScores, SWT.NONE);
-		label_60.setText("20");
-		label_60.setBounds(226, 146, 15, 15);
-
-		Label label_61 = new Label(grpAbilityScores, SWT.NONE);
-		label_61.setText("20");
-		label_61.setBounds(226, 125, 15, 15);
-
-		Label label_62 = new Label(grpAbilityScores, SWT.NONE);
-		label_62.setText("20");
-		label_62.setBounds(226, 104, 15, 15);
-
-		Label label_63 = new Label(grpAbilityScores, SWT.NONE);
-		label_63.setText("20");
-		label_63.setBounds(226, 83, 15, 15);
-
-		Label label_64 = new Label(grpAbilityScores, SWT.NONE);
-		label_64.setText("20");
-		label_64.setBounds(226, 62, 15, 15);
+		yPos = 40;
+		// 0trength
+		String[] attributeNames = new String[]
+		{ "Strength", "Dexterity", "Consitution", "Inteligence", "Wisdom",
+				"Charisma" };
+		for (AbilityEnum attrName : AbilityEnum.values())
+		{
+			ArrayList<Label> attrRow = new ArrayList<Label>();
+
+			Label lbl = new Label(grpAbilityScores, SWT.NONE);
+			Label lblTotal = new Label(grpAbilityScores, SWT.NONE);
+			Label lblEqual = new Label(grpAbilityScores, SWT.NONE);
+			Label lblBase = new Label(grpAbilityScores, SWT.NONE);
+			Label lblPlus = new Label(grpAbilityScores, SWT.NONE);
+			Label lblPosMisc = new Label(grpAbilityScores, SWT.NONE);
+			Label lblMinus = new Label(grpAbilityScores, SWT.NONE);
+			Label lblNegMisc = new Label(grpAbilityScores, SWT.NONE);
+			Label lblMod = new Label(grpAbilityScores, SWT.NONE);
+
+			lbl.setBounds(10, yPos, 25, 15);
+			lblTotal.setBounds(40, yPos, 15, 15);
+			lblEqual.setBounds(55, yPos, 10, 15);
+			lblBase.setBounds(70, yPos, 15, 15);
+			lblPlus.setBounds(85, yPos, 10, 15);
+			lblPosMisc.setBounds(100, yPos, 15, 15);
+			lblMinus.setBounds(115, yPos, 10, 15);
+			lblNegMisc.setBounds(130, yPos, 15, 15);
+			lblMod.setBounds(155, yPos, 15, 15);
+
+			lbl.setText(attrName.toString().substring(0, 3));
+			lblTotal.setText("0");
+			lblEqual.setText("=");
+			lblBase.setText("0");
+			lblPlus.setText("+");
+			lblPosMisc.setText("0");
+			lblMinus.setText("-");
+			lblNegMisc.setText("0");
+			lblMod.setText("0");
+			yPos += 20;
+
+			attrRow.add(lblTotal);
+			attrRow.add(lblBase);
+			attrRow.add(lblPosMisc);
+			attrRow.add(lblNegMisc);
+			attrRow.add(lblMod);
+			attrMap.put(attrName, attrRow);
+		}
 
 		Group grpSavingThrows = new Group(composite, SWT.NONE);
 		grpSavingThrows.setText("Saving Throws");
-		grpSavingThrows.setBounds(10, 201, 270, 111);
+		grpSavingThrows.setBounds(10, 201, 256, 111);
 
 		Label lblFortitude = new Label(grpSavingThrows, SWT.NONE);
-		lblFortitude.setFont(SWTResourceManager.getFont("Segoe UI", 10,
+		lblFortitude.setFont(SWTResourceManager.getFont("Segoe UI",
+				10,
 				SWT.BOLD));
-		lblFortitude.setBounds(10, 44, 60, 15);
-		lblFortitude.setText("Fortitude");
+		lblFortitude.setBounds(10, 44, 30, 15);
+		lblFortitude.setText("Fort");
 
 		Label lblReflex = new Label(grpSavingThrows, SWT.NONE);
 		lblReflex.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.BOLD));
-		lblReflex.setText("Reflex");
-		lblReflex.setBounds(10, 65, 60, 15);
+		lblReflex.setText("Ref");
+		lblReflex.setBounds(10, 65, 30, 15);
 
 		Label lblWill = new Label(grpSavingThrows, SWT.NONE);
 		lblWill.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.BOLD));
 		lblWill.setText("Will");
-		lblWill.setBounds(10, 86, 60, 15);
+		lblWill.setBounds(10, 86, 30, 15);
 
 		Label label_17 = new Label(grpSavingThrows, SWT.NONE);
 		label_17.setBounds(76, 44, 15, 15);
@@ -496,128 +279,14 @@ public class CharacterSheetUI extends ApplicationWindow
 		label_89.setText("00");
 		label_89.setBounds(242, 65, 15, 15);
 
-		Label label_90 = new Label(grpSavingThrows, SWT.NONE);
-		label_90.setText("+");
-		label_90.setBounds(232, 86, 15, 15);
-
-		Label label_91 = new Label(grpSavingThrows, SWT.NONE);
-		label_91.setText("00");
-		label_91.setBounds(242, 86, 15, 15);
-
-		Button button = new Button(composite, SWT.NONE);
-		button.setBounds(272, 71, 40, 15);
-		button.setText("Roll");
-
-		Button button_1 = new Button(composite, SWT.NONE);
-		button_1.setText("Roll");
-		button_1.setBounds(272, 92, 40, 15);
-
-		Button button_2 = new Button(composite, SWT.NONE);
-		button_2.setText("Roll");
-		button_2.setBounds(272, 113, 40, 15);
-
-		Button button_3 = new Button(composite, SWT.NONE);
-		button_3.setText("Roll");
-		button_3.setBounds(272, 134, 40, 15);
-
-		Button button_4 = new Button(composite, SWT.NONE);
-		button_4.setText("Roll");
-		button_4.setBounds(272, 155, 40, 15);
-
-		Button button_5 = new Button(composite, SWT.NONE);
-		button_5.setText("Roll");
-		button_5.setBounds(272, 176, 40, 15);
-
-		Group grpCharacter = new Group(composite, SWT.NONE);
-		grpCharacter.setText("Character");
-		grpCharacter.setBounds(318, 10, 290, 302);
-
-		txtCharacterName = new Text(grpCharacter, SWT.BORDER);
-		txtCharacterName.setText("Player Name");
-		txtCharacterName.setBounds(150, 49, 130, 21);
-
-		Label lblPlayerName = new Label(grpCharacter, SWT.NONE);
-		lblPlayerName.setBounds(150, 28, 86, 15);
-		lblPlayerName.setText("Player Name");
-
-		Label lblSize = new Label(grpCharacter, SWT.NONE);
-		lblSize.setBounds(10, 80, 34, 15);
-		lblSize.setText("Size");
-
-		Label lblGender = new Label(grpCharacter, SWT.NONE);
-		lblGender.setBounds(141, 80, 44, 15);
-		lblGender.setText("Gender");
-
-		Label lblNewLabel_1 = new Label(grpCharacter, SWT.NONE);
-		lblNewLabel_1.setBounds(10, 110, 55, 15);
-		lblNewLabel_1.setText("Morality");
-
-		Label lblOrder = new Label(grpCharacter, SWT.NONE);
-		lblOrder.setBounds(10, 160, 55, 15);
-		lblOrder.setText("Order");
-
-		final Combo combo = new Combo(grpCharacter, SWT.NONE);
-		combo.setItems(new String[]
-		{ "Good", "Neutral", "Evil" });
-		combo.setBounds(10, 131, 91, 23);
-		combo.addSelectionListener(new SelectionListener()
-		{
-
-			@Override
-			public void widgetSelected(SelectionEvent event)
-			{
-				int a = combo.getSelectionIndex();
-				if (a >= 0)
-					alignment.assign(combo.getItem(a), 'M');
-				// update(text);
-			}
-
-			@Override
-			public void widgetDefaultSelected(SelectionEvent event)
-			{
-				int a = combo.getSelectionIndex();
-				if (a >= 0)
-					alignment.assign(combo.getItem(a), 'M');
-				// update(text);
-			}
-		});
-
-		final Combo combo_1 = new Combo(grpCharacter, SWT.NONE);
-		combo_1.setItems(new String[]
-		{ "Lawful", "Neutral", "Chaotic" });
-		combo_1.setBounds(10, 181, 91, 23);
-
-		text = new Text(grpCharacter, SWT.BORDER | SWT.READ_ONLY | SWT.WRAP
-				| SWT.V_SCROLL);
-		text.setBounds(109, 107, 171, 185);
-
-		Combo combo_2 = new Combo(grpCharacter, SWT.NONE);
-		combo_2.setItems(new String[]
-		{ "Fine", "Diminuitive", "Tiny", "Small", "Medium", "Large", "Huge",
-				"Gargantuan", "Colossal" });
-		combo_2.setBounds(39, 76, 91, 23);
-		combo_2.select(4);
-
-		Combo combo_3 = new Combo(grpCharacter, SWT.NONE);
-		combo_3.setItems(new String[]
-		{ "Male", "Female", "Nondescript" });
-		combo_3.setBounds(189, 76, 91, 23);
-
-		txtCharacterName_1 = new Text(grpCharacter, SWT.BORDER);
-		txtCharacterName_1.setBounds(14, 49, 130, 21);
-		txtCharacterName_1.setText("Character Name");
-
-		Label lblCharacterName = new Label(grpCharacter, SWT.NONE);
-		lblCharacterName.setBounds(14, 28, 96, 15);
-		lblCharacterName.setText("Character Name");
 
 		Group grpAttackBonus = new Group(composite, SWT.NONE);
 		grpAttackBonus.setText("Attack Bonus");
-		grpAttackBonus.setBounds(10, 318, 270, 95);
+		grpAttackBonus.setBounds(277, 10, 270, 95);
 
 		Label lblBaseAttackBonus = new Label(grpAttackBonus, SWT.NONE);
 		lblBaseAttackBonus.setBounds(10, 21, 97, 15);
-		lblBaseAttackBonus.setText("Base Attack Bonus");
+		lblBaseAttackBonus.setText("");
 
 		Label lblWeapon = new Label(grpAttackBonus, SWT.NONE);
 		lblWeapon.setBounds(10, 42, 55, 15);
@@ -643,42 +312,24 @@ public class CharacterSheetUI extends ApplicationWindow
 		label_95.setText("=");
 		label_95.setBounds(113, 63, 8, 15);
 
-		combo_1.addSelectionListener(new SelectionListener()
-		{
-
-			@Override
-			public void widgetSelected(SelectionEvent event)
-			{
-				int a = combo_1.getSelectionIndex();
-				if (a >= 0)
-					alignment.assign(combo_1.getItem(a), 'O');
-				// update(text);
-			}
-
-			@Override
-			public void widgetDefaultSelected(SelectionEvent event)
-			{
-				int a = combo_1.getSelectionIndex();
-				if (a >= 0)
-					alignment.assign(combo_1.getItem(a), 'O');
-				// update(text);
-			}
-		});
+		Label lblCharacterName = new Label(container, SWT.NONE);
+		lblCharacterName.setBounds(10, 10, 95, 15);
+		lblCharacterName.setText("Character Name: ");
+		lblCharacterName.setText("Character Name");
+		
+		Label lblCharname = new Label(container, SWT.NONE);
+		lblCharname.setBounds(111, 10, 200, 15);
+		lblCharname.setText("CharName");
+		
+		Label lblPlayerName = new Label(container, SWT.NONE);
+		lblPlayerName.setText("Player Name: ");
+		lblPlayerName.setBounds(317, 10, 95, 15);
+		
+		Label lblPlayername = new Label(container, SWT.NONE);
+		lblPlayername.setText("PlayerName");
+		lblPlayername.setBounds(418, 10, 200, 15);
 
 		return container;
-	}
-
-	/**
-	 * Create the actions.
-	 */
-	private void createActions()
-	{
-		{
-			new Action("New Character")
-			{
-
-			};
-		}
 	}
 
 	/**
@@ -689,25 +340,15 @@ public class CharacterSheetUI extends ApplicationWindow
 	@Override
 	protected MenuManager createMenuManager()
 	{
-		MenuManager menuManager = new MenuManager("menu");
+		MenuManager menuManager = new MenuManager("m34u");
 		{
 			MenuManager menuManager_1 = new MenuManager("File");
 			menuManager.add(menuManager_1);
-			menuManager_1.add(new newChar());
+			newChar newChar_ = new newChar();
+			newChar_.setText("New Character");
+			menuManager_1.add(newChar_);
 		}
 		return menuManager;
-	}
-
-	/**
-	 * Create the toolbar manager.
-	 * 
-	 * @return the toolbar manager
-	 */
-	@Override
-	protected ToolBarManager createToolBarManager(int style)
-	{
-		ToolBarManager toolBarManager = new ToolBarManager(style);
-		return toolBarManager;
 	}
 
 	/**
@@ -721,25 +362,6 @@ public class CharacterSheetUI extends ApplicationWindow
 		StatusLineManager statusLineManager = new StatusLineManager();
 		return statusLineManager;
 	}
-
-	/**
-	 * Launch the application.
-	 * 
-	 * @param args
-	 */
-	// public static void main(String args[])
-	// {
-	// try
-	// {
-	// CharacterSheetUI window = new CharacterSheetUI();
-	// window.setBlockOnOpen(true);
-	// window.open();
-	// Display.getCurrent().dispose();
-	// } catch (Exception e)
-	// {
-	// e.printStackTrace();
-	// }
-	// }
 
 	/**
 	 * Configure the shell.
@@ -762,24 +384,34 @@ public class CharacterSheetUI extends ApplicationWindow
 		return new Point(994, 713);
 	}
 
-	public void update()
+	/**
+	 * Updates the Character sheet with data from a character sheet class
+	 */
+	public void updatePage()
 	{
 		this.charSheet = Main.getInstace().getCharSheet();
 		// text.setText(alignment.getAlignmentText());
 		if (charSheet != null)
 		{
-			lblStrBase.setText(Integer.toString(charSheet
-					.getAbilityScore(AbilityEnum.Str)));
-			lblDexBase.setText(Integer.toString(charSheet
-					.getAbilityScore(AbilityEnum.Dex)));
-			lblConBase.setText(Integer.toString(charSheet
-					.getAbilityScore(AbilityEnum.Con)));
-			lblIntBase.setText(Integer.toString(charSheet
-					.getAbilityScore(AbilityEnum.Int)));
-			lblWisBase.setText(Integer.toString(charSheet
-					.getAbilityScore(AbilityEnum.Wis)));
-			lblChaBase.setText(Integer.toString(charSheet
-					.getAbilityScore(AbilityEnum.Cha)));
+			updateAttr();
+		}
+	}
+
+	private void updateAttr()
+	{
+		for (AbilityEnum ability : AbilityEnum.values())
+		{
+			// Total, Base, Misc+, Misc-, Modifier
+			ArrayList<Integer> scores = charSheet.getAbilityScoreList(ability);
+			// Total, Base, Misc+, Misc-, mod
+			ArrayList<Label> labels = attrMap.get(ability);
+
+			labels.get(0).setText(scores.get(0).toString());
+			labels.get(1).setText(scores.get(1).toString());
+			labels.get(2).setText(scores.get(2).toString());
+			labels.get(3).setText(scores.get(3).toString());
+			labels.get(4).setText(scores.get(4).toString());
+
 		}
 	}
 }

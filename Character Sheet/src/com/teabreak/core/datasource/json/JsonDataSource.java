@@ -3,6 +3,7 @@ package com.teabreak.core.datasource.json;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.SortedMap;
 
 import com.teabreak.core.aspects.AspectsEnum;
 import com.teabreak.core.aspects.AspectsInterface;
@@ -19,7 +20,7 @@ public class JsonDataSource implements DataSourceInterface
 	}
 
 	@Override
-	public HashMap<String, AspectsInterface> getDataSetOfType(
+	public SortedMap<String, AspectsInterface> getDataSetOfType(
 			AspectsEnum dataType)
 	{
 

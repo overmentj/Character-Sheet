@@ -3,6 +3,8 @@ package com.teabreak.core.data;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import com.teabreak.core.aspects.AspectsEnum;
 import com.teabreak.core.aspects.AspectsInterface;
@@ -14,9 +16,9 @@ import com.teabreak.core.datasource.DataSourceInterface;
 public class LoadedData
 {
 
-	private HashMap<String, CharClass> classMap = new HashMap<String, CharClass>();
-	private HashMap<String, Race> raceMap = new HashMap<String, Race>();
-	private HashMap<String, Skill> skillMap = new HashMap<String, Skill>();
+	private SortedMap<String, CharClass> classMap = new TreeMap<String, CharClass>();
+	private SortedMap<String, Race> raceMap = new TreeMap<String, Race>();
+	private SortedMap<String, Skill> skillMap = new TreeMap<String, Skill>();
 
 	@SuppressWarnings("unchecked")
 	public void loadData(DataSourceInterface dataSource)
@@ -29,7 +31,7 @@ public class LoadedData
 				.getDataSetOfType(AspectsEnum.Skill));
 	}
 
-	public HashMap<String, ? extends AspectsInterface> getDataSetOfType(
+	public SortedMap<String, ? extends AspectsInterface> getDataSetOfType(
 			AspectsEnum type)
 	{
 		switch (type)

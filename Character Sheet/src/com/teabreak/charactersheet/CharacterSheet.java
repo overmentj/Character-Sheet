@@ -1,8 +1,13 @@
 package com.teabreak.charactersheet;
 
+import java.util.ArrayList;
+import java.util.SortedMap;
+import java.util.TreeMap;
+
 import com.teabreak.core.aspects.CharClass;
 import com.teabreak.core.aspects.Race;
 import com.teabreak.core.aspects.enums.AbilityEnum;
+import com.teabreak.core.aspects.enums.SaveEnum;
 
 public class CharacterSheet
 {
@@ -14,22 +19,24 @@ public class CharacterSheet
 	private Race charRace;
 
 	private int level;
-
-	private int strength;
-	private int dexterity;
-	private int constitution;
-	private int intelligence;
-	private int wisdom;
-	private int charisma;
-
-	private int willSave;
-	private int reflexSave;
-	private int fortitudeSave;
-	private String alignment;
-
 	private long experience;
-
 	private boolean levelledUp = false;
+
+	/**
+	 * Map of ability scores: Total, Base, Misc+, Misc-, Modifier
+	 */
+	private SortedMap<AbilityEnum, ArrayList<Integer>> attrMap = new TreeMap<AbilityEnum, ArrayList<Integer>>();
+
+	/**
+	 * Map of save scores: Total, Base, Mod, Magic, Misc, Temp
+	 */
+	private SortedMap<SaveEnum, ArrayList<Integer>> saveMap = new TreeMap<SaveEnum, ArrayList<Integer>>();
+
+	private SaveEnum.saveScore willSave;
+	private SaveEnum.saveScore reflexSave;
+	private SaveEnum.saveScore fortitudeSave;
+
+	private String alignment;
 
 	public CharacterSheet(Race charRace, CharClass charClass, int strength,
 			int dexterity, int consitution, int intelligence, int wisdom,
@@ -37,13 +44,45 @@ public class CharacterSheet
 	{
 		this.charRace = charRace;
 		this.charClass = charClass;
-		this.strength = strength;
-		this.dexterity = dexterity;
-		this.constitution = consitution;
-		this.intelligence = intelligence;
-		this.wisdom = wisdom;
-		this.charisma = charisma;
+		updateAbilityScore(AbilityEnum.Str, strength, 0, 0);
+		updateAbilityScore(AbilityEnum.Dex, dexterity, 0, 0);
+		updateAbilityScore(AbilityEnum.Con, consitution, 0, 0);
+		updateAbilityScore(AbilityEnum.Int, intelligence, 0, 0);
+		updateAbilityScore(AbilityEnum.Wis, wisdom, 0, 0);
+		updateAbilityScore(AbilityEnum.Cha, charisma, 0, 0);
 
+	}
+
+	public void updateAbilityScore(AbilityEnum ability, int base, int posMisc,
+			int negMisc)
+	{
+		ArrayList<Integer> attr = new ArrayList<Integer>();
+		Integer total = base + posMisc - negMisc;
+		attr.add(total);
+		attr.add(base);
+		attr.add(posMisc);
+		attr.add(negMisc);
+		attr.add(AbilityEnum.getModifier(total));
+		attrMap.put(ability, attr);
+
+		// Prepare for GC
+		attr = null;
+		total = null;
+	}
+
+	public ArrayList<Integer> getAbilityScoreList(AbilityEnum ability)
+	{
+		return attrMap.get(ability);
+	}
+
+	public int getAbilityScore(AbilityEnum ability)
+	{
+		return attrMap.get(ability).get(0);
+	}
+
+	public int getAbilityModifier(AbilityEnum ability)
+	{
+		return attrMap.get(ability).get(4);
 	}
 
 	public void addExperience(Long experienceGained)
@@ -66,61 +105,6 @@ public class CharacterSheet
 	public String getCharacterAlignment()
 	{
 		return alignment;
-	}
-
-	public int getAbilityScore(AbilityEnum ability)
-	{
-		int score = 0;
-		switch (ability)
-		{
-		case Str:
-			score = strength;
-			break;
-		case Dex:
-			score = dexterity;
-			break;
-		case Con:
-			score = constitution;
-			break;
-		case Int:
-			score = intelligence;
-			break;
-		case Wis:
-			score = wisdom;
-			break;
-		case Cha:
-			score = charisma;
-			break;
-		}
-		return score;
-	}
-
-	public int getAbilityModifier(AbilityEnum ability)
-	{
-		int mod = 0;
-		switch (ability)
-		{
-		case Str:
-			mod = getModifier(strength);
-			break;
-		case Dex:
-			mod = getModifier(dexterity);
-			break;
-		case Con:
-			mod = getModifier(constitution);
-			break;
-		case Int:
-			mod = getModifier(intelligence);
-			break;
-		case Wis:
-			mod = getModifier(wisdom);
-			break;
-		case Cha:
-			mod = getModifier(charisma);
-			break;
-		}
-
-		return mod;
 	}
 
 	public boolean isLevelledUp()
@@ -148,19 +132,24 @@ public class CharacterSheet
 		this.characterName = characterName;
 	}
 
-	private int getModifier(int attribute)
-	{
-		if (attribute > 10)
-		{
-			return (attribute - 10) / 2;
-		} else
-		{
-			return 0 - ((10 - attribute) / 2);
-		}
-	}
-
 	private void checkLevelledUp()
 	{
 
 	}
+
+	public CharClass getCharClass()
+	{
+		return charClass;
+	}
+
+	public Race getCharRace()
+	{
+		return charRace;
+	}
+
+	public int getLevel()
+	{
+		return level;
+	}
+
 }

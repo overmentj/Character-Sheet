@@ -2,6 +2,7 @@ package com.teabreak.gui.charactersheet.charactercreation;
 
 import java.util.Set;
 
+import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Combo;
@@ -88,5 +89,5 @@ public class CreationRace extends WizardPage implements Listener
 			textRace.setText(selRace.getDescription());
 		}
 	}
-
+	
 }
