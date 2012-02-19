@@ -19,7 +19,8 @@ public class newChar extends Action
 	{
 		try
 		{
-			WizardDialog newChar = new WizardDialog(HomeUI.getInstance(), new CharacterCreationWizard());
+			WizardDialog newChar = new WizardDialog(HomeUI.getInstance(),
+					new CharacterCreationWizard());
 			newChar.open();
 			HomeUI.getInstance().setVisible(false);
 		} catch (Exception e)

@@ -34,7 +34,7 @@ public class CharacterSheetUI extends ApplicationWindow
 	Alignment alignment;
 	CharacterSheet charSheet = null;
 	private Text text;
-	
+
 	// Create all the character sheet objects
 	Label lblStrBase;
 	Label lblDexBase;
@@ -42,7 +42,7 @@ public class CharacterSheetUI extends ApplicationWindow
 	Label lblIntBase;
 	Label lblWisBase;
 	Label lblChaBase;
-	
+
 	/**
 	 * Create the application window.
 	 */
@@ -53,7 +53,6 @@ public class CharacterSheetUI extends ApplicationWindow
 		addToolBar(SWT.FLAT | SWT.WRAP);
 		addMenuBar();
 		addStatusLine();
-
 
 		alignment = new Alignment(charSheet);
 	}
@@ -564,20 +563,22 @@ public class CharacterSheetUI extends ApplicationWindow
 		combo.addSelectionListener(new SelectionListener()
 		{
 
+			@Override
 			public void widgetSelected(SelectionEvent event)
 			{
 				int a = combo.getSelectionIndex();
 				if (a >= 0)
 					alignment.assign(combo.getItem(a), 'M');
-				//update(text);
+				// update(text);
 			}
 
+			@Override
 			public void widgetDefaultSelected(SelectionEvent event)
 			{
 				int a = combo.getSelectionIndex();
 				if (a >= 0)
 					alignment.assign(combo.getItem(a), 'M');
-				//update(text);
+				// update(text);
 			}
 		});
 
@@ -596,47 +597,48 @@ public class CharacterSheetUI extends ApplicationWindow
 				"Gargantuan", "Colossal" });
 		combo_2.setBounds(39, 76, 91, 23);
 		combo_2.select(4);
-		
+
 		Combo combo_3 = new Combo(grpCharacter, SWT.NONE);
-		combo_3.setItems(new String[] {"Male", "Female", "Nondescript"});
+		combo_3.setItems(new String[]
+		{ "Male", "Female", "Nondescript" });
 		combo_3.setBounds(189, 76, 91, 23);
-		
-				txtCharacterName_1 = new Text(grpCharacter, SWT.BORDER);
-				txtCharacterName_1.setBounds(14, 49, 130, 21);
-				txtCharacterName_1.setText("Character Name");
-				
-						Label lblCharacterName = new Label(grpCharacter, SWT.NONE);
-						lblCharacterName.setBounds(14, 28, 96, 15);
-						lblCharacterName.setText("Character Name");
-		
+
+		txtCharacterName_1 = new Text(grpCharacter, SWT.BORDER);
+		txtCharacterName_1.setBounds(14, 49, 130, 21);
+		txtCharacterName_1.setText("Character Name");
+
+		Label lblCharacterName = new Label(grpCharacter, SWT.NONE);
+		lblCharacterName.setBounds(14, 28, 96, 15);
+		lblCharacterName.setText("Character Name");
+
 		Group grpAttackBonus = new Group(composite, SWT.NONE);
 		grpAttackBonus.setText("Attack Bonus");
 		grpAttackBonus.setBounds(10, 318, 270, 95);
-		
+
 		Label lblBaseAttackBonus = new Label(grpAttackBonus, SWT.NONE);
 		lblBaseAttackBonus.setBounds(10, 21, 97, 15);
 		lblBaseAttackBonus.setText("Base Attack Bonus");
-		
+
 		Label lblWeapon = new Label(grpAttackBonus, SWT.NONE);
 		lblWeapon.setBounds(10, 42, 55, 15);
 		lblWeapon.setText("Weapon");
-		
+
 		Label lblWeapon_1 = new Label(grpAttackBonus, SWT.NONE);
 		lblWeapon_1.setBounds(10, 63, 55, 15);
 		lblWeapon_1.setText("Weapon1");
-		
+
 		Label label_92 = new Label(grpAttackBonus, SWT.NONE);
 		label_92.setBounds(127, 21, 115, 15);
 		label_92.setText("+20 / +15 / +10 / +5");
-		
+
 		Label label_93 = new Label(grpAttackBonus, SWT.NONE);
 		label_93.setBounds(113, 21, 8, 15);
 		label_93.setText("=");
-		
+
 		Label label_94 = new Label(grpAttackBonus, SWT.NONE);
 		label_94.setText("=");
 		label_94.setBounds(113, 42, 8, 15);
-		
+
 		Label label_95 = new Label(grpAttackBonus, SWT.NONE);
 		label_95.setText("=");
 		label_95.setBounds(113, 63, 8, 15);
@@ -644,20 +646,22 @@ public class CharacterSheetUI extends ApplicationWindow
 		combo_1.addSelectionListener(new SelectionListener()
 		{
 
+			@Override
 			public void widgetSelected(SelectionEvent event)
 			{
 				int a = combo_1.getSelectionIndex();
 				if (a >= 0)
 					alignment.assign(combo_1.getItem(a), 'O');
-				//update(text);
+				// update(text);
 			}
 
+			@Override
 			public void widgetDefaultSelected(SelectionEvent event)
 			{
 				int a = combo_1.getSelectionIndex();
 				if (a >= 0)
 					alignment.assign(combo_1.getItem(a), 'O');
-				//update(text);
+				// update(text);
 			}
 		});
 
@@ -723,19 +727,19 @@ public class CharacterSheetUI extends ApplicationWindow
 	 * 
 	 * @param args
 	 */
-//	public static void main(String args[])
-//	{
-//		try
-//		{
-//			CharacterSheetUI window = new CharacterSheetUI();
-//			window.setBlockOnOpen(true);
-//			window.open();
-//			Display.getCurrent().dispose();
-//		} catch (Exception e)
-//		{
-//			e.printStackTrace();
-//		}
-//	}
+	// public static void main(String args[])
+	// {
+	// try
+	// {
+	// CharacterSheetUI window = new CharacterSheetUI();
+	// window.setBlockOnOpen(true);
+	// window.open();
+	// Display.getCurrent().dispose();
+	// } catch (Exception e)
+	// {
+	// e.printStackTrace();
+	// }
+	// }
 
 	/**
 	 * Configure the shell.
@@ -761,14 +765,21 @@ public class CharacterSheetUI extends ApplicationWindow
 	public void update()
 	{
 		this.charSheet = Main.getInstace().getCharSheet();
-		//text.setText(alignment.getAlignmentText());
-		if(charSheet != null){
-			lblStrBase.setText(Integer.toString(charSheet.getAbilityScore(AbilityEnum.Str)));
-			lblDexBase.setText(Integer.toString(charSheet.getAbilityScore(AbilityEnum.Dex))); 
-			lblConBase.setText(Integer.toString(charSheet.getAbilityScore(AbilityEnum.Con))); 
-			lblIntBase.setText(Integer.toString(charSheet.getAbilityScore(AbilityEnum.Int))); 
-			lblWisBase.setText(Integer.toString(charSheet.getAbilityScore(AbilityEnum.Wis))); 
-			lblChaBase.setText(Integer.toString(charSheet.getAbilityScore(AbilityEnum.Cha))); 					
+		// text.setText(alignment.getAlignmentText());
+		if (charSheet != null)
+		{
+			lblStrBase.setText(Integer.toString(charSheet
+					.getAbilityScore(AbilityEnum.Str)));
+			lblDexBase.setText(Integer.toString(charSheet
+					.getAbilityScore(AbilityEnum.Dex)));
+			lblConBase.setText(Integer.toString(charSheet
+					.getAbilityScore(AbilityEnum.Con)));
+			lblIntBase.setText(Integer.toString(charSheet
+					.getAbilityScore(AbilityEnum.Int)));
+			lblWisBase.setText(Integer.toString(charSheet
+					.getAbilityScore(AbilityEnum.Wis)));
+			lblChaBase.setText(Integer.toString(charSheet
+					.getAbilityScore(AbilityEnum.Cha)));
 		}
 	}
 }

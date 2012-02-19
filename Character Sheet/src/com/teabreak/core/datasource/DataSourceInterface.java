@@ -14,14 +14,15 @@ public interface DataSourceInterface
 	 * @return
 	 */
 	public abstract AspectsInterface getDateOfType(AspectsEnum dataType);
-	
-	//public abstract ArrayList<AspectsInterface> getDataSetOfType(AspectsEnum dataType);
-	public abstract HashMap<String, AspectsInterface> getDataSetOfType(AspectsEnum dataType);
-	
-	public abstract void putData(ArrayList<AspectsInterface> data, AspectsEnum dataType);
+
+	// public abstract ArrayList<AspectsInterface> getDataSetOfType(AspectsEnum
+	// dataType);
+	public abstract HashMap<String, AspectsInterface> getDataSetOfType(
+			AspectsEnum dataType);
+
+	public abstract void putData(ArrayList<AspectsInterface> data,
+			AspectsEnum dataType);
 
 	public abstract void putData(AspectsInterface data, AspectsEnum dataType);
 
-	
-	
 }

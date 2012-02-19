@@ -2,18 +2,15 @@ package com.teabreak.gui.charactersheet.charactercreation;
 
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Widget;
 
-import com.teabreak.core.aspects.enums.AbilityEnum;
 import com.teabreak.core.dicebag.DiceRolling;
 
 public class CreationAbilityScores extends WizardPage implements Listener
@@ -68,6 +65,7 @@ public class CreationAbilityScores extends WizardPage implements Listener
 	 * 
 	 * @param parent
 	 */
+	@Override
 	public void createControl(Composite parent)
 	{
 		Composite container = new Composite(parent, SWT.NULL);
@@ -215,6 +213,7 @@ public class CreationAbilityScores extends WizardPage implements Listener
 	{
 		text.addListener(SWT.Verify, new Listener()
 		{
+			@Override
 			public void handleEvent(Event e)
 			{
 				String string = e.text;

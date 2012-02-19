@@ -40,6 +40,7 @@ public class CreationSkills extends WizardPage implements Listener
 	 * 
 	 * @param parent
 	 */
+	@Override
 	public void createControl(Composite parent)
 	{
 		Composite container = new Composite(parent, SWT.NULL);
@@ -140,7 +141,7 @@ public class CreationSkills extends WizardPage implements Listener
 		ArrayList<Widget> widgets = skillsWidgets.get(skill);
 		Text rank = (Text) widgets.get(3);
 		Integer ranks = Integer.parseInt(rank.getText());
-		ranks --;
+		ranks--;
 		rank.setText(ranks.toString());
 	}
 
@@ -149,7 +150,7 @@ public class CreationSkills extends WizardPage implements Listener
 		ArrayList<Widget> widgets = skillsWidgets.get(skill);
 		Text rank = (Text) widgets.get(3);
 		Integer ranks = Integer.parseInt(rank.getText());
-		ranks ++;
+		ranks++;
 		rank.setText(ranks.toString());
 	}
 }

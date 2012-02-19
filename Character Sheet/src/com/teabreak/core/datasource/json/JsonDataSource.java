@@ -19,19 +19,19 @@ public class JsonDataSource implements DataSourceInterface
 	}
 
 	@Override
-	public HashMap<String, AspectsInterface> getDataSetOfType(AspectsEnum dataType)
+	public HashMap<String, AspectsInterface> getDataSetOfType(
+			AspectsEnum dataType)
 	{
 
 		String fileSearch = "";
 		ArrayList<AspectsInterface> data = new ArrayList<AspectsInterface>();
-		
+
 		switch (dataType)
 		{
 		case Skill:
 			// File regex search
 			fileSearch = "*Skills.json";
-			
-			
+
 			break;
 
 		case Class:
@@ -49,9 +49,9 @@ public class JsonDataSource implements DataSourceInterface
 		case Equipment:
 			break;
 		}
-		
+
 		// Find files
-		
+
 		// Parse Files
 		return null;
 	}

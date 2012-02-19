@@ -1,6 +1,5 @@
 package com.teabreak.charactersheet;
 
-import com.teabreak.core.aspects.enums.AlignmentEnum;
 import com.teabreak.core.aspects.CharClass;
 import com.teabreak.core.aspects.Race;
 import com.teabreak.core.aspects.enums.AbilityEnum;
@@ -44,12 +43,13 @@ public class CharacterSheet
 		this.intelligence = intelligence;
 		this.wisdom = wisdom;
 		this.charisma = charisma;
-		
+
 	}
 
 	public void addExperience(Long experienceGained)
 	{
 		this.experience += experienceGained;
+		this.checkLevelledUp();
 	}
 
 	public long getExperience()

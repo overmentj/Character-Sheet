@@ -13,25 +13,28 @@ import com.teabreak.core.datasource.GetData;
  * Use to read in all JSON files
  * 
  * @author Robin
- *
+ * 
  */
-public class ImportJson implements GetData {
+public class ImportJson implements GetData
+{
 	String file;
+
 	@Override
-	public <T> AspectsInterface getDataOfType(String file, Class<T> classOfT) {
+	public <T> AspectsInterface getDataOfType(String file, Class<T> classOfT)
+	{
 		Gson gson = new GsonBuilder().create();
 		if (file == null)
 		{
-		file = "default.json";
-		}
-		 else
+			file = "default.json";
+		} else
 		{
-			 this.file = file;
+			this.file = file;
 		}
-		
-		Reader reader = new InputStreamReader(EquipmentImport.class.getResourceAsStream(file));
-		
+
+		Reader reader = new InputStreamReader(
+				EquipmentImport.class.getResourceAsStream(file));
+
 		return (AspectsInterface) gson.fromJson(reader, classOfT);
 	}
-	
+
 }

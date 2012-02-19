@@ -1,6 +1,5 @@
 package com.teabreak.core.data;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -30,7 +29,8 @@ public class LoadedData
 				.getDataSetOfType(AspectsEnum.Skill));
 	}
 
-	public HashMap<String, ? extends AspectsInterface> getDataSetOfType(AspectsEnum type)
+	public HashMap<String, ? extends AspectsInterface> getDataSetOfType(
+			AspectsEnum type)
 	{
 		switch (type)
 		{

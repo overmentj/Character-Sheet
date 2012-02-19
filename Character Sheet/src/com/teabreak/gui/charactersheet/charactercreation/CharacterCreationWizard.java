@@ -55,8 +55,10 @@ public class CharacterCreationWizard extends Wizard
 		}
 		return false;
 	}
-	
-	public boolean canFinish(){
+
+	@Override
+	public boolean canFinish()
+	{
 		if (model.charClass != null && model.charRace != null
 				&& model.strength != null && model.dexterity != null
 				&& model.constitution != null && model.intelligence != null

@@ -47,8 +47,9 @@ public class CharClass implements AspectsInterface
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	public String getDescription(){
+
+	public String getDescription()
+	{
 		return description;
 	}
 }

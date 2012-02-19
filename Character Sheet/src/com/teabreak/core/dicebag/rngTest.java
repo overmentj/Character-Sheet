@@ -1,6 +1,5 @@
 package com.teabreak.core.dicebag;
 
-
 public class rngTest
 {
 	public static void main(String[] args)
