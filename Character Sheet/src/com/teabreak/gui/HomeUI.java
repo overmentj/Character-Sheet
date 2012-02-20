@@ -8,11 +8,13 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
 import com.teabreak.gui.charactersheet.CharacterSheetUI;
+import com.teabreak.gui.databrowse.DataBrowseUi;
 
 public class HomeUI extends Shell
 {
 	private static HomeUI instance = null;
 	private CharacterSheetUI characterSheet = null;
+	private DataBrowseUi dataBrowse = null;
 
 	public CharacterSheetUI getCharacterSheetUi()
 	{
@@ -63,14 +65,6 @@ public class HomeUI extends Shell
 		Button btnCharacterSheet = new Button(this, SWT.NONE);
 		btnCharacterSheet.setBounds(10, 10, 120, 25);
 		btnCharacterSheet.setText("Character Sheet");
-
-		Button btnNpcSheet = new Button(this, SWT.NONE);
-		btnNpcSheet.setBounds(10, 41, 120, 25);
-		btnNpcSheet.setText("NPC Sheet");
-
-		Button btnDataBrowse = new Button(this, SWT.NONE);
-		btnDataBrowse.setBounds(10, 72, 120, 25);
-		btnDataBrowse.setText("Browse Data");
 		btnCharacterSheet.addSelectionListener(new SelectionAdapter()
 		{
 			@Override
@@ -81,6 +75,34 @@ public class HomeUI extends Shell
 					characterSheet = new CharacterSheetUI();
 					characterSheet.setBlockOnOpen(true);
 					characterSheet.open();
+					HomeUI.getInstance().setVisible(false);
+				} catch (Exception e)
+				{
+					e.printStackTrace();
+				} finally
+				{
+					HomeUI.getInstance().setVisible(true);
+				}
+			}
+		});
+
+		Button btnNpcSheet = new Button(this, SWT.NONE);
+		btnNpcSheet.setBounds(10, 41, 120, 25);
+		btnNpcSheet.setText("NPC Sheet");
+
+		Button btnDataBrowse = new Button(this, SWT.NONE);
+		btnDataBrowse.setBounds(10, 72, 120, 25);
+		btnDataBrowse.setText("Browse Data");
+		btnDataBrowse.addSelectionListener(new SelectionAdapter()
+		{
+			@Override
+			public void widgetSelected(SelectionEvent event)
+			{
+				try
+				{
+					dataBrowse = new DataBrowseUi();
+					dataBrowse.setBlockOnOpen(true);
+					dataBrowse.open();
 					HomeUI.getInstance().setVisible(false);
 				} catch (Exception e)
 				{
