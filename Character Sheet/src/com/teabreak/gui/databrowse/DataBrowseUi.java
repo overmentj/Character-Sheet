@@ -29,6 +29,8 @@ import org.eclipse.swt.widgets.TableItem;
 public class DataBrowseUi extends ApplicationWindow implements Listener
 {
 	private Table table;
+	private Button btnNewButton;
+	private Button btnExport;
 
 	/**
 	 * Create the application window.
@@ -57,10 +59,15 @@ public class DataBrowseUi extends ApplicationWindow implements Listener
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
 
-		Button btnNewButton = new Button(container, SWT.NONE);
+		btnNewButton = new Button(container, SWT.NONE);
 		btnNewButton.addListener(SWT.Selection, this);
 		btnNewButton.setBounds(95, 38, 75, 25);
 		btnNewButton.setText("New Button");
+
+		btnExport = new Button(container, SWT.NONE);
+		btnExport.setBounds(176, 38, 75, 25);
+		btnExport.setText("Export");
+		btnExport.addListener(SWT.Selection, this);
 
 		return container;
 	}
@@ -108,7 +115,7 @@ public class DataBrowseUi extends ApplicationWindow implements Listener
 		StatusLineManager statusLineManager = new StatusLineManager();
 		return statusLineManager;
 	}
-	
+
 	/**
 	 * Configure the shell.
 	 * 
@@ -130,32 +137,41 @@ public class DataBrowseUi extends ApplicationWindow implements Listener
 		return new Point(715, 562);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void handleEvent(Event event)
 	{
-		SortedMap<String, Skill> skills = (SortedMap<String, Skill>) Main
-				.getInstace().getData().getDataSetOfType(AspectsEnum.Skill);
-		ArrayList<TableColumn> columns = new ArrayList<TableColumn>();
-		String[] columnNames = new String[]
-		{ "Name", "Conditional", "Untrained", "Ability Mod" };
-		for (String columnName : columnNames)
+		if (event.widget == btnNewButton)
 		{
-			TableColumn column = new TableColumn(table, SWT.None);
-			column.setWidth(100);
-			column.setText(columnName);
-			columns.add(column);
+			SortedMap<String, Skill> skills = (SortedMap<String, Skill>) Main
+					.getInstace().getData().getDataSetOfType(AspectsEnum.Skill);
+			ArrayList<TableColumn> columns = new ArrayList<TableColumn>();
+			String[] columnNames = new String[]
+			{ "Name", "Conditional", "Untrained", "Ability Mod" };
+			for (String columnName : columnNames)
+			{
+				TableColumn column = new TableColumn(table, SWT.None);
+				column.setWidth(100);
+				column.setText(columnName);
+				columns.add(column);
+			}
+
+			ArrayList<TableItem> items = new ArrayList<TableItem>();
+			for (Skill skill : skills.values())
+			{
+				TableItem item = new TableItem(table, SWT.NONE);
+				item.setText(new String[]
+				{ skill.getName(), String.valueOf(skill.isConditional()),
+						String.valueOf(skill.isUntrained()),
+						skill.getAbilityModifier().toString() });
+				items.add(item);
+			}
+		} else
+		{
+			SortedMap<String, Skill> skills = (SortedMap<String, Skill>) Main
+					.getInstace().getData().getDataSetOfType(AspectsEnum.Skill);
+			Main.getInstace().getDataSource().putDataSet("test.json", skills);
 		}
 
-		ArrayList<TableItem> items = new ArrayList<TableItem>();
-		for (Skill skill : skills.values())
-		{
-			TableItem item = new TableItem(table, SWT.NONE);
-			item.setText(new String[]
-			{ skill.getName(), String.valueOf(skill.isConditional()),
-					String.valueOf(skill.isUntrained()),
-					skill.getAbilityModifier().toString() });
-			items.add(item);
-		}
 	}
-
 }

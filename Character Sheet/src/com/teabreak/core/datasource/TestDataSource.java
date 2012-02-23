@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+import javax.swing.plaf.basic.BasicScrollPaneUI.HSBChangeListener;
+
 import com.teabreak.core.aspects.AspectsEnum;
 import com.teabreak.core.aspects.AspectsInterface;
 import com.teabreak.core.aspects.CharClass;
@@ -12,9 +14,12 @@ import com.teabreak.core.aspects.Skill;
 import com.teabreak.core.aspects.enums.AbilityEnum;
 import com.teabreak.core.aspects.enums.SaveEnum;
 import com.teabreak.core.aspects.enums.SkillEnum;
+import com.teabreak.core.datasource.json.ExportJson;
+import com.teabreak.core.datasource.json.JsonDataSource;
 
 public class TestDataSource implements DataSourceInterface
 {
+	private ExportJson jsonExporter = new ExportJson();
 
 	@Override
 	public AspectsInterface getDateOfType(AspectsEnum dataType)
@@ -98,17 +103,20 @@ public class TestDataSource implements DataSourceInterface
 	}
 
 	@Override
-	public void putData(ArrayList<AspectsInterface> data, AspectsEnum dataType)
+	public void putData(String filename, AspectsInterface data)
 	{
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
-	public void putData(AspectsInterface data, AspectsEnum dataType)
+	public void putDataSet(String filename,
+			SortedMap<String,  ? extends AspectsInterface> dataSet)
 	{
 		// TODO Auto-generated method stub
-
+		filename = "c:\\" + filename;
+		jsonExporter.putDataSet(filename, dataSet);
 	}
+
 
 }

@@ -5,6 +5,7 @@ import java.util.SortedMap;
 
 import com.teabreak.core.aspects.AspectsEnum;
 import com.teabreak.core.aspects.AspectsInterface;
+import com.teabreak.core.aspects.Skill;
 
 public interface DataSourceInterface
 {
@@ -20,9 +21,9 @@ public interface DataSourceInterface
 	public abstract SortedMap<String, AspectsInterface> getDataSetOfType(
 			AspectsEnum dataType);
 
-	public abstract void putData(ArrayList<AspectsInterface> data,
-			AspectsEnum dataType);
+	public abstract void putData(String filename, AspectsInterface data);
 
-	public abstract void putData(AspectsInterface data, AspectsEnum dataType);
+	public abstract void putDataSet(String filename,
+			SortedMap<String, ? extends AspectsInterface> dataSet);
 
 }

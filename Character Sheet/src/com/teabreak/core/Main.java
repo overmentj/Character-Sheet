@@ -60,4 +60,7 @@ public class Main
 		return data;
 	}
 
+	public DataSourceInterface getDataSource(){
+		return dataSource;
+	}
 }
