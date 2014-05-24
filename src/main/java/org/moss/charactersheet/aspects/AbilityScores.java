@@ -1,16 +1,21 @@
-package org.moss.charactersheet;
+package org.moss.charactersheet.aspects;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.NumberFormat;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.NumberFormatter;
 
+import org.moss.charactersheet.interfaces.UpdateCaller;
+import org.moss.charactersheet.interfaces.UpdateListener;
 
-public class AbilityScores implements PropertyChangeListener
+
+public class AbilityScores implements PropertyChangeListener, UpdateCaller
 {
 
     private JTextField total;
@@ -19,6 +24,24 @@ public class AbilityScores implements PropertyChangeListener
     private JFormattedTextField misc;
     private JFormattedTextField miscNeg;
     private JTextField mod;
+
+    private int totalScore = 0;
+
+    private int modScore = 0;
+
+
+    public int getTotalScore()
+    {
+        return totalScore;
+    }
+
+    public int getModScore()
+    {
+        return modScore;
+    }
+
+
+    private Set<UpdateListener> listeners = new HashSet<>();
 
 
     public AbilityScores(JTextField total, JFormattedTextField base, JFormattedTextField enhance,
@@ -62,7 +85,7 @@ public class AbilityScores implements PropertyChangeListener
 
     public void propertyChange(PropertyChangeEvent evt)
     {
-        int totalScore = 0;
+        totalScore = 0;
         if (!base.getText().isEmpty())
         {
             totalScore += Integer.parseInt(base.getText());
@@ -85,7 +108,7 @@ public class AbilityScores implements PropertyChangeListener
 
         total.setText(Integer.toString(totalScore));
 
-        int modScore = 0;
+        modScore = 0;
         if (totalScore > 0)
         {
             if (totalScore > 10)
@@ -98,5 +121,17 @@ public class AbilityScores implements PropertyChangeListener
             }
         }
         mod.setText(Integer.toString(modScore));
+
+        for (UpdateListener curListener : listeners)
+        {
+            curListener.update();
+        }
+    }
+
+    @Override
+    public void register(UpdateListener listerner)
+    {
+        listeners.add(listerner);
+
     }
 }
