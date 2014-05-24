@@ -12,6 +12,7 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -265,7 +266,7 @@ public class CharacterSheet extends JFrame
             constraint.gridy = index + 1;
             abilityScores.add(longName, constraint);
 
-            JTextField total = new JTextField(1);
+            JTextField total = new JTextField(2);
             total.setEditable(false);
             total.setText("0");
             constraint.gridx = 1;
@@ -286,7 +287,7 @@ public class CharacterSheet extends JFrame
 
             constraint.gridheight = 1; // reset
 
-            JTextField base = new JTextField(1);
+            JFormattedTextField base = new JFormattedTextField();
             constraint.gridx = 3;
             constraint.gridy = index;
             abilityScores.add(base, constraint);
@@ -305,7 +306,7 @@ public class CharacterSheet extends JFrame
 
             constraint.gridheight = 1; // reset
 
-            JTextField enchance = new JTextField(1);
+            JFormattedTextField enchance = new JFormattedTextField();
             constraint.gridx = 5;
             constraint.gridy = index;
             abilityScores.add(enchance, constraint);
@@ -324,7 +325,7 @@ public class CharacterSheet extends JFrame
 
             constraint.gridheight = 1; // reset
 
-            JTextField misc = new JTextField(1);
+            JFormattedTextField misc = new JFormattedTextField();
             constraint.gridx = 7;
             constraint.gridy = index;
             abilityScores.add(misc, constraint);
@@ -343,7 +344,7 @@ public class CharacterSheet extends JFrame
 
             constraint.gridheight = 1; // reset
 
-            JTextField miscNeg = new JTextField(1);
+            JFormattedTextField miscNeg = new JFormattedTextField();
             constraint.gridx = 9;
             constraint.gridy = index;
             abilityScores.add(miscNeg, constraint);
@@ -354,8 +355,9 @@ public class CharacterSheet extends JFrame
             constraint.gridy = index + 1;
             abilityScores.add(labelMiscNeg, constraint);
 
-            JTextField mod = new JTextField(1);
+            JTextField mod = new JTextField(2);
             mod.setEditable(false);
+            mod.setText("0");
             constraint.gridx = 11;
             constraint.gridy = index;
             abilityScores.add(mod, constraint);
@@ -366,6 +368,7 @@ public class CharacterSheet extends JFrame
             constraint.gridy = index + 1;
             abilityScores.add(labelMod, constraint);
 
+            new AbilityScores(total, base, enchance, misc, miscNeg, mod);
         }
 
         guiComponenets.add(abilityScores);
