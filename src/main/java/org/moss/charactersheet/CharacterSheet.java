@@ -1,5 +1,10 @@
 package org.moss.charactersheet;
 
+import static javax.swing.SpringLayout.EAST;
+import static javax.swing.SpringLayout.NORTH;
+import static javax.swing.SpringLayout.SOUTH;
+import static javax.swing.SpringLayout.WEST;
+
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -14,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.BorderFactory;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
@@ -28,14 +34,11 @@ import org.moss.charactersheet.aspects.AbilityScores;
 import org.moss.charactersheet.aspects.ArmourClass;
 import org.moss.charactersheet.aspects.Grapple;
 import org.moss.charactersheet.aspects.Saves;
+import org.moss.charactersheet.aspects.Skill;
+import org.moss.charactersheet.aspects.SkillInfo;
 import org.moss.charactersheet.aspects.enums.AbilityScore;
 import org.moss.charactersheet.aspects.enums.Save;
 import org.moss.charactersheet.util.LabelUtils;
-
-import static javax.swing.SpringLayout.EAST;
-import static javax.swing.SpringLayout.NORTH;
-import static javax.swing.SpringLayout.SOUTH;
-import static javax.swing.SpringLayout.WEST;
 
 
 public class CharacterSheet extends JFrame
@@ -50,7 +53,7 @@ public class CharacterSheet extends JFrame
     private List<Component> page1Componenets = new ArrayList<Component>();
     private List<Component> page2Componenets = new ArrayList<Component>();
     private List<Component> page3Componenets = new ArrayList<Component>();
-    private List<Component> page4Componenets = new ArrayList<Component>();
+    private List<Component> page4Components = new ArrayList<Component>();
 
     private SpringLayout layout;
     /** Page 1 */
@@ -102,6 +105,8 @@ public class CharacterSheet extends JFrame
         comp = savingThrows(tabPanel1, comp);
         armourClass(tabPanel1, comp);
 
+        setUpSkills(tabPanel4);
+        
         for (Component curComp : page1Componenets)
         {
             tabPanel1.add(curComp);
@@ -117,14 +122,14 @@ public class CharacterSheet extends JFrame
             tabPanel3.add(curComp);
         }
 
-        for (Component curComp : page4Componenets)
+        for (Component curComp : page4Components)
         {
             tabPanel4.add(curComp);
         }
         pack();
     }
 
-    /**
+	/**
      * Generate the character meta data elements
      */
     private void characterMetaData()
@@ -358,7 +363,7 @@ public class CharacterSheet extends JFrame
             constraint.gridy = index;
             abilityScores.add(base, constraint);
 
-            JLabel JLabelBase = new JLabel(LabelUtils.multiLine("Base Scaore +\nRacial Mod", true));
+            JLabel JLabelBase = new JLabel(LabelUtils.multiLine("Base Score +\nRacial Mod", true));
             JLabelBase.setFont(small);
             constraint.gridx = 3;
             constraint.gridy = index + 1;
@@ -454,11 +459,11 @@ public class CharacterSheet extends JFrame
 
         Font small = new Font("Verdana", Font.BOLD, 8);
 
-        JLabel lableBaseAttack = new JLabel("Base Attack Bonus");
+        JLabel labelBaseAttack = new JLabel("Base Attack Bonus");
         constraint.gridx = 0;
         constraint.gridy = 0;
         constraint.gridwidth = 2;
-        combatOptions.add(lableBaseAttack, constraint);
+        combatOptions.add(labelBaseAttack, constraint);
 
         JTextField textBaseAttack = new JTextField(12);
         constraint.gridx = 2;
@@ -724,41 +729,41 @@ public class CharacterSheet extends JFrame
 
         Font small = new Font("Verdana", Font.BOLD, 8);
 
-        JLabel lableTotal = new JLabel("Total");
-        lableTotal.setFont(small);
+        JLabel labelTotal = new JLabel("Total");
+        labelTotal.setFont(small);
         constraint.gridx = 1;
         constraint.gridy = 0;
-        savingThrows.add(lableTotal, constraint);
+        savingThrows.add(labelTotal, constraint);
 
-        JLabel lablelBase = new JLabel(LabelUtils.multiLine("Base\nsave", true));
-        lablelBase.setFont(small);
+        JLabel labelBase = new JLabel(LabelUtils.multiLine("Base\nsave", true));
+        labelBase.setFont(small);
         constraint.gridx = 3;
         constraint.gridy = 0;
-        savingThrows.add(lablelBase, constraint);
+        savingThrows.add(labelBase, constraint);
 
-        JLabel lableAbility = new JLabel(LabelUtils.multiLine("Ability\nmodifier", true));
-        lableAbility.setFont(small);
+        JLabel labelAbility = new JLabel(LabelUtils.multiLine("Ability\nmodifier", true));
+        labelAbility.setFont(small);
         constraint.gridx = 5;
         constraint.gridy = 0;
-        savingThrows.add(lableAbility, constraint);
+        savingThrows.add(labelAbility, constraint);
 
-        JLabel lableMagic = new JLabel(LabelUtils.multiLine("Magic\nModifier", true));
-        lableMagic.setFont(small);
+        JLabel labelMagic = new JLabel(LabelUtils.multiLine("Magic\nModifier", true));
+        labelMagic.setFont(small);
         constraint.gridx = 7;
         constraint.gridy = 0;
-        savingThrows.add(lableMagic, constraint);
+        savingThrows.add(labelMagic, constraint);
 
-        JLabel lableMisc = new JLabel(LabelUtils.multiLine("Misc\nModifier", true));
-        lableMisc.setFont(small);
+        JLabel labelMisc = new JLabel(LabelUtils.multiLine("Misc\nModifier", true));
+        labelMisc.setFont(small);
         constraint.gridx = 9;
         constraint.gridy = 0;
-        savingThrows.add(lableMisc, constraint);
+        savingThrows.add(labelMisc, constraint);
 
-        JLabel lableTemp = new JLabel("Temp");
-        lableTemp.setFont(small);
+        JLabel labelTemp = new JLabel("Temp");
+        labelTemp.setFont(small);
         constraint.gridx = 11;
         constraint.gridy = 0;
-        savingThrows.add(lableTemp, constraint);
+        savingThrows.add(labelTemp, constraint);
 
         JLabel labelConditional = new JLabel("Conditional Modifiers");
         constraint.gridx = 12;
@@ -862,6 +867,128 @@ public class CharacterSheet extends JFrame
         return savingThrows;
     }
 
+    /**
+     * Generate the information for the Skills Tab
+     * @param westComp
+     * @return
+     */
+    private void setUpSkills(Container westComp) {
+
+    	JPanel skills = createSkillsOutline();
+    	layout.putConstraint(WEST, skills, 5, WEST, westComp);
+    	addSkillsToPanel(skills);
+	}
+
+    /**
+     * Create border and headers for Skills table
+     * @return
+     */
+	private JPanel createSkillsOutline() {
+		
+		JPanel skills = new JPanel(new GridBagLayout());
+		skills.setBorder(BorderFactory.createTitledBorder("Character Skills"));
+		
+		GridBagConstraints constraints = new GridBagConstraints();
+		constraints.insets = new Insets(5,20,0,0);
+    	// CS
+    	JLabel labelCS = new JLabel(LabelUtils.multiLine("Class \nSkill"));
+    	constraints.gridx = 0;
+    	skills.add(labelCS, constraints);
+    	
+    	// Skills
+        JLabel labelSkills = new JLabel("Skill Name");
+        constraints.gridx = 1;
+        skills.add(labelSkills, constraints);
+
+    	// Ability
+        JLabel labelAbility = new JLabel(LabelUtils.multiLine("Key \nAbility"));
+        constraints.gridx = 3;
+        skills.add(labelAbility, constraints);
+        
+        // Skill Mod
+        JLabel labelSkillMod = new JLabel(LabelUtils.multiLine("Skill \nModifier"));
+        constraints.gridx = 5;
+        skills.add(labelSkillMod, constraints);
+        
+        // Ability Mod
+        JLabel labelAbMod = new JLabel(LabelUtils.multiLine("Ability \nModifier"));
+        constraints.gridx = 7;
+        skills.add(labelAbMod, constraints);
+        
+        // Ranks
+        JLabel labelRanks = new JLabel("Ranks");
+        constraints.gridx = 9;
+        skills.add(labelRanks, constraints);
+        
+        // Misc
+        JLabel labelMisc = new JLabel(LabelUtils.multiLine("Misc \nModifier"));
+        constraints.gridx = 11;
+        skills.add(labelMisc, constraints);
+        
+        page4Components.add(skills);
+        return skills;
+	}
+	
+	/**
+	 * Adds all appropriate skills to view
+	 * @param skills
+	 */
+	private void addSkillsToPanel(JPanel skills) {
+		
+		GridBagConstraints constraints = new GridBagConstraints();
+    	for (int i = 0; i < 10; i++) {
+    		
+    		final int index = i+1;
+    		
+    		constraints.gridy = index;
+    		constraints.gridx = 0;
+    		constraints.insets = new Insets (2,20,0,0);
+    		
+    		JCheckBox classSkillCB = new JCheckBox();
+    		skills.add(classSkillCB, constraints);
+    		
+    		JLabel labelSkillName = new JLabel("SkillName" + i);
+            constraints.gridx = 1;
+            skills.add(labelSkillName, constraints);
+
+            JLabel labelAbilityName = new JLabel(AbilityScore.INT.name());
+            constraints.gridx = 3;
+            skills.add(labelAbilityName, constraints);
+
+            JTextField textTotal = new JTextField(2);
+            textTotal.setEditable(false);
+            constraints.gridx = 5;
+            skills.add(textTotal, constraints);
+
+            JLabel labelEquals = new JLabel("  =  ");
+            constraints.gridx = 6;
+            skills.add(labelEquals, constraints);
+
+            JTextField textAbility = new JTextField(2);
+            textAbility.setEditable(false);
+            constraints.gridx = 7;
+            skills.add(textAbility, constraints);
+
+            JLabel labelPlus2 = new JLabel("  +  ");
+            constraints.gridx = 8;
+            skills.add(labelPlus2, constraints);
+
+            JFormattedTextField textRanks = new JFormattedTextField();
+            constraints.gridx = 9;
+            skills.add(textRanks, constraints);
+
+            JLabel labelPlus3 = new JLabel("  +  ");
+            constraints.gridx = 10;
+            skills.add(labelPlus3, constraints);
+
+            JFormattedTextField textMisc = new JFormattedTextField();
+            constraints.gridx = 11;
+            skills.add(textMisc, constraints);
+            
+            new SkillInfo(new Skill("SkillName" + i), classSkillCB, textTotal, textAbility, textRanks, textMisc, false);
+    	}
+	}
+    
     private Component armourClass(Component westComponent, Component northComponent)
     {
         JPanel armourClass = new JPanel(new GridBagLayout());
