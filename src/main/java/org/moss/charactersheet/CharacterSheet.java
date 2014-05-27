@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,6 +19,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
@@ -44,9 +46,20 @@ public class CharacterSheet extends JFrame
 
     private Map<Save, Saves> savingThrowsMap = new HashMap<>();
 
-    private List<Component> guiComponenets = new ArrayList<Component>();
+    private List<Component> page1Componenets = new ArrayList<Component>();
+    private List<Component> page2Componenets = new ArrayList<Component>();
+    private List<Component> page3Componenets = new ArrayList<Component>();
+    private List<Component> page4Componenets = new ArrayList<Component>();
+
     private SpringLayout layout;
-    private Container contentPane;
+    /** Page 1 */
+    private Container tabPanel1;
+    /** Page 2 */
+    private Container tabPanel2;
+    /** Page 3 */
+    private Container tabPanel3;
+    /** Page 4 */
+    private Container tabPanel4;
 
 
     public CharacterSheet()
@@ -60,22 +73,51 @@ public class CharacterSheet extends JFrame
         setTitle("Character Sheet");
 
         layout = new SpringLayout();
-        contentPane = this.getContentPane();
-        contentPane.setLayout(layout);
+        Container contentPane = this.getContentPane();
+        contentPane.setLayout(new GridLayout(1, 1));
+
+        JTabbedPane tabbedPanel = new JTabbedPane();
+
+        tabPanel1 = new JPanel(layout);
+        tabPanel2 = new JPanel(layout);
+        tabPanel3 = new JPanel(layout);
+        tabPanel4 = new JPanel(layout);
+        tabbedPanel.addTab("Page 1", tabPanel1);
+        tabbedPanel.addTab("Page 2", tabPanel2);
+        tabbedPanel.addTab("Page 3", tabPanel3);
+        tabbedPanel.addTab("Page 4", tabPanel4);
+
+        contentPane.add(tabbedPanel);
+
         this.getContentPane().setPreferredSize(new Dimension(800, 500));
 
         Component comp;
 
         characterMetaData();
-        comp = abilityScores(contentPane, 6);
+        comp = abilityScores(tabPanel1, 6);
         combatOptions(comp, 6);
         comp = speedAndStuff(comp);
-        comp = grapple(contentPane, comp);
-        savingThrows(contentPane, comp);
+        comp = grapple(tabPanel1, comp);
+        savingThrows(tabPanel1, comp);
 
-        for (Component curComp : guiComponenets)
+        for (Component curComp : page1Componenets)
         {
-            contentPane.add(curComp);
+            tabPanel1.add(curComp);
+        }
+
+        for (Component curComp : page2Componenets)
+        {
+            tabPanel2.add(curComp);
+        }
+
+        for (Component curComp : page3Componenets)
+        {
+            tabPanel3.add(curComp);
+        }
+
+        for (Component curComp : page4Componenets)
+        {
+            tabPanel4.add(curComp);
         }
         pack();
     }
@@ -87,175 +129,175 @@ public class CharacterSheet extends JFrame
     {
         // Char Name
         JLabel labelCharName = new JLabel("Character Name");
-        guiComponenets.add(labelCharName);
+        page1Componenets.add(labelCharName);
 
         JTextField textCharName = new JTextField(20);
-        guiComponenets.add(textCharName);
+        page1Componenets.add(textCharName);
 
         layout.putConstraint(NORTH, textCharName, 0, SOUTH, labelCharName);
         layout.putConstraint(WEST, textCharName, 0, WEST, labelCharName);
 
-        layout.putConstraint(NORTH, labelCharName, 5, NORTH, contentPane);
-        layout.putConstraint(WEST, labelCharName, 5, WEST, contentPane);
+        layout.putConstraint(NORTH, labelCharName, 5, NORTH, tabPanel1);
+        layout.putConstraint(WEST, labelCharName, 5, WEST, tabPanel1);
 
         // Player Name
         JLabel labelPlayerName = new JLabel("Player Name");
-        guiComponenets.add(labelPlayerName);
+        page1Componenets.add(labelPlayerName);
 
         JTextField textPlayerName = new JTextField(20);
-        guiComponenets.add(textPlayerName);
+        page1Componenets.add(textPlayerName);
 
         layout.putConstraint(NORTH, textPlayerName, 0, SOUTH, labelPlayerName);
         layout.putConstraint(WEST, textPlayerName, 0, WEST, labelPlayerName);
 
-        layout.putConstraint(NORTH, labelPlayerName, 5, NORTH, contentPane);
-        layout.putConstraint(WEST, labelPlayerName, 250, WEST, contentPane);
+        layout.putConstraint(NORTH, labelPlayerName, 5, NORTH, tabPanel1);
+        layout.putConstraint(WEST, labelPlayerName, 250, WEST, tabPanel1);
 
         // Class
         JLabel labelClass = new JLabel("Class");
-        guiComponenets.add(labelClass);
+        page1Componenets.add(labelClass);
 
         JTextField textClass = new JTextField(16);
-        guiComponenets.add(textClass);
+        page1Componenets.add(textClass);
 
         layout.putConstraint(NORTH, textClass, 0, SOUTH, labelClass);
         layout.putConstraint(WEST, textClass, 0, WEST, labelClass);
 
-        layout.putConstraint(NORTH, labelClass, LINE_HEIGHT * 2 + 5, NORTH, contentPane);
-        layout.putConstraint(WEST, labelClass, 5, WEST, contentPane);
+        layout.putConstraint(NORTH, labelClass, LINE_HEIGHT * 2 + 5, NORTH, tabPanel1);
+        layout.putConstraint(WEST, labelClass, 5, WEST, tabPanel1);
 
         // Level
         JLabel labelLevel = new JLabel("Level");
-        guiComponenets.add(labelLevel);
+        page1Componenets.add(labelLevel);
 
         JTextField textLevel = new JTextField(4);
-        guiComponenets.add(textLevel);
+        page1Componenets.add(textLevel);
 
         layout.putConstraint(NORTH, textLevel, 0, SOUTH, labelLevel);
         layout.putConstraint(WEST, textLevel, 0, WEST, labelLevel);
 
-        layout.putConstraint(NORTH, labelLevel, LINE_HEIGHT * 2 + 5, NORTH, contentPane);
+        layout.putConstraint(NORTH, labelLevel, LINE_HEIGHT * 2 + 5, NORTH, tabPanel1);
         layout.putConstraint(WEST, labelLevel, 5, EAST, textClass);
 
         // ECL
         JLabel labelEcl = new JLabel("ECL");
-        guiComponenets.add(labelEcl);
+        page1Componenets.add(labelEcl);
 
         JTextField textEcl = new JTextField(4);
-        guiComponenets.add(textEcl);
+        page1Componenets.add(textEcl);
 
         layout.putConstraint(NORTH, textEcl, 0, SOUTH, labelEcl);
         layout.putConstraint(WEST, textEcl, 0, WEST, labelEcl);
 
-        layout.putConstraint(NORTH, labelEcl, LINE_HEIGHT * 2 + 5, NORTH, contentPane);
+        layout.putConstraint(NORTH, labelEcl, LINE_HEIGHT * 2 + 5, NORTH, tabPanel1);
         layout.putConstraint(WEST, labelEcl, 5, EAST, textLevel);
 
         // Race/Template
         JLabel labelRace = new JLabel("Race/Template");
-        guiComponenets.add(labelRace);
+        page1Componenets.add(labelRace);
 
         JTextField textRace = new JTextField(8);
-        guiComponenets.add(textRace);
+        page1Componenets.add(textRace);
 
         layout.putConstraint(NORTH, textRace, 0, SOUTH, labelRace);
         layout.putConstraint(WEST, textRace, 0, WEST, labelRace);
 
-        layout.putConstraint(NORTH, labelRace, LINE_HEIGHT * 2 + 5, NORTH, contentPane);
+        layout.putConstraint(NORTH, labelRace, LINE_HEIGHT * 2 + 5, NORTH, tabPanel1);
         layout.putConstraint(WEST, labelRace, 5, EAST, textEcl);
 
         // Size
         JLabel labelSize = new JLabel("Size");
-        guiComponenets.add(labelSize);
+        page1Componenets.add(labelSize);
 
         JComboBox<String> comboSize =
                                       new JComboBox<String>(
                                                             new String[] { "F", "D", "T", "S", "M", "L", "H", "G", "C" });
-        guiComponenets.add(comboSize);
+        page1Componenets.add(comboSize);
 
         layout.putConstraint(NORTH, comboSize, 0, SOUTH, labelSize);
         layout.putConstraint(WEST, comboSize, 0, WEST, labelSize);
 
-        layout.putConstraint(NORTH, labelSize, LINE_HEIGHT * 2 + 5, NORTH, contentPane);
+        layout.putConstraint(NORTH, labelSize, LINE_HEIGHT * 2 + 5, NORTH, tabPanel1);
         layout.putConstraint(WEST, labelSize, 5, EAST, textRace);
 
         // Gender
         JLabel labelGender = new JLabel("Gender");
-        guiComponenets.add(labelGender);
+        page1Componenets.add(labelGender);
 
         JComboBox<String> comboGender = new JComboBox<String>(new String[] { "F", "M" });
-        guiComponenets.add(comboGender);
+        page1Componenets.add(comboGender);
 
         layout.putConstraint(NORTH, comboGender, 0, SOUTH, labelGender);
         layout.putConstraint(WEST, comboGender, 0, WEST, labelGender);
 
-        layout.putConstraint(NORTH, labelGender, LINE_HEIGHT * 2 + 5, NORTH, contentPane);
+        layout.putConstraint(NORTH, labelGender, LINE_HEIGHT * 2 + 5, NORTH, tabPanel1);
         layout.putConstraint(WEST, labelGender, 5, EAST, comboSize);
 
         // Alignment
         JLabel labelAlign = new JLabel("Alignment");
-        guiComponenets.add(labelAlign);
+        page1Componenets.add(labelAlign);
 
         JComboBox<String> comboAlign =
                                        new JComboBox<String>(new String[] { "LG", "NG", "CG", "LN", "TN", "CN", "LE",
                                                                            "NE", "CE" });
-        guiComponenets.add(comboAlign);
+        page1Componenets.add(comboAlign);
 
         layout.putConstraint(NORTH, comboAlign, 0, SOUTH, labelAlign);
         layout.putConstraint(WEST, comboAlign, 0, WEST, labelAlign);
 
-        layout.putConstraint(NORTH, labelAlign, LINE_HEIGHT * 4 + 5, NORTH, contentPane);
-        layout.putConstraint(WEST, labelAlign, 5, WEST, contentPane);
+        layout.putConstraint(NORTH, labelAlign, LINE_HEIGHT * 4 + 5, NORTH, tabPanel1);
+        layout.putConstraint(WEST, labelAlign, 5, WEST, tabPanel1);
 
         // Religion/Patron Deity
         JLabel labelReligion = new JLabel("Religion");
-        guiComponenets.add(labelReligion);
+        page1Componenets.add(labelReligion);
 
         JTextField textReligion = new JTextField(12);
-        guiComponenets.add(textReligion);
+        page1Componenets.add(textReligion);
 
         layout.putConstraint(NORTH, textReligion, 0, SOUTH, labelReligion);
         layout.putConstraint(WEST, textReligion, 0, WEST, labelReligion);
 
-        layout.putConstraint(NORTH, labelReligion, LINE_HEIGHT * 4 + 5, NORTH, contentPane);
+        layout.putConstraint(NORTH, labelReligion, LINE_HEIGHT * 4 + 5, NORTH, tabPanel1);
         layout.putConstraint(WEST, labelReligion, 5, EAST, labelAlign);
 
         // Height
         JLabel labelHeight = new JLabel("Height");
-        guiComponenets.add(labelHeight);
+        page1Componenets.add(labelHeight);
 
         JTextField textHeight = new JTextField(5);
-        guiComponenets.add(textHeight);
+        page1Componenets.add(textHeight);
 
         layout.putConstraint(NORTH, textHeight, 0, SOUTH, labelHeight);
         layout.putConstraint(WEST, textHeight, 0, WEST, labelHeight);
 
-        layout.putConstraint(NORTH, labelHeight, LINE_HEIGHT * 4 + 5, NORTH, contentPane);
+        layout.putConstraint(NORTH, labelHeight, LINE_HEIGHT * 4 + 5, NORTH, tabPanel1);
         layout.putConstraint(WEST, labelHeight, 5, EAST, textReligion);
 
         // Weight
         JLabel labelWeight = new JLabel("Weight");
-        guiComponenets.add(labelWeight);
+        page1Componenets.add(labelWeight);
 
         JTextField textWeight = new JTextField(5);
-        guiComponenets.add(textWeight);
+        page1Componenets.add(textWeight);
 
         layout.putConstraint(NORTH, textWeight, 0, SOUTH, labelWeight);
         layout.putConstraint(WEST, textWeight, 0, WEST, labelWeight);
 
-        layout.putConstraint(NORTH, labelWeight, LINE_HEIGHT * 4 + 5, NORTH, contentPane);
+        layout.putConstraint(NORTH, labelWeight, LINE_HEIGHT * 4 + 5, NORTH, tabPanel1);
         layout.putConstraint(WEST, labelWeight, 5, EAST, textHeight);
 
         // Looks
         JLabel labelLooks = new JLabel("Looks");
-        guiComponenets.add(labelLooks);
+        page1Componenets.add(labelLooks);
 
         JTextField textLooks = new JTextField(12);
-        guiComponenets.add(textLooks);
+        page1Componenets.add(textLooks);
 
         layout.putConstraint(NORTH, textLooks, 0, SOUTH, labelLooks);
         layout.putConstraint(WEST, textLooks, 0, WEST, labelLooks);
 
-        layout.putConstraint(NORTH, labelLooks, LINE_HEIGHT * 4 + 5, NORTH, contentPane);
+        layout.putConstraint(NORTH, labelLooks, LINE_HEIGHT * 4 + 5, NORTH, tabPanel1);
         layout.putConstraint(WEST, labelLooks, 5, EAST, textWeight);
     }
 
@@ -394,9 +436,9 @@ public class CharacterSheet extends JFrame
                                                                                enchance, misc, miscNeg, mod));
         }
 
-        guiComponenets.add(abilityScores);
+        page1Componenets.add(abilityScores);
         layout.putConstraint(WEST, abilityScores, 5, WEST, westComponent);
-        layout.putConstraint(NORTH, abilityScores, LINE_HEIGHT * 6 + 5, NORTH, contentPane);
+        layout.putConstraint(NORTH, abilityScores, LINE_HEIGHT * 6 + 5, NORTH, tabPanel1);
 
         return abilityScores;
     }
@@ -520,28 +562,28 @@ public class CharacterSheet extends JFrame
             constraint.gridwidth = 1;
         }
 
-        guiComponenets.add(combatOptions);
+        page1Componenets.add(combatOptions);
         layout.putConstraint(WEST, combatOptions, 5, EAST, westComponent);
-        layout.putConstraint(NORTH, combatOptions, LINE_HEIGHT * depth + 5, NORTH, contentPane);
+        layout.putConstraint(NORTH, combatOptions, LINE_HEIGHT * depth + 5, NORTH, tabPanel1);
     }
 
     private Component speedAndStuff(Component northComponent)
     {
         JLabel labelSpeed = new JLabel("Speed");
-        guiComponenets.add(labelSpeed);
+        page1Componenets.add(labelSpeed);
         JTextField textSpeed = new JTextField(30);
-        guiComponenets.add(textSpeed);
+        page1Componenets.add(textSpeed);
 
         layout.putConstraint(NORTH, textSpeed, 0, NORTH, labelSpeed);
         layout.putConstraint(WEST, textSpeed, 2, EAST, labelSpeed);
 
         layout.putConstraint(NORTH, labelSpeed, 0, SOUTH, northComponent);
-        layout.putConstraint(WEST, labelSpeed, 5, WEST, contentPane);
+        layout.putConstraint(WEST, labelSpeed, 5, WEST, tabPanel1);
 
         JLabel labelInitMod = new JLabel("Initiative Modifier");
-        guiComponenets.add(labelInitMod);
+        page1Componenets.add(labelInitMod);
         JTextField textInitMod = new JTextField(10);
-        guiComponenets.add(textInitMod);
+        page1Componenets.add(textInitMod);
 
         layout.putConstraint(NORTH, textInitMod, 0, NORTH, labelInitMod);
         layout.putConstraint(WEST, textInitMod, 2, EAST, labelInitMod);
@@ -664,7 +706,7 @@ public class CharacterSheet extends JFrame
 
         layout.putConstraint(WEST, grapple, 5, WEST, westComponent);
         layout.putConstraint(NORTH, grapple, 5, SOUTH, northComponent);
-        guiComponenets.add(grapple);
+        page1Componenets.add(grapple);
 
         new Grapple(total, base, strength, size, misc);
 
@@ -810,7 +852,7 @@ public class CharacterSheet extends JFrame
                                                             textMagic, textMisc, textTemp));
         }
 
-        guiComponenets.add(savingThrows);
+        page1Componenets.add(savingThrows);
 
         layout.putConstraint(WEST, savingThrows, 5, WEST, westComponent);
         layout.putConstraint(NORTH, savingThrows, 5, SOUTH, northComponent);
