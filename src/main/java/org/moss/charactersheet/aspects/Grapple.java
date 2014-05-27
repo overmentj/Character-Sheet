@@ -9,7 +9,9 @@ import javax.swing.JTextField;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.NumberFormatter;
 
+import org.moss.charactersheet.aspects.enums.AbilityScore;
 import org.moss.charactersheet.interfaces.UpdateListener;
+import org.moss.charactersheet.util.ListenerFactory;
 
 
 public class Grapple implements PropertyChangeListener, UpdateListener
@@ -21,19 +23,14 @@ public class Grapple implements PropertyChangeListener, UpdateListener
     private JTextField size;
     private JFormattedTextField misc;
 
-    private AbilityScores strengthAbility;
 
-
-    public Grapple(JTextField total, JTextField base, JTextField strength, JTextField size, JFormattedTextField misc,
-                   AbilityScores updateCaller)
+    public Grapple(JTextField total, JTextField base, JTextField strength, JTextField size, JFormattedTextField misc)
     {
         this.total = total;
         this.base = base;
         this.strength = strength;
         this.size = size;
         this.misc = misc;
-        
-        strengthAbility = updateCaller;
 
         NumberFormat numberFormat = NumberFormat.getNumberInstance();
         numberFormat.setMaximumFractionDigits(0);
@@ -45,14 +42,7 @@ public class Grapple implements PropertyChangeListener, UpdateListener
         misc.setFormatterFactory(new DefaultFormatterFactory(formatter));
         misc.setColumns(2);
         misc.addPropertyChangeListener("value", this);
-
-        updateCaller.register(this);
-    }
-
-    @Override
-    public void update()
-    {
-        strength.setText(Integer.toString(strengthAbility.getModScore()));
+        ListenerFactory.registerListener(AbilityScore.STR, this);
 
     }
 
@@ -61,6 +51,15 @@ public class Grapple implements PropertyChangeListener, UpdateListener
     {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public void update(Object key, Object value)
+    {
+        if (key.equals(AbilityScore.STR))
+        {
+            this.strength.setText(value.toString());
+        }
     }
 
 }

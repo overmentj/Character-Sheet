@@ -11,11 +11,12 @@ import javax.swing.JTextField;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.NumberFormatter;
 
-import org.moss.charactersheet.interfaces.UpdateCaller;
+import org.moss.charactersheet.aspects.enums.AbilityScore;
 import org.moss.charactersheet.interfaces.UpdateListener;
+import org.moss.charactersheet.util.ListenerFactory;
 
 
-public class AbilityScores implements PropertyChangeListener, UpdateCaller
+public class AbilityScores implements PropertyChangeListener
 {
 
     private JTextField total;
@@ -24,6 +25,8 @@ public class AbilityScores implements PropertyChangeListener, UpdateCaller
     private JFormattedTextField misc;
     private JFormattedTextField miscNeg;
     private JTextField mod;
+
+    private AbilityScore ability;
 
     private int totalScore = 0;
 
@@ -44,7 +47,7 @@ public class AbilityScores implements PropertyChangeListener, UpdateCaller
     private Set<UpdateListener> listeners = new HashSet<>();
 
 
-    public AbilityScores(JTextField total, JFormattedTextField base, JFormattedTextField enhance,
+    public AbilityScores(AbilityScore ability, JTextField total, JFormattedTextField base, JFormattedTextField enhance,
                          JFormattedTextField misc, JFormattedTextField miscNeg, JTextField mod)
     {
         this.total = total;
@@ -53,6 +56,7 @@ public class AbilityScores implements PropertyChangeListener, UpdateCaller
         this.misc = misc;
         this.miscNeg = miscNeg;
         this.mod = mod;
+        this.ability = ability;
 
         NumberFormat numberFormat = NumberFormat.getNumberInstance();
         numberFormat.setMaximumFractionDigits(0);
@@ -76,6 +80,9 @@ public class AbilityScores implements PropertyChangeListener, UpdateCaller
         miscNeg.setFormatterFactory(new DefaultFormatterFactory(formatter));
         miscNeg.setColumns(2);
         miscNeg.addPropertyChangeListener("value", this);
+
+        ListenerFactory.registerCaller(ability);
+
     }
 
     public void createGui()
@@ -113,25 +120,16 @@ public class AbilityScores implements PropertyChangeListener, UpdateCaller
         {
             if (totalScore > 10)
             {
-                modScore = (totalScore - 10) / 2;
+                modScore = (int) Math.floor((totalScore - 10) / 2.0);
             }
             else if (totalScore < 10)
             {
-                modScore = (10 - totalScore) / 2;
+
+                modScore = (int) Math.floor((totalScore - 10) / 2.0);
             }
         }
         mod.setText(Integer.toString(modScore));
 
-        for (UpdateListener curListener : listeners)
-        {
-            curListener.update();
-        }
-    }
-
-    @Override
-    public void register(UpdateListener listerner)
-    {
-        listeners.add(listerner);
-
+        ListenerFactory.callback(this.ability, modScore);
     }
 }
