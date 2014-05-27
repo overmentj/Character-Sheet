@@ -1,10 +1,7 @@
 package org.moss.charactersheet.aspects;
 
 import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.text.NumberFormat;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
@@ -12,11 +9,10 @@ import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.NumberFormatter;
 
 import org.moss.charactersheet.aspects.enums.AbilityScore;
-import org.moss.charactersheet.interfaces.UpdateListener;
 import org.moss.charactersheet.util.ListenerFactory;
 
 
-public class AbilityScores implements PropertyChangeListener
+public class AbilityScores implements Aspects
 {
 
     private JTextField total;
@@ -42,10 +38,6 @@ public class AbilityScores implements PropertyChangeListener
     {
         return modScore;
     }
-
-
-    private Set<UpdateListener> listeners = new HashSet<>();
-
 
     public AbilityScores(AbilityScore ability, JTextField total, JFormattedTextField base, JFormattedTextField enhance,
                          JFormattedTextField misc, JFormattedTextField miscNeg, JTextField mod)
@@ -82,7 +74,7 @@ public class AbilityScores implements PropertyChangeListener
         miscNeg.addPropertyChangeListener("value", this);
 
         ListenerFactory.registerCaller(ability);
-
+        calulcate();
     }
 
     public void createGui()
@@ -91,6 +83,11 @@ public class AbilityScores implements PropertyChangeListener
     }
 
     public void propertyChange(PropertyChangeEvent evt)
+    {
+        calulcate();
+    }
+
+    private void calulcate()
     {
         totalScore = 0;
         if (!base.getText().isEmpty())
@@ -131,5 +128,12 @@ public class AbilityScores implements PropertyChangeListener
         mod.setText(Integer.toString(modScore));
 
         ListenerFactory.callback(this.ability, modScore);
+    }
+
+    @Override
+    public void update(Object key, Object value)
+    {
+        // TODO Auto-generated method stub
+
     }
 }

@@ -1,7 +1,6 @@
 package org.moss.charactersheet.aspects;
 
 import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.text.NumberFormat;
 
 import javax.swing.JFormattedTextField;
@@ -10,11 +9,10 @@ import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.NumberFormatter;
 
 import org.moss.charactersheet.aspects.enums.AbilityScore;
-import org.moss.charactersheet.interfaces.UpdateListener;
 import org.moss.charactersheet.util.ListenerFactory;
 
 
-public class Grapple implements PropertyChangeListener, UpdateListener
+public class Grapple implements Aspects
 {
 
     private JTextField total;
@@ -22,6 +20,8 @@ public class Grapple implements PropertyChangeListener, UpdateListener
     private JTextField strength;
     private JTextField size;
     private JFormattedTextField misc;
+
+    private int totalScore;
 
 
     public Grapple(JTextField total, JTextField base, JTextField strength, JTextField size, JFormattedTextField misc)
@@ -43,14 +43,14 @@ public class Grapple implements PropertyChangeListener, UpdateListener
         misc.setColumns(2);
         misc.addPropertyChangeListener("value", this);
         ListenerFactory.registerListener(AbilityScore.STR, this);
-
+        calculate();
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt)
     {
         // TODO Auto-generated method stub
-
+        calculate();
     }
 
     @Override
@@ -60,6 +60,34 @@ public class Grapple implements PropertyChangeListener, UpdateListener
         {
             this.strength.setText(value.toString());
         }
+        calculate();
+    }
+
+    private void calculate()
+    {
+        totalScore = 0;
+
+        if (!base.getText().isEmpty())
+        {
+            totalScore += Integer.parseInt(base.getText());
+        }
+
+        if (!strength.getText().isEmpty())
+        {
+            totalScore += Integer.parseInt(strength.getText());
+        }
+
+        if (!size.getText().isEmpty())
+        {
+            totalScore += Integer.parseInt(size.getText());
+        }
+
+        if (!misc.getText().isEmpty())
+        {
+            totalScore += Integer.parseInt(misc.getText());
+        }
+
+        total.setText(Integer.toString(totalScore));
     }
 
 }

@@ -1,7 +1,6 @@
 package org.moss.charactersheet.aspects;
 
 import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.text.NumberFormat;
 
 import javax.swing.JFormattedTextField;
@@ -10,11 +9,10 @@ import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.NumberFormatter;
 
 import org.moss.charactersheet.aspects.enums.Save;
-import org.moss.charactersheet.interfaces.UpdateListener;
 import org.moss.charactersheet.util.ListenerFactory;
 
 
-public class Saves implements UpdateListener, PropertyChangeListener
+public class Saves implements Aspects
 {
     private JTextField total;
     private JFormattedTextField base;

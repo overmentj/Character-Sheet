@@ -14,6 +14,7 @@ public class ListenerFactory
     private static final Logger LOGGER = Logger.getLogger(ListenerFactory.class);
 
     private static Map<Object, Set<UpdateListener>> listeners = new HashMap<>();
+    private static Map<Object, Object> lastValues = new HashMap<>();
 
 
     public static void registerListener(Object key, UpdateListener value)
@@ -22,6 +23,11 @@ public class ListenerFactory
         {
             LOGGER.warn("No caller has registered yet");
             listeners.put(key, new HashSet<UpdateListener>());
+        }
+
+        if (lastValues.containsKey(key))
+        {
+            value.update(key, lastValues.get(key));
         }
 
         listeners.get(key).add(value);
@@ -41,6 +47,7 @@ public class ListenerFactory
     {
         if (listeners.containsKey(key))
         {
+            lastValues.put(key, value);
             for (UpdateListener listener : listeners.get(key))
             {
                 listener.update(key, value);
