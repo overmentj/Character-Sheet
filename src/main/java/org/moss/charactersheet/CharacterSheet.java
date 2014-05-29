@@ -121,7 +121,7 @@ public class CharacterSheet extends JFrame
         /*
          * Generate components for second page
          */
-        GenerateInvGui invGen = new GenerateInvGui(layout, tabPanel2, page2Componenets);
+        GenerateInvGui invGen = new GenerateInvGui(page2Componenets);
         invGen.generate();
         
         /*
