@@ -29,9 +29,9 @@ public class SkillInfo implements UpdateListener, PropertyChangeListener
     private JTextField ability;
     private JFormattedTextField ranks;
     private JFormattedTextField misc;
+    private JCheckBox synergyBonus;
 
     private Skill skill;
-    private boolean synergyBonus;
     private int skillScore;
 
     public static final Map<Skill, SkillInfo> SKILL_WITH_INFO_MAP = new HashMap<Skill, SkillInfo>();
@@ -47,7 +47,7 @@ public class SkillInfo implements UpdateListener, PropertyChangeListener
      * @param synergy
      */
     public SkillInfo(Skill skill, JCheckBox classSkillCB, JTextField total, JTextField ability,
-                     JFormattedTextField ranks, JFormattedTextField misc, boolean synergy)
+                     JFormattedTextField ranks, JFormattedTextField misc, JCheckBox synergy)
     {
         this.skill = skill;
         this.classSkill = classSkillCB;
@@ -56,6 +56,7 @@ public class SkillInfo implements UpdateListener, PropertyChangeListener
         this.ranks = ranks;
         this.misc = misc;
         this.synergyBonus = synergy;
+        
         SKILL_WITH_INFO_MAP.put(skill, this);
 
         NumberFormat numberFormat = NumberFormat.getNumberInstance();
@@ -103,14 +104,29 @@ public class SkillInfo implements UpdateListener, PropertyChangeListener
 
         if (!ranks.getText().isEmpty())
         {
-            skillScore += Integer.parseInt(ranks.getText());
+        	int numRanks = Integer.parseInt(ranks.getText());
+            skillScore += numRanks;
+            
+            if (numRanks >= 5)
+            {
+            	synergyBonus.setSelected(true);
+            	addSynergy();
+            }
         }
 
         if (!misc.getText().isEmpty())
         {
             skillScore += Integer.parseInt(misc.getText());
         }
-
+ 
         total.setText(Integer.toString(skillScore));
+        
     }
+
+	private void addSynergy() 
+	{
+		//TODO Add tool-tip appropriate for skill. In case of straight bonus to other skills,
+		// add to total
+		synergyBonus.setToolTipText("You have SYNERGY");
+	}
 }

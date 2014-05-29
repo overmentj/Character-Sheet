@@ -1,9 +1,11 @@
 package org.moss.charactersheet.aspects.enums;
 
+import java.awt.Frame;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+import org.moss.charactersheet.CharacterSheet;
 import org.moss.charactersheet.aspects.enums.AbilityScore;
 
 /**
@@ -75,7 +77,6 @@ public class Skill
     private String skillName;
     private AbilityScore ability;
 
-
     public Skill(String name, AbilityScore ability)
     {
         this.skillName = name;
@@ -104,5 +105,10 @@ public class Skill
     public static Skill getSkill(String name)
     {
         return SKILLS_MAP.get(name);
+    }
+    
+    public static void addSkill(String name, AbilityScore ability)
+    {
+    	SKILLS_MAP.put(name, new Skill(name, ability));
     }
 }

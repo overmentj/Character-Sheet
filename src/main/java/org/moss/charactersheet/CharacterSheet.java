@@ -13,6 +13,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.SpringLayout;
 
+import org.moss.charactersheet.aspects.enums.Skill;
 import org.moss.charactersheet.gui.GenerateAbilityScoresGui;
 import org.moss.charactersheet.gui.GenerateAcGui;
 import org.moss.charactersheet.gui.GenerateCombatOptionsGui;
@@ -73,11 +74,11 @@ public class CharacterSheet extends JFrame
         tabPanel5 = new JPanel(layout);
 
         JScrollPane pane1 = new JScrollPane();
-        pane1.setViewportView(tabPanel1);
         tabPanel1.setPreferredSize(new Dimension(700, 1000));
+        pane1.setViewportView(tabPanel1);
 
         JScrollPane pane5 = new JScrollPane();
-        tabPanel5.setPreferredSize(new Dimension(700, 1500));
+        tabPanel5.setPreferredSize(new Dimension(815, Skill.getValues().size()*25));
         pane5.setViewportView(tabPanel5);
 
         tabbedPanel.addTab("Overview", pane1);
@@ -119,7 +120,7 @@ public class CharacterSheet extends JFrame
         /*
          * Generate components for fifth page
          */
-        GenerateSkillsGui skillsGen = new GenerateSkillsGui(layout, page5Components);
+        GenerateSkillsGui skillsGen = new GenerateSkillsGui(layout, page5Components, tabPanel5, this);
         skillsGen.generate(tabPanel5);
 
         /*

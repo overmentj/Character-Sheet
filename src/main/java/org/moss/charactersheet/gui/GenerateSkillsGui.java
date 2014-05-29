@@ -1,9 +1,14 @@
 package org.moss.charactersheet.gui;
 
+import static javax.swing.SpringLayout.WEST;
+
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,37 +16,42 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
-import org.moss.charactersheet.actions.AddSkill;
+import org.moss.addskill.AddSkillDialog;
 import org.moss.charactersheet.aspects.SkillInfo;
 import org.moss.charactersheet.aspects.enums.Skill;
 import org.moss.charactersheet.util.LabelUtils;
-
-import static javax.swing.SpringLayout.WEST;
 
 /**
  * Generator for ability scores
  * @author Jacq
  *
  */
-public class GenerateSkillsGui
+public class GenerateSkillsGui implements ActionListener
 {
     private SpringLayout layout;
     private List<Component> pageComponents = new ArrayList<Component>();
+    private Container panel;
+	private JFrame frame;
 
     /**
      * Creates new generator that considers given parameters
      * @param layout
      * @param components
+     * @param panel 
+     * @param characterSheet 
      */
-    public GenerateSkillsGui(SpringLayout layout, List<Component> components)
+    public GenerateSkillsGui(SpringLayout layout, List<Component> components, Container panel, JFrame characterSheet)
     {
         this.layout = layout;
         this.pageComponents = components;
+        this.panel = panel;
+        this.frame = characterSheet;
     }
 
     /**
@@ -49,19 +59,20 @@ public class GenerateSkillsGui
      * Also builds on the layout.
      * @param westComponent
      */
-    public void generate(Component westComponent)
+    public Component generate(Component westComponent)
     {
         JPanel skills = createSkillsOutline();
         layout.putConstraint(WEST, skills, 5, WEST, westComponent);
         addSkillsToPanel(skills);
         
-        JButton addSkill = new JButton("Add New Skill...");
-        addSkill.addActionListener(new AddSkill());
-        addSkill.setActionCommand("enable");
+        JButton btnAddSkill = new JButton("Add New Skill...");
+        btnAddSkill.addActionListener(this);
         
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.gridy = Skill.getValues().size() + 2;
-        skills.add(addSkill, constraints);
+        skills.add(btnAddSkill, constraints);
+        
+        return skills;
     }
 
     /**
@@ -112,6 +123,11 @@ public class GenerateSkillsGui
         constraints.gridx = 11;
         skills.add(labelMisc, constraints);
 
+        // Synergy
+        JLabel labelSyn = new JLabel("Synergy");
+        constraints.gridx = 13;
+        skills.add(labelSyn, constraints);
+        
         pageComponents.add(skills);
         return skills;
     }
@@ -172,11 +188,39 @@ public class GenerateSkillsGui
             JFormattedTextField textMisc = new JFormattedTextField();
             constraints.gridx = 11;
             skills.add(textMisc, constraints);
+            
+            JCheckBox synergyCB = new JCheckBox();
+            synergyCB.setEnabled(false);
+            constraints.gridx = 13;
+            skills.add(synergyCB, constraints);
 
             new SkillInfo(new Skill(curSkill, Skill.getSkill(curSkill).getAbility()), classSkillCB, textTotal,
-                          textAbility, textRanks, textMisc, false);
+                          textAbility, textRanks, textMisc, synergyCB);
 
             index++;
         }
     }
+
+	@Override
+	public void actionPerformed(ActionEvent e) 
+	{
+		if (e.getSource() instanceof JButton)
+		{
+			JButton source = (JButton) e.getSource();
+			String text = source.getText();
+			
+			if (text.equals("Add New Skill..."))
+			{
+				AddSkillDialog skillForm = new AddSkillDialog();
+				skillForm.setVisible(true);
+				if (skillForm.isSkillAdded())
+				{
+					generate(panel);
+					panel.revalidate();
+					panel.repaint();
+					frame.pack();
+				}
+			}
+		}	
+	}
 }
