@@ -18,6 +18,7 @@ import org.moss.charactersheet.gui.GenerateAbilityScoresGui;
 import org.moss.charactersheet.gui.GenerateAcGui;
 import org.moss.charactersheet.gui.GenerateCombatOptionsGui;
 import org.moss.charactersheet.gui.GenerateGrappleGui;
+import org.moss.charactersheet.gui.GenerateInvGui;
 import org.moss.charactersheet.gui.GenerateMetaDataGui;
 import org.moss.charactersheet.gui.GenerateSavesGui;
 import org.moss.charactersheet.gui.GenerateSkillsGui;
@@ -117,6 +118,12 @@ public class CharacterSheet extends JFrame
         GenerateAcGui acGen = new GenerateAcGui(layout, page1Componenets);
         comp = acGen.generate(comp, tabPanel1);
 
+        /*
+         * Generate components for second page
+         */
+        GenerateInvGui invGen = new GenerateInvGui(layout, tabPanel2, page2Componenets);
+        invGen.generate();
+        
         /*
          * Generate components for fifth page
          */
