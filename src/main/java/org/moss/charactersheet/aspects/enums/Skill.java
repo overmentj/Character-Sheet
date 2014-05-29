@@ -1,12 +1,8 @@
 package org.moss.charactersheet.aspects.enums;
 
-import java.awt.Frame;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-
-import org.moss.charactersheet.CharacterSheet;
-import org.moss.charactersheet.aspects.enums.AbilityScore;
 
 /**
  * Skill class. Currently contains a static map of all known skills and their corresponding
@@ -107,8 +103,9 @@ public class Skill
         return SKILLS_MAP.get(name);
     }
     
-    public static void addSkill(String name, AbilityScore ability)
+    public static Skill addSkill(String name, AbilityScore ability)
     {
     	SKILLS_MAP.put(name, new Skill(name, ability));
+    	return SKILLS_MAP.get(name);
     }
 }
