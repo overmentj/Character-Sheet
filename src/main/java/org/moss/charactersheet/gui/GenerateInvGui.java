@@ -22,6 +22,12 @@ public class GenerateInvGui implements ActionListener{
 	private Container panel;
 	private List<Component> components;
 	
+	private JButton btnAddItem;
+	private boolean buttonCreated;
+	
+	private static JPanel GEAR = new JPanel(new GridBagLayout());
+	private int buttonY;
+	
 	public GenerateInvGui(SpringLayout layout, Container panel, List<Component> components)
 	{
 		this.layout = layout;
@@ -31,55 +37,52 @@ public class GenerateInvGui implements ActionListener{
 	
 	public void generate()
 	{
-		JPanel gear = addGearPanel();
-		components.add(gear);
+		addGearPanel();
+		components.add(GEAR);
 	}
 
-	private JPanel addGearPanel()
+	private void addGearPanel()
 	{
-		JPanel gear = new JPanel(new GridBagLayout());
-		gear.setBorder(BorderFactory.createTitledBorder("Gear"));
+		GEAR.setBorder(BorderFactory.createTitledBorder("Gear"));
 		
 		GridBagConstraints constraints = new GridBagConstraints();
 		constraints.insets = new Insets(5, 10, 5, 10);
 		
 		constraints.gridx = 6;
-		gear.add(addCcPanel(), constraints);
+		GEAR.add(addCcPanel(), constraints);
 		
 		JLabel labelItem = new JLabel("Item");
 		constraints.gridy = 2;
 		constraints.gridx = 2;
-		gear.add(labelItem, constraints);
+		GEAR.add(labelItem, constraints);
 		
 		JLabel labelLoc = new JLabel("Location");
 		constraints.gridx = 4;
-		gear.add(labelLoc, constraints);
+		GEAR.add(labelLoc, constraints);
 		
 		JLabel labelWeight = new JLabel("Weight");
 		constraints.gridx = 6;
-		gear.add(labelWeight, constraints);
+		GEAR.add(labelWeight, constraints);
 		
+		putItemOnPanel(2, 4, constraints);		
+		putBtnAddItemOnPanel(2, 6, constraints);
+	}
+
+	private void putItemOnPanel(int x, int y, GridBagConstraints constraints) 
+	{
 		JTextField textItem = new JTextField(20);
-		constraints.gridx = 2;
-		constraints.gridy = 4;
-		gear.add(textItem, constraints);
+		constraints.gridx = x;
+		constraints.gridy = y;
+		GEAR.add(textItem, constraints);
 		
 		JTextField textLocation = new JTextField(20);
-		constraints.gridx = 4;
-		gear.add(textLocation, constraints);
+		constraints.gridx += 2;
+		GEAR.add(textLocation, constraints);
 		
 		JTextField textWeight = new JTextField(3);
 		textWeight.setEditable(false);
-		constraints.gridx = 6;
-		gear.add(textWeight, constraints);
-		
-		JButton btnAddItem = new JButton("Add Item...");
-		btnAddItem.addActionListener(this);
-		constraints.gridx = 2;
-		constraints.gridy = 6;
-		gear.add(btnAddItem, constraints);
-		
-		return gear;
+		constraints.gridx += 2;
+		GEAR.add(textWeight, constraints);
 	}
 
 	private JPanel addCcPanel() 
@@ -121,10 +124,42 @@ public class GenerateInvGui implements ActionListener{
 		return carryCapPan;
 	}
 	
+	private void putBtnAddItemOnPanel(int x, int y, GridBagConstraints constraints)
+	{
+		if (!buttonCreated)
+		{
+			btnAddItem = new JButton("Add Item...");
+			btnAddItem.addActionListener(this);
+			btnAddItem.setActionCommand("AddItem");
+			constraints.gridx = x;
+			constraints.gridy = y;
+
+			GEAR.add(btnAddItem, constraints);
+			buttonCreated = true;
+		}
+			buttonY = y;
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+
+		if (e.getActionCommand().equals("AddItem"))
+		{
+			GridBagConstraints constraints = new GridBagConstraints();
+			constraints.insets = new Insets(5, 10, 5, 10);
+			
+			GEAR.remove(btnAddItem);
+			GEAR.revalidate();
+			GEAR.repaint();
+			buttonCreated = false;
+			
+			putItemOnPanel(2, buttonY, constraints);
+
+			buttonY += 2;
+			putBtnAddItemOnPanel(2, buttonY, constraints);
+			GEAR.revalidate();
+			GEAR.repaint();
+		}
 	}
 	
 }
