@@ -127,7 +127,7 @@ public class CharacterSheet extends JFrame
         /*
          * Generate components for fifth page
          */
-        GenerateSkillsGui skillsGen = new GenerateSkillsGui(layout, page5Components, tabPanel5, this);
+        GenerateSkillsGui skillsGen = new GenerateSkillsGui(layout, page5Components);
         skillsGen.generate(tabPanel5);
 
         /*

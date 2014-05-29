@@ -29,7 +29,6 @@ public class SkillInfo implements UpdateListener, PropertyChangeListener
     private JTextField ability;
     private JFormattedTextField ranks;
     private JFormattedTextField misc;
-    private JCheckBox synergyBonus;
 
     private Skill skill;
     private int skillScore;
@@ -44,10 +43,9 @@ public class SkillInfo implements UpdateListener, PropertyChangeListener
      * @param ability
      * @param ranks
      * @param misc
-     * @param synergy
      */
     public SkillInfo(Skill skill, JCheckBox classSkillCB, JTextField total, JTextField ability,
-                     JFormattedTextField ranks, JFormattedTextField misc, JCheckBox synergy)
+                     JFormattedTextField ranks, JFormattedTextField misc)
     {
         this.skill = skill;
         this.classSkill = classSkillCB;
@@ -55,7 +53,6 @@ public class SkillInfo implements UpdateListener, PropertyChangeListener
         this.ability = ability;
         this.ranks = ranks;
         this.misc = misc;
-        this.synergyBonus = synergy;
         
         SKILL_WITH_INFO_MAP.put(skill, this);
 
@@ -106,12 +103,6 @@ public class SkillInfo implements UpdateListener, PropertyChangeListener
         {
         	int numRanks = Integer.parseInt(ranks.getText());
             skillScore += numRanks;
-            
-            if (numRanks >= 5)
-            {
-            	synergyBonus.setSelected(true);
-            	addSynergy();
-            }
         }
 
         if (!misc.getText().isEmpty())
@@ -120,13 +111,5 @@ public class SkillInfo implements UpdateListener, PropertyChangeListener
         }
  
         total.setText(Integer.toString(skillScore));
-        
     }
-
-	private void addSynergy() 
-	{
-		//TODO Add tool-tip appropriate for skill. In case of straight bonus to other skills,
-		// add to total
-		synergyBonus.setToolTipText("You have SYNERGY");
-	}
 }
