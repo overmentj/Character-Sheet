@@ -22,6 +22,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
+import javax.swing.SwingConstants;
 
 import org.moss.addskill.AddSkillDialog;
 import org.moss.charactersheet.aspects.SkillInfo;
@@ -96,10 +97,10 @@ public class GenerateSkillsGui implements ActionListener
         skills.setBorder(BorderFactory.createTitledBorder("Character Skills"));
 
         GridBagConstraints constraints = new GridBagConstraints();
-        constraints.insets = new Insets(5, 20, 0, 0);
+        constraints.insets = new Insets(0, 5, 0, 0);
 
         // CS
-        JLabel labelCS = new JLabel(LabelUtils.multiLine("Class \nSkill"));
+        JLabel labelCS = new JLabel("CS");
         constraints.gridx = 0;
         skills.add(labelCS, constraints);
 
@@ -162,6 +163,7 @@ public class GenerateSkillsGui implements ActionListener
             skills.add(classSkillCB, constraints);
 
             JLabel labelSkillName = new JLabel(curSkill);
+            labelSkillName.setHorizontalAlignment(SwingConstants.LEFT);
             constraints.gridx = 1;
             skills.add(labelSkillName, constraints);
 

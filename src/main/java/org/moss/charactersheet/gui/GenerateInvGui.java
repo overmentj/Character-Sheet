@@ -1,24 +1,31 @@
 package org.moss.charactersheet.gui;
 
 import java.awt.Component;
-import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.text.NumberFormat;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SpringLayout;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.NumberFormatter;
 
-public class GenerateInvGui implements ActionListener{
+public class GenerateInvGui implements ActionListener, PropertyChangeListener {
 
 	private List<Component> components;
+	private NumberFormatter formatter;	
 	
 	private JButton btnAddItem;
 	private int buttonY;
@@ -29,6 +36,13 @@ public class GenerateInvGui implements ActionListener{
 	public GenerateInvGui(List<Component> components)
 	{
 		this.components = components;
+		
+		NumberFormat numberFormat = NumberFormat.getNumberInstance();
+        numberFormat.setMaximumFractionDigits(0);
+        numberFormat.setMaximumIntegerDigits(3);
+        this.formatter = new NumberFormatter(numberFormat);
+        this.formatter.setAllowsInvalid(false);
+        this.formatter.setCommitsOnValidEdit(true);
 	}
 	
 	public void generate()
@@ -44,41 +58,16 @@ public class GenerateInvGui implements ActionListener{
 		GridBagConstraints constraints = new GridBagConstraints();
 		constraints.insets = new Insets(5, 10, 5, 10);
 		
-		constraints.gridx = 6;
+		constraints.gridx = 7;
 		gear.add(addCcPanel(), constraints);
 		
-		JLabel labelItem = new JLabel("Item");
-		constraints.gridy = 2;
+		putItemLabelsOnPanel(constraints);
+		
 		constraints.gridx = 2;
-		gear.add(labelItem, constraints);
+		constraints.gridy = 4;
+		putItemOnPanel(constraints);
 		
-		JLabel labelLoc = new JLabel("Location");
-		constraints.gridx = 4;
-		gear.add(labelLoc, constraints);
-		
-		JLabel labelWeight = new JLabel("Weight");
-		constraints.gridx = 6;
-		gear.add(labelWeight, constraints);
-		
-		putItemOnPanel(2, 4, constraints);		
 		putBtnAddItemOnPanel(2, 6, constraints);
-	}
-
-	private void putItemOnPanel(int x, int y, GridBagConstraints constraints) 
-	{
-		JTextField textItem = new JTextField(20);
-		constraints.gridx = x;
-		constraints.gridy = y;
-		gear.add(textItem, constraints);
-		
-		JTextField textLocation = new JTextField(20);
-		constraints.gridx += 2;
-		gear.add(textLocation, constraints);
-		
-		JTextField textWeight = new JTextField(3);
-		textWeight.setEditable(false);
-		constraints.gridx += 2;
-		gear.add(textWeight, constraints);
 	}
 
 	private JPanel addCcPanel() 
@@ -120,6 +109,48 @@ public class GenerateInvGui implements ActionListener{
 		return carryCapPan;
 	}
 	
+	private void putItemLabelsOnPanel(GridBagConstraints constraints)
+	{
+		JLabel labelItem = new JLabel("Item");
+		constraints.gridy = 2;
+		constraints.gridx = 2;
+		gear.add(labelItem, constraints);
+		
+		JLabel labelLoc = new JLabel("Location");
+		constraints.gridx = 4;
+		gear.add(labelLoc, constraints);
+		
+		JLabel labelWeight = new JLabel("Weight");
+		constraints.gridx = 6;
+		gear.add(labelWeight, constraints);
+	}
+	
+	private void putItemOnPanel(GridBagConstraints constraints) 
+	{
+		JTextField textItem = new JTextField(20);
+		gear.add(textItem, constraints);
+		
+		JTextField textLocation = new JTextField(20);
+		constraints.gridx += 2;
+		gear.add(textLocation, constraints);
+		
+		JFormattedTextField textWeight = new JFormattedTextField();
+		constraints.gridx += 2;
+		gear.add(textWeight, constraints);
+		
+		textWeight.setFormatterFactory(new DefaultFormatterFactory(formatter));
+		textWeight.setColumns(3);
+		textWeight.addPropertyChangeListener("value", this);
+		
+		JButton btnDelete = new JButton(new ImageIcon(this.getClass().getResource("/images/small-delete-icon.jpg")));
+		btnDelete.setBorder(null);
+		btnDelete.setBackground(null);
+		btnDelete.addActionListener(this);
+		btnDelete.setActionCommand("DeleteItem");
+		constraints.gridx ++;
+		gear.add(btnDelete, constraints);
+	}
+	
 	private void putBtnAddItemOnPanel(int x, int y, GridBagConstraints constraints)
 	{
 		if (!buttonCreated)
@@ -149,13 +180,67 @@ public class GenerateInvGui implements ActionListener{
 			gear.repaint();
 			buttonCreated = false;
 			
-			putItemOnPanel(2, buttonY, constraints);
+			constraints.gridx =2;
+			constraints.gridy = buttonY;
+			putItemOnPanel(constraints);
 
 			buttonY += 2;
 			putBtnAddItemOnPanel(2, buttonY, constraints);
 			gear.revalidate();
 			gear.repaint();
 		}
+		else if (e.getActionCommand().equals("DeleteItem"))
+		{
+			JButton src = (JButton) e.getSource();
+			Point srcLoc = src.getLocationOnScreen();
+			gear.remove(gear.getComponentAt(srcLoc));
+			gear.revalidate();
+			gear.repaint();
+			
+			for (Component comp : gear.getComponents())
+			{
+				findTextFields(srcLoc, comp);
+				gear.revalidate();
+				gear.repaint();
+			}
+		}
+	}
+
+	private void findTextFields(Point srcLoc, Component comp) 
+	{
+		if (comp instanceof JPanel)
+		{
+			for (Component innerComp : ((JPanel) comp).getComponents())
+			{
+				findTextFields(srcLoc, innerComp);
+			}
+		}
+		else if (comp instanceof JTextField)
+		{
+			removeIfInlineWithSrc(srcLoc, comp);
+		}
+	}
+
+	private void removeIfInlineWithSrc(Point srcLoc, Component comp) 
+	{
+		Point curCompLoc = comp.getLocationOnScreen();
+		
+		if (curCompLoc.y == srcLoc.y)
+		{
+			gear.remove(gear.getComponentAt(curCompLoc));
+		}
+		else
+		{
+			int nextX = curCompLoc.x - 2;
+			int nextY = curCompLoc.y - 2;
+			Point nextLoc = new Point(nextX, nextY);
+			comp.setLocation(nextLoc);
+		}
 	}
 	
+    @Override
+    public void propertyChange(PropertyChangeEvent evt)
+    {
+    	
+    }
 }
