@@ -26,8 +26,8 @@ public class Saves implements Aspects
     private int saveScore;
 
 
-    public Saves(Save save, JTextField total, JFormattedTextField base, JTextField ability,
-                 JFormattedTextField magic, JFormattedTextField misc, JFormattedTextField temp)
+    public Saves(Save save, JTextField total, JFormattedTextField base, JTextField ability, JFormattedTextField magic,
+                 JFormattedTextField misc, JFormattedTextField temp)
     {
 
         this.save = save;

@@ -2,6 +2,8 @@ package org.moss.charactersheet.aspects;
 
 import java.beans.PropertyChangeEvent;
 import java.text.NumberFormat;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
@@ -14,6 +16,7 @@ import org.moss.charactersheet.util.ListenerFactory;
 
 public class AbilityScores implements Aspects
 {
+    private static Map<AbilityScore, AbilityScores> ABILITY_SCORES = new HashMap<>();
 
     private JTextField total;
     private JFormattedTextField base;
@@ -135,5 +138,10 @@ public class AbilityScores implements Aspects
     {
         // TODO Auto-generated method stub
 
+    }
+
+    public static Map<AbilityScore, AbilityScores> getAbilityScores()
+    {
+        return ABILITY_SCORES;
     }
 }

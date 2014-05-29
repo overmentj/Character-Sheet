@@ -21,7 +21,7 @@ public class ListenerFactory
     {
         if (!listeners.containsKey(key))
         {
-            LOGGER.warn("No caller has registered yet");
+            LOGGER.warn("No caller has registered yet: " + key);
             listeners.put(key, new HashSet<UpdateListener>());
         }
 
