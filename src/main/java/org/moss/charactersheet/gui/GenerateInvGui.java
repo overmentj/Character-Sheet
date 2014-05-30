@@ -31,7 +31,9 @@ public class GenerateInvGui implements ActionListener, PropertyChangeListener {
 	private int buttonY;
 	private boolean buttonCreated;
 	
+	private JPanel inv = new JPanel(new GridBagLayout());
 	private JPanel gear = new JPanel(new GridBagLayout());
+	private JPanel misc = new JPanel(new GridBagLayout());
 	
 	public GenerateInvGui(List<Component> components)
 	{
@@ -47,8 +49,85 @@ public class GenerateInvGui implements ActionListener, PropertyChangeListener {
 	
 	public void generate()
 	{
+		addMiscPanel();
 		addGearPanel();
-		components.add(gear);
+		addMagicItemsPanel();
+		components.add(inv);
+	}
+
+	private void addMiscPanel() 
+	{
+		addCcPanel();
+		addMoneyPanel();
+		inv.add(misc);
+	}
+
+	private void addMoneyPanel()
+	{
+		JPanel moneyPan = new JPanel(new GridBagLayout());
+		moneyPan.setBorder(BorderFactory.createTitledBorder("Money Pouch"));
+		
+		GridBagConstraints monConstraints = new GridBagConstraints();
+		monConstraints.insets = new Insets(0, 2, 2, 0);
+		
+		JLabel labelCopper = new JLabel("Copper");
+		moneyPan.add(labelCopper, monConstraints);
+		
+		JTextField textCopper = new JTextField(3);
+		textCopper.setEditable(false);
+		monConstraints.gridx = 2;
+		moneyPan.add(textCopper, monConstraints);
+		
+		JLabel labelSilver = new JLabel("Silver");
+		monConstraints.gridx = 0;
+		monConstraints.gridy = 2;
+		moneyPan.add(labelSilver, monConstraints);
+		
+		JTextField textSilver = new JTextField(3);
+		textSilver.setEditable(false);
+		monConstraints.gridx = 2;
+		moneyPan.add(textSilver, monConstraints);
+		
+		JLabel labelGold = new JLabel("Gold");
+		monConstraints.gridx = 0;
+		monConstraints.gridy = 4;
+		moneyPan.add(labelGold, monConstraints);
+		
+		JTextField textGold = new JTextField(3);
+		textGold.setEditable(false);
+		monConstraints.gridx = 2;
+		moneyPan.add(textGold, monConstraints);
+		
+		JLabel labelPlat = new JLabel("Platinum");
+		monConstraints.gridx = 0;
+		monConstraints.gridy = 6;
+		moneyPan.add(labelPlat, monConstraints);
+		
+		JTextField textPlat = new JTextField(3);
+		textPlat.setEditable(false);
+		monConstraints.gridx = 2;
+		moneyPan.add(textPlat, monConstraints);
+
+		misc.add(moneyPan);
+	}
+
+	private void addMagicItemsPanel() 
+	{
+		JPanel magicPan = new JPanel(new GridBagLayout());
+		magicPan.setBorder(BorderFactory.createTitledBorder("Magical Items"));
+		
+		GridBagConstraints constraints = new GridBagConstraints();
+		
+		JLabel labelItem = new JLabel("Item");
+		magicPan.add(labelItem, constraints);
+		
+		constraints.gridy = 2;
+		JTextField textItem = new JTextField(20);
+		magicPan.add(textItem, constraints);
+		
+		constraints.gridx = 0;
+		constraints.gridy = 3;
+		inv.add(magicPan, constraints);	
 	}
 
 	private void addGearPanel()
@@ -56,10 +135,7 @@ public class GenerateInvGui implements ActionListener, PropertyChangeListener {
 		gear.setBorder(BorderFactory.createTitledBorder("Gear"));
 		
 		GridBagConstraints constraints = new GridBagConstraints();
-		constraints.insets = new Insets(5, 10, 5, 10);
-		
-		constraints.gridx = 7;
-		gear.add(addCcPanel(), constraints);
+		constraints.insets = new Insets(0, 2, 2, 0);
 		
 		putItemLabelsOnPanel(constraints);
 		
@@ -68,15 +144,19 @@ public class GenerateInvGui implements ActionListener, PropertyChangeListener {
 		putItemOnPanel(constraints);
 		
 		putBtnAddItemOnPanel(2, 6, constraints);
+		
+		constraints.gridx = 0;
+		constraints.gridy = 2;
+		inv.add(gear, constraints);
 	}
 
-	private JPanel addCcPanel() 
+	private void addCcPanel() 
 	{
 		JPanel carryCapPan = new JPanel(new GridBagLayout());
 		carryCapPan.setBorder(BorderFactory.createTitledBorder("Carrying Capacity"));
 		
 		GridBagConstraints ccConstraints = new GridBagConstraints();
-		ccConstraints.insets = new Insets(5, 10, 5, 10);
+		ccConstraints.insets = new Insets(0, 2, 2, 0);
 		
 		JLabel labelLight = new JLabel("Light Load (lb)");
 		carryCapPan.add(labelLight, ccConstraints);
@@ -106,7 +186,7 @@ public class GenerateInvGui implements ActionListener, PropertyChangeListener {
 		ccConstraints.gridx = 2;
 		carryCapPan.add(textHeavy, ccConstraints);
 		
-		return carryCapPan;
+		misc.add(carryCapPan);
 	}
 	
 	private void putItemLabelsOnPanel(GridBagConstraints constraints)
