@@ -19,6 +19,7 @@ import org.moss.charactersheet.gui.GenerateAcGui;
 import org.moss.charactersheet.gui.GenerateCombatOptionsGui;
 import org.moss.charactersheet.gui.GenerateGrappleGui;
 import org.moss.charactersheet.gui.GenerateInvGui;
+import org.moss.charactersheet.gui.GenerateMagicGui;
 import org.moss.charactersheet.gui.GenerateMetaDataGui;
 import org.moss.charactersheet.gui.GenerateSavesGui;
 import org.moss.charactersheet.gui.GenerateSkillsGui;
@@ -123,6 +124,13 @@ public class CharacterSheet extends JFrame
          */
         GenerateInvGui invGen = new GenerateInvGui(page2Componenets);
         invGen.generate();
+        
+        /*
+         * Generate components for third page
+         */
+        
+        GenerateMagicGui magicGui = new GenerateMagicGui(page3Componenets, layout);
+        magicGui.generate(5, 5, tabPanel3);
         
         /*
          * Generate components for fifth page
