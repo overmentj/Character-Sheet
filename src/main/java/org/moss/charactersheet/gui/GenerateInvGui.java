@@ -62,6 +62,45 @@ public class GenerateInvGui implements ActionListener, PropertyChangeListener {
 		inv.add(misc);
 	}
 
+	private void addCcPanel() 
+	{
+		JPanel carryCapPan = new JPanel(new GridBagLayout());
+		carryCapPan.setBorder(BorderFactory.createTitledBorder("Carrying Capacity"));
+		
+		GridBagConstraints ccConstraints = new GridBagConstraints();
+		ccConstraints.insets = new Insets(0, 2, 2, 0);
+		
+		JLabel labelLight = new JLabel("Light Load (lb)");
+		carryCapPan.add(labelLight, ccConstraints);
+		
+		JTextField textLight = new JTextField(3);
+		textLight.setEditable(false);
+		ccConstraints.gridx = 2;
+		carryCapPan.add(textLight, ccConstraints);
+		
+		JLabel labelMed = new JLabel("Medium Load (lb)");
+		ccConstraints.gridx = 0;
+		ccConstraints.gridy = 2;
+		carryCapPan.add(labelMed, ccConstraints);
+		
+		JTextField textMed = new JTextField(3);
+		textMed.setEditable(false);
+		ccConstraints.gridx = 2;
+		carryCapPan.add(textMed, ccConstraints);
+		
+		JLabel labelHeavy = new JLabel("Heavy Load (lb)");
+		ccConstraints.gridx = 0;
+		ccConstraints.gridy = 4;
+		carryCapPan.add(labelHeavy, ccConstraints);
+		
+		JTextField textHeavy = new JTextField(3);
+		textHeavy.setEditable(false);
+		ccConstraints.gridx = 2;
+		carryCapPan.add(textHeavy, ccConstraints);
+		
+		misc.add(carryCapPan);
+	}
+	
 	private void addMoneyPanel()
 	{
 		JPanel moneyPan = new JPanel(new GridBagLayout());
@@ -111,25 +150,6 @@ public class GenerateInvGui implements ActionListener, PropertyChangeListener {
 		misc.add(moneyPan);
 	}
 
-	private void addMagicItemsPanel() 
-	{
-		JPanel magicPan = new JPanel(new GridBagLayout());
-		magicPan.setBorder(BorderFactory.createTitledBorder("Magical Items"));
-		
-		GridBagConstraints constraints = new GridBagConstraints();
-		
-		JLabel labelItem = new JLabel("Item");
-		magicPan.add(labelItem, constraints);
-		
-		constraints.gridy = 2;
-		JTextField textItem = new JTextField(20);
-		magicPan.add(textItem, constraints);
-		
-		constraints.gridx = 0;
-		constraints.gridy = 3;
-		inv.add(magicPan, constraints);	
-	}
-
 	private void addGearPanel()
 	{
 		gear.setBorder(BorderFactory.createTitledBorder("Gear"));
@@ -148,45 +168,6 @@ public class GenerateInvGui implements ActionListener, PropertyChangeListener {
 		constraints.gridx = 0;
 		constraints.gridy = 2;
 		inv.add(gear, constraints);
-	}
-
-	private void addCcPanel() 
-	{
-		JPanel carryCapPan = new JPanel(new GridBagLayout());
-		carryCapPan.setBorder(BorderFactory.createTitledBorder("Carrying Capacity"));
-		
-		GridBagConstraints ccConstraints = new GridBagConstraints();
-		ccConstraints.insets = new Insets(0, 2, 2, 0);
-		
-		JLabel labelLight = new JLabel("Light Load (lb)");
-		carryCapPan.add(labelLight, ccConstraints);
-		
-		JTextField textLight = new JTextField(3);
-		textLight.setEditable(false);
-		ccConstraints.gridx = 2;
-		carryCapPan.add(textLight, ccConstraints);
-		
-		JLabel labelMed = new JLabel("Medium Load (lb)");
-		ccConstraints.gridx = 0;
-		ccConstraints.gridy = 2;
-		carryCapPan.add(labelMed, ccConstraints);
-		
-		JTextField textMed = new JTextField(3);
-		textMed.setEditable(false);
-		ccConstraints.gridx = 2;
-		carryCapPan.add(textMed, ccConstraints);
-		
-		JLabel labelHeavy = new JLabel("Heavy Load (lb)");
-		ccConstraints.gridx = 0;
-		ccConstraints.gridy = 4;
-		carryCapPan.add(labelHeavy, ccConstraints);
-		
-		JTextField textHeavy = new JTextField(3);
-		textHeavy.setEditable(false);
-		ccConstraints.gridx = 2;
-		carryCapPan.add(textHeavy, ccConstraints);
-		
-		misc.add(carryCapPan);
 	}
 	
 	private void putItemLabelsOnPanel(GridBagConstraints constraints)
@@ -245,6 +226,118 @@ public class GenerateInvGui implements ActionListener, PropertyChangeListener {
 			buttonCreated = true;
 		}
 			buttonY = y;
+	}
+	
+	private void addMagicItemsPanel() 
+	{
+		JPanel magicPan = new JPanel(new GridBagLayout());
+		magicPan.setBorder(BorderFactory.createTitledBorder("Magical Items"));
+		
+		magicPan.setAlignmentX(0);
+		
+		GridBagConstraints constraints = new GridBagConstraints();
+		constraints.insets = new Insets(2,0,2,0);
+		
+		JLabel labelHead = new JLabel("Head");
+		magicPan.add(labelHead, constraints);
+		
+		constraints.gridx = 0;
+		constraints.gridy = 1;
+		JTextField textHead = new JTextField(20);
+		magicPan.add(textHead, constraints);
+		
+		constraints.gridy = 3;
+		JLabel labelEyes = new JLabel("Eyes");
+		magicPan.add(labelEyes, constraints);
+		
+		constraints.gridy++;
+		JTextField textEyes = new JTextField(20);
+		magicPan.add(textEyes, constraints);
+		
+		constraints.gridy = 6;
+		JLabel labelNeck = new JLabel("Neck");
+		magicPan.add(labelNeck, constraints);
+		
+		constraints.gridy++;
+		JTextField textNeck = new JTextField(20);
+		magicPan.add(textNeck, constraints);
+		
+		constraints.gridy = 9;
+		JLabel labelShoul = new JLabel("Shoulders");
+		magicPan.add(labelShoul, constraints);
+		
+		constraints.gridy++;
+		JTextField textShoul = new JTextField(20);
+		magicPan.add(textShoul, constraints);
+		
+		constraints.gridy = 12;
+		JLabel labelRing1 = new JLabel("Ring 1");
+		magicPan.add(labelRing1, constraints);
+		
+		constraints.gridy++;
+		JTextField textRing1 = new JTextField(20);
+		magicPan.add(textRing1, constraints);
+		
+		constraints.gridy = 15;
+		JLabel labelRing2 = new JLabel("Ring 2");
+		magicPan.add(labelRing2, constraints);
+		
+		constraints.gridy++;
+		JTextField textRing2 = new JTextField(20);
+		magicPan.add(textRing2, constraints);
+		
+		constraints.gridx = 2;
+		constraints.gridy = 0;
+		JLabel labelHands = new JLabel("Hands");
+		magicPan.add(labelHands, constraints);
+		
+		constraints.gridy++;
+		JTextField textHands = new JTextField(20);
+		magicPan.add(textHands, constraints);
+		
+		constraints.gridy = 3;
+		JLabel labelArms = new JLabel("Arms/Wrists");
+		magicPan.add(labelArms, constraints);
+		
+		constraints.gridy++;
+		JTextField textArms = new JTextField(20);
+		magicPan.add(textArms, constraints);
+		
+		constraints.gridy = 6;
+		JLabel labelBody = new JLabel("Body");
+		magicPan.add(labelBody, constraints);
+		
+		constraints.gridy++;
+		JTextField textBody = new JTextField(20);
+		magicPan.add(textBody, constraints);
+		
+		constraints.gridy = 9;
+		JLabel labelTorso = new JLabel("Torso");
+		magicPan.add(labelTorso, constraints);
+		
+		constraints.gridy++;
+		JTextField textTorso = new JTextField(20);
+		magicPan.add(textTorso, constraints);
+		
+		constraints.gridy = 12;
+		JLabel labelWaist = new JLabel("Waist");
+		magicPan.add(labelWaist, constraints);
+		
+		constraints.gridy++;
+		JTextField textWaist = new JTextField(20);
+		magicPan.add(textWaist, constraints);
+		
+		constraints.gridy = 15;
+		JLabel labelFeet = new JLabel("Feet");
+		magicPan.add(labelFeet, constraints);
+		
+		constraints.gridy++;
+		JTextField textFeet = new JTextField(20);
+		magicPan.add(textFeet, constraints);
+		
+		constraints.gridx = 0;
+		constraints.gridy = 3;
+		inv.add(magicPan, constraints);	
 	}
 	
 	@Override
