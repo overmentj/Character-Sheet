@@ -13,7 +13,8 @@ import javax.swing.text.NumberFormatter;
 import org.moss.charactersheet.gui.GenerateInvGui;
 
 public class InventoryLine {
-	private JTextField textItem;
+	public static final String WEIGHT_CHANGE = "value";
+    private JTextField textItem;
 	private JTextField textLocation;
 	private JFormattedTextField textWeight;
 	private JButton btnDelete;
@@ -38,7 +39,7 @@ public class InventoryLine {
 		textWeight.setFormatterFactory(new DefaultFormatterFactory(
 				formatter));
 		textWeight.setColumns(3);
-		textWeight.addPropertyChangeListener("value", listener);
+		textWeight.addPropertyChangeListener(WEIGHT_CHANGE, listener);
 
 		btnDelete = new JButton(new ImageIcon(this.getClass().getResource(
 				"/images/small-delete-icon.jpg")));

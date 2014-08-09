@@ -1,20 +1,19 @@
 package org.moss.charactersheet.util;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.moss.charactersheet.interfaces.UpdateListener;
+import org.moss.charactersheet.util.listeners.Direct;
+import org.moss.charactersheet.util.listeners.ListenerHandler;
 
 
 public class ListenerFactory
 {
     private static final Logger LOGGER = Logger.getLogger(ListenerFactory.class);
 
-    private static Map<Object, Set<UpdateListener>> listeners = new HashMap<>();
-    private static Map<Object, Object> lastValues = new HashMap<>();
+    private static Map<Object, ListenerHandler> listeners = new HashMap<>();
 
 
     public static void registerListener(Object key, UpdateListener value)
@@ -22,24 +21,29 @@ public class ListenerFactory
         if (!listeners.containsKey(key))
         {
             LOGGER.warn("No caller has registered yet: " + key);
-            listeners.put(key, new HashSet<UpdateListener>());
         }
 
-        if (lastValues.containsKey(key))
-        {
-            value.update(key, lastValues.get(key));
-        }
-
-        listeners.get(key).add(value);
+        listeners.get(key).addListener(value);
     }
 
     public static void registerCaller(Object key)
+    {
+
+        LOGGER.trace("Registering caller: " + key);
+
+        if (!listeners.containsKey(key))
+        {
+            listeners.put(key, new Direct(key));
+        }
+    }
+
+    public static void registerCaller(Object key, ListenerHandler handler)
     {
         LOGGER.trace("Registering caller: " + key);
 
         if (!listeners.containsKey(key))
         {
-            listeners.put(key, new HashSet<UpdateListener>());
+            listeners.put(key, handler);
         }
     }
 
@@ -47,11 +51,7 @@ public class ListenerFactory
     {
         if (listeners.containsKey(key))
         {
-            lastValues.put(key, value);
-            for (UpdateListener listener : listeners.get(key))
-            {
-                listener.update(key, value);
-            }
+            listeners.get(key).updateListeners(value);
         }
     }
 }
