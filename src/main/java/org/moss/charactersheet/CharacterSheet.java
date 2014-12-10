@@ -14,6 +14,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.SpringLayout;
 
 import org.moss.charactersheet.aspects.enums.Skill;
+import org.moss.charactersheet.gui.GenerateAnimalGui;
 import org.moss.charactersheet.gui.GenerateCharInfoGui;
 import org.moss.charactersheet.gui.GenerateFeatsGui;
 import org.moss.charactersheet.gui.GenerateInvGui;
@@ -37,6 +38,7 @@ public class CharacterSheet extends JFrame
     private List<Component> page3Components = new ArrayList<Component>();
     private List<Component> page4Components = new ArrayList<Component>();
     private List<Component> page5Components = new ArrayList<Component>();
+    private List<Component> page6Components = new ArrayList<Component>();
 
     private SpringLayout layout;
     /** Page 1 */
@@ -125,6 +127,12 @@ public class CharacterSheet extends JFrame
         magicGui.generate();
         
         /*
+         * Generate components for sixth page
+         */
+        GenerateAnimalGui animGui = new GenerateAnimalGui(page6Components);
+        animGui.generate();
+        
+        /*
          * Add all components to appropriate tab panels
          */
         addAllComponents();
@@ -155,6 +163,11 @@ public class CharacterSheet extends JFrame
         for (Component curComp : page5Components)
         {
             tabPanel5.add(curComp);
+        }
+        
+        for (Component curComp : page6Components)
+        {
+        	tabPanel6.add(curComp);
         }
         pack();
     }
