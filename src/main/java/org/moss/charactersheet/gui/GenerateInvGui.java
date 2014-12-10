@@ -25,15 +25,25 @@ import org.moss.charactersheet.aspects.InventoryLine;
 import org.moss.charactersheet.util.ListenerFactory;
 import org.moss.charactersheet.util.listeners.Accumulator;
 
-
-public class GenerateInvGui implements ActionListener, PropertyChangeListener
+/**
+ * Generates the inventory screen. Includes:
+ * <ul>
+ * <li> Carry Capacity </li>
+ * <li> Money </li>
+ * <li> Gear </li>
+ * <li> Magical Items </li>
+ * </ul>
+ * @author Jacq
+ *
+ */
+public class GenerateInvGui implements ActionListener, PropertyChangeListener, GenerateGui
 {
 
     private static final String WEIGHT = "weight";
     private List<Component> components;
     private NumberFormatter formatter;
 
-    private JButton btnAddItem;
+    private static final JButton BTN_ADD_ITEM = new JButton("Add Item...");
     private int buttonY;
     private boolean buttonCreated;
 
@@ -43,7 +53,10 @@ public class GenerateInvGui implements ActionListener, PropertyChangeListener
 
     private Map<JButton, InventoryLine> inventory = new HashMap<>();
 
-
+    /**
+     * Creates generator for inventory and adds to given list of components
+     * @param components
+     */
     public GenerateInvGui(List<Component> components)
     {
         this.components = components;
@@ -70,6 +83,10 @@ public class GenerateInvGui implements ActionListener, PropertyChangeListener
         ListenerFactory.registerCaller(WEIGHT, Accumulator.createFloatAccumulator(WEIGHT));
     }
 
+    /**
+     * Generates inventory screen and adds to previously provided list
+     */
+    @Override
     public void generate()
     {
         addMiscPanel();
@@ -220,11 +237,10 @@ public class GenerateInvGui implements ActionListener, PropertyChangeListener
     {
         if (!buttonCreated)
         {
-            btnAddItem = new JButton("Add Item...");
-            btnAddItem.addActionListener(this);
-            btnAddItem.setActionCommand("AddItem");
+            BTN_ADD_ITEM.addActionListener(this);
+            BTN_ADD_ITEM.setActionCommand("AddItem");
 
-            gear.add(btnAddItem, constraints);
+            gear.add(BTN_ADD_ITEM, constraints);
             buttonCreated = true;
         }
         buttonY = constraints.gridy;
@@ -351,7 +367,7 @@ public class GenerateInvGui implements ActionListener, PropertyChangeListener
         {
             GridBagConstraints constraints = new GridBagConstraints();
 
-            gear.remove(btnAddItem);
+            gear.remove(BTN_ADD_ITEM);
             gear.revalidate();
             gear.repaint();
             buttonCreated = false;

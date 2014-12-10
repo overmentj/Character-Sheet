@@ -1,7 +1,5 @@
 package org.moss.charactersheet.gui;
 
-import static javax.swing.SpringLayout.WEST;
-
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -22,7 +20,6 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 
 import org.moss.charactersheet.aspects.SkillInfo;
@@ -37,35 +34,30 @@ import org.moss.charactersheet.util.LabelUtils;
  * @author Jacq
  * 
  */
-public class GenerateSkillsGui implements ActionListener
+public class GenerateSkillsGui implements ActionListener, GenerateGui
 {
-    private SpringLayout layout;
     private List<Component> pageComponents = new ArrayList<Component>();
     private JPanel skills;
     private int index;
 
     /**
-     * Creates new generator that considers given parameters
+     * Creates new generator which can be used to add to given list
      * 
-     * @param layout
      * @param components
      */
-    public GenerateSkillsGui(SpringLayout layout, List<Component> components)
+    public GenerateSkillsGui(List<Component> components)
     {
-        this.layout = layout;
         this.pageComponents = components;
     }
 
     /**
      * Generates the components required and adds them to the list.
      * Also builds on the layout.
-     * 
-     * @param westComponent
      */
-    public Component generate(Component westComponent)
+    @Override
+    public void generate()
     {
         skills = createSkillsOutline();
-        layout.putConstraint(WEST, skills, 5, WEST, westComponent);
         addSkillsToPanel(skills);
 
         JButton btnAddSkill = new JButton("Add New Skill...");
@@ -74,14 +66,14 @@ public class GenerateSkillsGui implements ActionListener
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.gridy = Skill.getValues().size() + 2;
         skills.add(btnAddSkill, constraints);
-
-        return skills;
+        
+        pageComponents.add(skills);
     }
 
     /**
      * Create border and headers for Skills table
      * 
-     * @return
+     * @return JPanel
      */
     private JPanel createSkillsOutline()
     {
@@ -102,40 +94,39 @@ public class GenerateSkillsGui implements ActionListener
         // Skills
         JLabel labelSkills = new JLabel("Skill Name");
         labelSkills.setFont(small);
-        constraints.gridx = 1;
+        constraints.gridx++;
         skills.add(labelSkills, constraints);
 
         // Ability
         JLabel labelAbility = new JLabel(LabelUtils.multiLine("Key \nAbility"));
         labelAbility.setFont(small);
-        constraints.gridx = 3;
+        constraints.gridx++;
         skills.add(labelAbility, constraints);
 
         // Skill Mod
         JLabel labelSkillMod = new JLabel(LabelUtils.multiLine("Skill \nModifier"));
         labelSkillMod.setFont(small);
-        constraints.gridx = 5;
+        constraints.gridx++;
         skills.add(labelSkillMod, constraints);
 
         // Ability Mod
         JLabel labelAbMod = new JLabel(LabelUtils.multiLine("Ability \nModifier"));
         labelAbMod.setFont(small);
-        constraints.gridx = 7;
+        constraints.gridx++;
         skills.add(labelAbMod, constraints);
 
         // Ranks
         JLabel labelRanks = new JLabel("Ranks");
         labelRanks.setFont(small);
-        constraints.gridx = 9;
+        constraints.gridx++;
         skills.add(labelRanks, constraints);
 
         // Misc
         JLabel labelMisc = new JLabel(LabelUtils.multiLine("Misc \nModifier"));
         labelMisc.setFont(small);
-        constraints.gridx = 11;
+        constraints.gridx++;
         skills.add(labelMisc, constraints);
 
-        pageComponents.add(skills);
         return skills;
     }
 
@@ -162,41 +153,41 @@ public class GenerateSkillsGui implements ActionListener
 
         		JLabel labelSkillName = new JLabel(curSkill);
         		labelSkillName.setHorizontalAlignment(SwingConstants.LEFT);
-        		constraints.gridx = 1;
+        		constraints.gridx++;
         		skills.add(labelSkillName, constraints);
 
         		JLabel labelAbilityName = new JLabel(Skill.getSkill(curSkill).getAbility().name());
-        		constraints.gridx = 3;
+        		constraints.gridx++;
         		skills.add(labelAbilityName, constraints);
 
         		JTextField textTotal = new JTextField(2);
         		textTotal.setEditable(false);
-        		constraints.gridx = 5;
+        		constraints.gridx++;
         		skills.add(textTotal, constraints);
 
         		JLabel labelEquals = new JLabel("  =  ");
-        		constraints.gridx = 6;
+        		constraints.gridx++;
         		skills.add(labelEquals, constraints);
 
         		JTextField textAbility = new JTextField(2);
         		textAbility.setEditable(false);
-        		constraints.gridx = 7;
+        		constraints.gridx++;
         		skills.add(textAbility, constraints);
 
         		JLabel labelPlus2 = new JLabel("  +  ");
-        		constraints.gridx = 8;
+        		constraints.gridx++;
         		skills.add(labelPlus2, constraints);
 
         		JFormattedTextField textRanks = new JFormattedTextField();
-        		constraints.gridx = 9;
+        		constraints.gridx++;
         		skills.add(textRanks, constraints);
 
         		JLabel labelPlus3 = new JLabel("  +  ");
-        		constraints.gridx = 10;
+        		constraints.gridx++;
         		skills.add(labelPlus3, constraints);
 
         		JFormattedTextField textMisc = new JFormattedTextField();
-        		constraints.gridx = 11;
+        		constraints.gridx++;
         		skills.add(textMisc, constraints);
 
         		new SkillInfo(new Skill(curSkill, Skill.getSkill(curSkill).getAbility(), false), classSkillCB, textTotal,
@@ -218,41 +209,41 @@ public class GenerateSkillsGui implements ActionListener
         skills.add(classSkillCB, constraints);
 
         JLabel labelSkillName = new JLabel(skill.getSkillName());
-        constraints.gridx = 1;
+        constraints.gridx++;
         skills.add(labelSkillName, constraints);
 
         JLabel labelAbilityName = new JLabel(skill.getAbility().name());
-        constraints.gridx = 3;
+        constraints.gridx++;
         skills.add(labelAbilityName, constraints);
 
         JTextField textTotal = new JTextField(2);
         textTotal.setEditable(false);
-        constraints.gridx = 5;
+        constraints.gridx++;
         skills.add(textTotal, constraints);
 
         JLabel labelEquals = new JLabel("  =  ");
-        constraints.gridx = 6;
+        constraints.gridx++;
         skills.add(labelEquals, constraints);
 
         JTextField textAbility = new JTextField(2);
         textAbility.setEditable(false);
-        constraints.gridx = 7;
+        constraints.gridx++;
         skills.add(textAbility, constraints);
 
         JLabel labelPlus2 = new JLabel("  +  ");
-        constraints.gridx = 8;
+        constraints.gridx++;
         skills.add(labelPlus2, constraints);
 
         JFormattedTextField textRanks = new JFormattedTextField();
-        constraints.gridx = 9;
+        constraints.gridx++;
         skills.add(textRanks, constraints);
 
         JLabel labelPlus3 = new JLabel("  +  ");
-        constraints.gridx = 10;
+        constraints.gridx++;
         skills.add(labelPlus3, constraints);
 
         JFormattedTextField textMisc = new JFormattedTextField();
-        constraints.gridx = 11;
+        constraints.gridx++;
         skills.add(textMisc, constraints);
 
         new SkillInfo(new Skill(skill.getSkillName(), skill.getAbility(), true), classSkillCB, textTotal, textAbility,

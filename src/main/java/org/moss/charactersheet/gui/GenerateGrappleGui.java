@@ -1,25 +1,17 @@
 package org.moss.charactersheet.gui;
 
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SpringLayout;
 
 import org.moss.charactersheet.aspects.Grapple;
 import org.moss.charactersheet.util.LabelUtils;
-
-import static javax.swing.SpringLayout.NORTH;
-import static javax.swing.SpringLayout.SOUTH;
-import static javax.swing.SpringLayout.WEST;
 
 /**
  * Generator for grapple
@@ -28,28 +20,19 @@ import static javax.swing.SpringLayout.WEST;
  */
 public class GenerateGrappleGui
 {
-    private SpringLayout layout;
-    private List<Component> pageComponents = new ArrayList<Component>();
-
     /**
-     * Creates new generator that considers given parameters
-     * @param layout
-     * @param components
+     * Creates new generator
      */
-    public GenerateGrappleGui(SpringLayout layout, List<Component> components)
+    public GenerateGrappleGui()
     {
-        this.layout = layout;
-        this.pageComponents = components;
     }
 
     /**
      * Generates the components required and adds them to the list.
      * Also builds on the layout.
-     * @param northComponent
-     * @param westComponent
-     * @return
+     * @return JPanel
      */
-    public Component generate(Component northComponent, Component westComponent)
+    public JPanel generate()
     {
         JPanel grapple = new JPanel(new GridBagLayout());
 
@@ -157,10 +140,6 @@ public class GenerateGrappleGui
         constraint.gridx = 9;
         constraint.gridy = 1;
         grapple.add(JLabelMiscNeg, constraint);
-
-        layout.putConstraint(WEST, grapple, 5, WEST, westComponent);
-        layout.putConstraint(NORTH, grapple, 5, SOUTH, northComponent);
-        pageComponents.add(grapple);
 
         new Grapple(total, base, strength, size, misc);
 

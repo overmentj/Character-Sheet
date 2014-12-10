@@ -14,31 +14,28 @@ import javax.swing.JTabbedPane;
 import javax.swing.SpringLayout;
 
 import org.moss.charactersheet.aspects.enums.Skill;
-import org.moss.charactersheet.gui.GenerateAbilityScoresGui;
-import org.moss.charactersheet.gui.GenerateAcGui;
-import org.moss.charactersheet.gui.GenerateCombatOptionsGui;
-import org.moss.charactersheet.gui.GenerateGrappleGui;
+import org.moss.charactersheet.gui.GenerateCharInfoGui;
+import org.moss.charactersheet.gui.GenerateFeatsGui;
 import org.moss.charactersheet.gui.GenerateInvGui;
 import org.moss.charactersheet.gui.GenerateMagicGui;
-import org.moss.charactersheet.gui.GenerateMetaDataGui;
-import org.moss.charactersheet.gui.GenerateSavesGui;
 import org.moss.charactersheet.gui.GenerateSkillsGui;
-import org.moss.charactersheet.gui.GenerateSpeedEtcGui;
 
 
 public class CharacterSheet extends JFrame
 {
-    private static final int LINE_HEIGHT = 25;
+	private static final long serialVersionUID = 1L;
+	
+	private static final int LINE_HEIGHT = 25;
 
     public static int getLineHeight()
     {
         return LINE_HEIGHT;
     }
 
-    private List<Component> page1Componenets = new ArrayList<Component>();
-    private List<Component> page2Componenets = new ArrayList<Component>();
-    private List<Component> page3Componenets = new ArrayList<Component>();
-    private List<Component> page4Componenets = new ArrayList<Component>();
+    private List<Component> page1Components = new ArrayList<Component>();
+    private List<Component> page2Components = new ArrayList<Component>();
+    private List<Component> page3Components = new ArrayList<Component>();
+    private List<Component> page4Components = new ArrayList<Component>();
     private List<Component> page5Components = new ArrayList<Component>();
 
     private SpringLayout layout;
@@ -52,6 +49,8 @@ public class CharacterSheet extends JFrame
     private Container tabPanel4;
     /** Page 5 */
     private Container tabPanel5;
+    /** Page 6 */
+    private Container tabPanel6;
 
     public CharacterSheet()
     {
@@ -74,70 +73,57 @@ public class CharacterSheet extends JFrame
         tabPanel3 = new JPanel(layout);
         tabPanel4 = new JPanel(layout);
         tabPanel5 = new JPanel(layout);
+        tabPanel6 = new JPanel(layout);
 
         JScrollPane pane1 = new JScrollPane();
         tabPanel1.setPreferredSize(new Dimension(700, 1000));
         pane1.setViewportView(tabPanel1);
 
-        JScrollPane pane5 = new JScrollPane();
-        tabPanel5.setPreferredSize(new Dimension(815, Skill.getValues().size()*25));
-        pane5.setViewportView(tabPanel5);
+        JScrollPane pane2 = new JScrollPane();
+        tabPanel2.setPreferredSize(new Dimension(815, Skill.getValues().size()*25));
+        pane2.setViewportView(tabPanel2);
 
         tabbedPanel.addTab("Overview", pane1);
-        tabbedPanel.addTab("Inventory", tabPanel2);
-        tabbedPanel.addTab("Magic", tabPanel3);
-        tabbedPanel.addTab("Animals", tabPanel4);
-        tabbedPanel.addTab("Skills", pane5);
+        tabbedPanel.addTab("Skills", pane2);
+        tabbedPanel.addTab("Feats and Special Abilities", tabPanel3);
+        tabbedPanel.addTab("Inventory", tabPanel4);
+        tabbedPanel.addTab("Magic", tabPanel5);
+        tabbedPanel.addTab("Animals", tabPanel6);
 
         contentPane.add(tabbedPanel);
 
-        this.setPreferredSize(new Dimension(800, 1000));
-
-        Component comp;
+        this.setPreferredSize(new Dimension(850, 1000));
 
         /*
          * Generate components for first page
          */
-        GenerateMetaDataGui metaDataGen = new GenerateMetaDataGui(layout, tabPanel1, page1Componenets);
-        metaDataGen.generate();
-
-        GenerateAbilityScoresGui scoreGen = new GenerateAbilityScoresGui(layout, tabPanel1, page1Componenets);
-        comp = scoreGen.generate(tabPanel1);
-
-        GenerateCombatOptionsGui combatGen = new GenerateCombatOptionsGui(layout, tabPanel1, page1Componenets);
-        combatGen.generate(comp, 6);
-
-        GenerateSpeedEtcGui speedGen = new GenerateSpeedEtcGui(layout, tabPanel1, page1Componenets);
-        comp = speedGen.generate(comp);
-
-        GenerateGrappleGui grappleGen = new GenerateGrappleGui(layout, page1Componenets);
-        comp = grappleGen.generate(comp, tabPanel1);
-
-        GenerateSavesGui savesGen = new GenerateSavesGui(layout, page1Componenets);
-        comp = savesGen.generate(comp, tabPanel1);
-
-        GenerateAcGui acGen = new GenerateAcGui(layout, page1Componenets);
-        comp = acGen.generate(comp, tabPanel1);
+        GenerateCharInfoGui charInfoGen = new GenerateCharInfoGui(page1Components);
+        charInfoGen.generate();
 
         /*
          * Generate components for second page
          */
-        GenerateInvGui invGen = new GenerateInvGui(page2Componenets);
-        invGen.generate();
+        GenerateSkillsGui skillsGen = new GenerateSkillsGui(page2Components);
+        skillsGen.generate();
         
         /*
          * Generate components for third page
          */
+        GenerateFeatsGui featsGen = new GenerateFeatsGui(page3Components);
+        featsGen.generate();
         
-        GenerateMagicGui magicGui = new GenerateMagicGui(page3Componenets, layout);
-        magicGui.generate(5, 5, tabPanel3);
+        /*
+         * Generate components for fourth page
+         */
+        GenerateInvGui invGen = new GenerateInvGui(page4Components);
+        invGen.generate();
         
         /*
          * Generate components for fifth page
          */
-        GenerateSkillsGui skillsGen = new GenerateSkillsGui(layout, page5Components);
-        skillsGen.generate(tabPanel5);
-
+        GenerateMagicGui magicGui = new GenerateMagicGui(page5Components);
+        magicGui.generate();
+        
         /*
          * Add all components to appropriate tab panels
          */
@@ -146,22 +132,22 @@ public class CharacterSheet extends JFrame
 
     private void addAllComponents()
     {
-        for (Component curComp : page1Componenets)
+        for (Component curComp : page1Components)
         {
             tabPanel1.add(curComp);
         }
 
-        for (Component curComp : page2Componenets)
+        for (Component curComp : page2Components)
         {
             tabPanel2.add(curComp);
         }
 
-        for (Component curComp : page3Componenets)
+        for (Component curComp : page3Components)
         {
             tabPanel3.add(curComp);
         }
 
-        for (Component curComp : page4Componenets)
+        for (Component curComp : page4Components)
         {
             tabPanel4.add(curComp);
         }

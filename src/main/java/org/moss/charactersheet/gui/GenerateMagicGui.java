@@ -12,68 +12,73 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 
 import org.moss.charactersheet.util.LabelUtils;
 
-import static javax.swing.SpringLayout.NORTH;
-import static javax.swing.SpringLayout.SOUTH;
-import static javax.swing.SpringLayout.WEST;
-
-public class GenerateMagicGui
+/**
+ * Generates all things magical. Inludes:
+ * <ul>
+ * <li> Domain information </li>
+ * <li> Spells </li>
+ * <li> Spells per day </li>
+ * <li> Saves </li>
+ * <li> Modifiers </li>
+ * </ul>
+ * @author Jacq
+ *
+ */
+public class GenerateMagicGui implements GenerateGui
 {
 
     private List<Component> components;
-    private SpringLayout parentLayout;
     private Font small;
+    private JPanel allMagic = new JPanel(new GridBagLayout());
+    private GridBagConstraints consts = new GridBagConstraints();
 
-
-    public GenerateMagicGui(List<Component> components, SpringLayout parentLayout)
+    /**
+     * Creates generator for all magic components and adds to given list
+     * @param components
+     */
+    public GenerateMagicGui(List<Component> components)
     {
         this.components = components;
-        this.parentLayout = parentLayout;
+        consts.insets = new Insets(0, 2, 2, 0);
         small = new Font("Verdana", Font.BOLD, 8);
     }
 
-    public void generate(int x, int y, Component anchor)
+    /**
+     * Generates magic screen and adds to previously provided list
+     */
+    @Override
+    public void generate()
     {
-
-        JPanel magicPanel = generateMagicBox(x, y, anchor);
-
-        x += 320;
-
-        JPanel spellPanel = generateSpellBox(x, y, anchor);
-
-        x = 0;
-
-        /*
-         * Spell List
-         */
-        generateSpellList(x, anchor, spellPanel);
-        
+        generateMagicBox();
+        generateSpellBox();
+        generateSpellList();
+        components.add(allMagic);
     }
 
-    private void generateSpellList(int x, Component anchor, JPanel spellPanel)
+    private void generateSpellList()
     {
         JPanel spellListPanel = new JPanel();
         GridBagLayout spellListLayout = new GridBagLayout();
         GridBagConstraints spellListConstraints = new GridBagConstraints();
-        components.add(spellListPanel);
 
         spellListPanel.setBorder(BorderFactory.createTitledBorder("Spell List"));
         spellListPanel.setLayout(spellListLayout);
 
-        parentLayout.putConstraint(NORTH, spellListPanel, 5, SOUTH, spellPanel);
-        parentLayout.putConstraint(WEST, spellListPanel, x, WEST, anchor);
-        
-        JLabel labelSpellz = new JLabel("Bobby");
+        JLabel labelSpells = new JLabel("Bobby");
         spellListConstraints.gridx = 0;
         spellListConstraints.gridy = 0;
-        spellListPanel.add(labelSpellz, spellListConstraints);
+        spellListPanel.add(labelSpells, spellListConstraints);
+        
+        consts.gridx = 1;
+        consts.gridy = 0;
+        allMagic.add(spellListPanel, consts);
     }
 
-    private JPanel generateSpellBox(int x, int y, Component anchor)
+    private void generateSpellBox()
     {
         /*
          * Spell block
@@ -81,15 +86,11 @@ public class GenerateMagicGui
         JPanel spellsPanel = new JPanel();
         GridBagLayout spellsLayout = new GridBagLayout();
         GridBagConstraints spellConstraints = new GridBagConstraints();
-        components.add(spellsPanel);
 
         spellsPanel.setBorder(BorderFactory.createTitledBorder("Spells"));
         spellsPanel.setLayout(spellsLayout);
 
-        parentLayout.putConstraint(NORTH, spellsPanel, y, NORTH, anchor);
-        parentLayout.putConstraint(WEST, spellsPanel, x, WEST, anchor);
-
-        spellConstraints.insets = new Insets(0, 0, 4, 0);
+        spellConstraints.insets = new Insets(0, 0, 4, 2);
 
         JLabel labelSpellSave = new JLabel("Spell Save");
         spellConstraints.gridx = 0;
@@ -173,11 +174,11 @@ public class GenerateMagicGui
                 dailySpellConstraints.insets = new Insets(0, 0, 0, 0);
             }
         }
-
-        return spellsPanel;
+        consts.gridy = 1;
+        allMagic.add(spellsPanel, consts);
     }
 
-    private JPanel generateMagicBox(int x, int y, Component anchor)
+    private void generateMagicBox()
     {
         /*
          * Magic box
@@ -185,14 +186,10 @@ public class GenerateMagicGui
         JPanel magicPanel = new JPanel();
         GridBagLayout magicLayout = new GridBagLayout();
         GridBagConstraints magicConstraints = new GridBagConstraints();
-        components.add(magicPanel);
 
         magicPanel.setBorder(BorderFactory.createTitledBorder("Magic"));
         magicPanel.setLayout(magicLayout);
         magicConstraints.anchor = GridBagConstraints.WEST;
-
-        parentLayout.putConstraint(NORTH, magicPanel, y, NORTH, anchor);
-        parentLayout.putConstraint(WEST, magicPanel, x, WEST, anchor);
 
         JLabel labelDomains = new JLabel("Domains (Cleric Only)");
         labelDomains.setHorizontalAlignment(SwingConstants.LEFT);
@@ -285,7 +282,8 @@ public class GenerateMagicGui
         magicConstraints.gridy = 9;
         magicConstraints.gridwidth = 2;
         magicPanel.add(textSpellFailure, magicConstraints);
-        return magicPanel;
+        
+        allMagic.add(magicPanel);
     }
 
 }

@@ -1,24 +1,13 @@
 package org.moss.charactersheet.gui;
 
-import java.awt.Component;
-import java.awt.Container;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SpringLayout;
-
-import org.moss.charactersheet.CharacterSheet;
-
-import static javax.swing.SpringLayout.EAST;
-import static javax.swing.SpringLayout.NORTH;
-import static javax.swing.SpringLayout.WEST;
 
 /**
  * Generator for combat options
@@ -27,31 +16,20 @@ import static javax.swing.SpringLayout.WEST;
  */
 public class GenerateCombatOptionsGui
 {
-    private SpringLayout layout;
-    private Container tabPanel;
-    private List<Component> pageComponents = new ArrayList<Component>();
-
     /**
-     * Creates new generator that considers given parameters
-     * @param layout
-     * @param panel
-     * @param components
+     * Creates new generator
      */
-    public GenerateCombatOptionsGui(SpringLayout layout, Container panel, List<Component> components)
+    public GenerateCombatOptionsGui()
     {
-        this.layout = layout;
-        this.tabPanel = panel;
-        this.pageComponents = components;
     }
 
     /**
      * Generates the components required and adds them to the list of components to add to the
      * appropriate panel.
      * Also builds on the layout.
-     * @param westComponent
-     * @param depth
+     * @return JPanel
      */
-    public void generate(Component westComponent, int depth)
+    public JPanel generate()
     {
         JPanel combatOptions = new JPanel(new GridBagLayout());
         combatOptions.setBorder(BorderFactory.createTitledBorder("Combat Options"));
@@ -169,9 +147,6 @@ public class GenerateCombatOptionsGui
 
             constraint.gridwidth = 1;
         }
-
-        pageComponents.add(combatOptions);
-        layout.putConstraint(WEST, combatOptions, 5, EAST, westComponent);
-        layout.putConstraint(NORTH, combatOptions, CharacterSheet.getLineHeight() * depth + 5, NORTH, tabPanel);
+        return combatOptions;
     }
 }

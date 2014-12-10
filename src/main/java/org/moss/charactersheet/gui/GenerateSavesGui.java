@@ -1,12 +1,9 @@
 package org.moss.charactersheet.gui;
 
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.swing.BorderFactory;
@@ -15,15 +12,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.SpringLayout;
 
 import org.moss.charactersheet.aspects.Saves;
 import org.moss.charactersheet.aspects.enums.Save;
 import org.moss.charactersheet.util.LabelUtils;
-
-import static javax.swing.SpringLayout.NORTH;
-import static javax.swing.SpringLayout.SOUTH;
-import static javax.swing.SpringLayout.WEST;
 
 /**
  * Generator for saves
@@ -34,28 +26,19 @@ public class GenerateSavesGui
 {
     private Map<Save, Saves> savingThrowsMap = new HashMap<>();
 
-    private SpringLayout layout;
-    private List<Component> pageComponents = new ArrayList<Component>();
-
     /**
-     * Creates new generator that considers given parameters
-     * @param layout
-     * @param components
+     * Creates new generator
      */
-    public GenerateSavesGui(SpringLayout layout, List<Component> components)
+    public GenerateSavesGui()
     {
-        this.layout = layout;
-        this.pageComponents = components;
     }
 
     /**
      * Generates the components required and adds them to the list.
      * Also builds on the layout.
-     * @param northComponent
-     * @param westComponent
-     * @return
+     * @return JPanel
      */
-    public Component generate(Component northComponent, Component westComponent)
+    public JPanel generate()
     {
         JPanel savingThrows = new JPanel(new GridBagLayout());
         savingThrows.setBorder(BorderFactory.createTitledBorder("Saving Throws"));
@@ -193,11 +176,6 @@ public class GenerateSavesGui
             savingThrowsMap.put(Save.values()[i], new Saves(Save.values()[i], textTotal, textBase, textAbility,
                                                             textMagic, textMisc, textTemp));
         }
-
-        pageComponents.add(savingThrows);
-
-        layout.putConstraint(WEST, savingThrows, 5, WEST, westComponent);
-        layout.putConstraint(NORTH, savingThrows, 5, SOUTH, northComponent);
 
         return savingThrows;
     }

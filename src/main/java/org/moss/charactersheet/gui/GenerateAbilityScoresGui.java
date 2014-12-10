@@ -1,28 +1,19 @@
 package org.moss.charactersheet.gui;
 
-import java.awt.Component;
-import java.awt.Container;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SpringLayout;
 
-import org.moss.charactersheet.CharacterSheet;
 import org.moss.charactersheet.aspects.AbilityScores;
 import org.moss.charactersheet.aspects.enums.AbilityScore;
 import org.moss.charactersheet.util.LabelUtils;
-
-import static javax.swing.SpringLayout.NORTH;
-import static javax.swing.SpringLayout.WEST;
 
 /**
  * Generator for ability scores
@@ -31,31 +22,20 @@ import static javax.swing.SpringLayout.WEST;
  */
 public class GenerateAbilityScoresGui
 {
-    private SpringLayout layout;
-    private Container tabPanel;
-    private List<Component> pageComponenets = new ArrayList<Component>();
-
     /**
-     * Creates new generator that considers given parameters
-     * @param layout
-     * @param panel
-     * @param components
+     * Creates new generator
      */
-    public GenerateAbilityScoresGui(SpringLayout layout, Container panel, List<Component> componenets)
+    public GenerateAbilityScoresGui()
     {
-        this.layout = layout;
-        this.tabPanel = panel;
-        this.pageComponenets = componenets;
     }
     
     /**
      * Generates the components required and adds them to the list of components to add to the
      * appropriate panel.
      * Also builds on the layout.
-     * @param westComponent
-     * @return
+     * @return JPanel
      */
-    public Component generate(Component westComponent)
+    public JPanel generate()
     {
         JPanel abilityScores = new JPanel(new GridBagLayout());
         abilityScores.setBorder(BorderFactory.createTitledBorder("Ability Scores"));
@@ -124,7 +104,7 @@ public class GenerateAbilityScoresGui
             constraint.gridy = index;
             abilityScores.add(enchance, constraint);
 
-            JLabel JLabelEnchance = new JLabel(LabelUtils.multiLine("Enhancement\nbonuses", true));
+            JLabel JLabelEnchance = new JLabel(LabelUtils.multiLine("Enhancement\nBonuses", true));
             JLabelEnchance.setFont(small);
             constraint.gridx = 5;
             constraint.gridy = index + 1;
@@ -143,7 +123,7 @@ public class GenerateAbilityScoresGui
             constraint.gridy = index;
             abilityScores.add(misc, constraint);
 
-            JLabel JLabelMisc = new JLabel(LabelUtils.multiLine("Misc\nbonuses", true));
+            JLabel JLabelMisc = new JLabel(LabelUtils.multiLine("Misc\nBonuses", true));
             JLabelMisc.setFont(small);
             constraint.gridx = 7;
             constraint.gridy = index + 1;
@@ -162,7 +142,7 @@ public class GenerateAbilityScoresGui
             constraint.gridy = index;
             abilityScores.add(miscNeg, constraint);
 
-            JLabel JLabelMiscNeg = new JLabel(LabelUtils.multiLine("Misc\npenalties", true));
+            JLabel JLabelMiscNeg = new JLabel(LabelUtils.multiLine("Misc\nPenalties", true));
             JLabelMiscNeg.setFont(small);
             constraint.gridx = 9;
             constraint.gridy = index + 1;
@@ -185,11 +165,6 @@ public class GenerateAbilityScoresGui
                                                  new AbilityScores(AbilityScore.values()[i], total, base, enchance,
                                                                    misc, miscNeg, mod));
         }
-
-        pageComponenets.add(abilityScores);
-        layout.putConstraint(WEST, abilityScores, 5, WEST, westComponent);
-        layout.putConstraint(NORTH, abilityScores, CharacterSheet.getLineHeight() * 6 + 5, NORTH, tabPanel);
-
         return abilityScores;
     }
 }

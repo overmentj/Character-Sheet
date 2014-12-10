@@ -4,7 +4,7 @@ public enum AbilityScore
 {
     STR("Strength"),
     DEX("Dexterity"),
-    CON("Consitituion"),
+    CON("Constitution"),
     INT("Intelligence"),
     WIS("Wisdom"),
     CHA("Charisma");
