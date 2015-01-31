@@ -60,16 +60,19 @@ public class GenerateCharInfoGui implements GenerateGui {
 	private void addAbilityAndCombat() {
 		GenerateAbilityScoresGui asGUI = new GenerateAbilityScoresGui();
 		GenerateCombatOptionsGui coGUI = new GenerateCombatOptionsGui();
+		JPanel miniPanel = new JPanel();
+		GridBagConstraints consts = new GridBagConstraints();
+		consts.gridx = 0;
+		consts.gridy = 0;
+		miniPanel.add(asGUI.generate(), consts);
+		consts.gridx++;
+		miniPanel.add(coGUI.generate(), consts);
 		ciConstraints.gridy = 1;
-		charInfo.add(asGUI.generate(), ciConstraints);
-		ciConstraints.gridx = 1;
-		charInfo.add(coGUI.generate(), ciConstraints);
+		charInfo.add(miniPanel, ciConstraints);
 	}
 	
 	private void addSpeed() {
 		GenerateSpeedComponents speedGUI = new GenerateSpeedComponents();
-		ciConstraints.gridx = 0;
-		ciConstraints.gridy = 2;
 		List<Component> speedComps = speedGUI.generate();
 		
 		// [Speed] [Initiative]
@@ -79,14 +82,13 @@ public class GenerateCharInfoGui implements GenerateGui {
 		consts.gridy = 0;
 		for (Component comp : speedComps) {
 			if (consts.gridy != 0 && consts.gridy % 2 == 0) {
-				charInfo.add(miniPanel, ciConstraints);
-				ciConstraints.gridx++;
-				miniPanel = new JPanel(new GridBagLayout());
+				consts.gridx++;
 				consts.gridy = 0;
 			}
 			miniPanel.add(comp, consts);
 			consts.gridy++;
 		}
+		ciConstraints.gridy++;
 		charInfo.add(miniPanel, ciConstraints);
 	}
 	

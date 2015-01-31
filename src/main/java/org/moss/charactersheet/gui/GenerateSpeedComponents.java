@@ -1,8 +1,11 @@
 package org.moss.charactersheet.gui;
 
 import java.awt.Component;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -14,6 +17,13 @@ import javax.swing.JTextField;
  */
 public class GenerateSpeedComponents
 {
+	private static final Map<String, Component> ELEMENTS = new LinkedHashMap<>();
+	
+	static {
+		ELEMENTS.put("Speed", new JTextField(30));
+		ELEMENTS.put("Initiative", new JTextField(10));
+	}
+	
     /**
      * Creates new generator
      */
@@ -30,17 +40,14 @@ public class GenerateSpeedComponents
     public List<Component> generate()
     {
     	List<Component> comps = new LinkedList<>();
-    	
-        JLabel labelSpeed = new JLabel("Speed");
-        comps.add(labelSpeed);
-        JTextField textSpeed = new JTextField(30);
-        comps.add(textSpeed);
-
-        JLabel labelInitMod = new JLabel("Initiative Modifier");
-        comps.add(labelInitMod);
-        JTextField textInitMod = new JTextField(10);
-        comps.add(textInitMod);
-
+        for (Entry<String, Component> elem : ELEMENTS.entrySet()) {
+        	String compName = elem.getKey();
+        	Component comp = elem.getValue();
+        	JLabel label = new JLabel(compName);
+        	comp.setName(compName);
+        	comps.add(label);
+        	comps.add(comp);
+        }
         return comps;
     }
 

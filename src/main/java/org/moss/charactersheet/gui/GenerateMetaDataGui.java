@@ -1,12 +1,20 @@
 package org.moss.charactersheet.gui;
 
+import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import org.moss.charactersheet.impl.enums.Alignment;
+import org.moss.charactersheet.impl.enums.Gender;
+import org.moss.charactersheet.impl.enums.Size;
 
 /**
  * Generator for character meta data
@@ -15,8 +23,35 @@ import javax.swing.JTextField;
  */
 public class GenerateMetaDataGui
 {
+	private static final Map<String, Component> ELEMENTS = new LinkedHashMap<>();
+	private static final int[] PER_LINE = new int[]{2,6,5};
+	
 	private JPanel metaData = new JPanel(new GridBagLayout());
 	private GridBagConstraints mdConsts = new GridBagConstraints();
+	
+	static {
+		ELEMENTS.put("Character Name", new JTextField(20));
+		ELEMENTS.put("Player Name", new JTextField(20));
+		ELEMENTS.put("Class", new JTextField(16));
+		ELEMENTS.put("Level", new JTextField(4));
+		ELEMENTS.put("ECL", new JTextField(4));
+		ELEMENTS.put("Race", new JTextField(8));
+		ELEMENTS.put("Size", new JComboBox<Size>(Size.values()));
+		ELEMENTS.put("Gender", new JComboBox<Gender>(Gender.values()));
+		ELEMENTS.put("Alignment", new JComboBox<Alignment>(Alignment.values()));
+		ELEMENTS.put("Religion", new JTextField(12));
+		ELEMENTS.put("Height", new JTextField(5));
+		ELEMENTS.put("Weight", new JTextField(5));
+		ELEMENTS.put("Looks", new JTextField(12));
+	}
+	
+	/**
+	 * Retrieve elements of meta data
+	 * @return Map<String, Component>
+	 */
+	public static Map<String, Component> getElements() {
+		return ELEMENTS;
+	}
 	
     /**
      * Creates new generator
@@ -33,160 +68,41 @@ public class GenerateMetaDataGui
      */
     public JPanel generate()
     {
-    	addLineOne();
-        addLineTwo();
-        addLineThree();	
+    	metaData.setName("MetaData");
+    	GridBagConstraints consts = new GridBagConstraints();
+    	consts.gridx = 0;
+    	consts.gridy = 0;
+    	mdConsts.gridx = 0;
+    	mdConsts.gridy = 0;
+    	JPanel line = new JPanel();
+    	int lineCount = 0;
+    	int elementCount = 1;
+    	for (Entry<String, Component> entry : ELEMENTS.entrySet()) {
+    		String compName = entry.getKey();
+    		Component comp = entry.getValue();
+    		comp.setName(compName);
+    		
+    		JLabel label = new JLabel(compName);
+    		line.add(label, consts);
+    		consts.gridy++;
+    		line.add(comp, consts);
+    		consts.gridx++;
+    		consts.gridy = 0;
+    		if (elementCount == PER_LINE[lineCount]) {
+    			// Add current line
+    			metaData.add(line, mdConsts);
+    			// Reset
+    			consts.gridx = 0;
+    			consts.gridy = 0;
+    			line = new JPanel();
+    			elementCount = 1;
+    			// Increase count and consts
+    			mdConsts.gridy++;
+    			lineCount++;
+    		} else {
+    			elementCount++;
+    		}
+    	}
         return metaData;
     }
-
-	private void addLineOne() {
-		JPanel lineOne = new JPanel(new GridBagLayout());
-        GridBagConstraints lOneConstraints = new GridBagConstraints();
-        
-        // Char Name
-        JLabel labelCharName = new JLabel("Character Name");
-        lineOne.add(labelCharName, lOneConstraints);
-
-        JTextField textCharName = new JTextField(20);
-        lOneConstraints.gridy = 1;
-        lineOne.add(textCharName, lOneConstraints);
-
-        // Player Name
-        JLabel labelPlayerName = new JLabel("Player Name");
-        lOneConstraints.gridx = 1;
-        lOneConstraints.gridy = 0;
-        lineOne.add(labelPlayerName, lOneConstraints);
-
-        JTextField textPlayerName = new JTextField(20);
-        lOneConstraints.gridy = 1;
-        lineOne.add(textPlayerName, lOneConstraints);
-
-        metaData.add(lineOne);		
-	}
-	
-	private void addLineTwo() {
-		JPanel lineTwo = new JPanel(new GridBagLayout());
-        GridBagConstraints lTwoConstraints = new GridBagConstraints();
-        
-        // Class
-        JLabel labelClass = new JLabel("Class");
-        lineTwo.add(labelClass, lTwoConstraints);
-
-        JTextField textClass = new JTextField(16);
-        lTwoConstraints.gridy = 1;
-        lineTwo.add(textClass, lTwoConstraints);
-
-        // Level
-        JLabel labelLevel = new JLabel("Level");
-        lTwoConstraints.gridx = 1;
-        lTwoConstraints.gridy = 0;
-        lineTwo.add(labelLevel, lTwoConstraints);
-
-        JTextField textLevel = new JTextField(4);
-        lTwoConstraints.gridy = 1;
-        lineTwo.add(textLevel, lTwoConstraints);
-
-        // ECL
-        JLabel labelEcl = new JLabel("ECL");
-        lTwoConstraints.gridx = 2;
-        lTwoConstraints.gridy = 0;
-        lineTwo.add(labelEcl, lTwoConstraints);
-
-        JTextField textEcl = new JTextField(4);
-        lTwoConstraints.gridy = 1;
-        lineTwo.add(textEcl, lTwoConstraints);
-
-        // Race/Template
-        JLabel labelRace = new JLabel("Race/Template");
-        lTwoConstraints.gridx = 3;
-        lTwoConstraints.gridy = 0;
-        lineTwo.add(labelRace, lTwoConstraints);
-
-        JTextField textRace = new JTextField(8);
-        lTwoConstraints.gridy = 1;
-        lineTwo.add(textRace, lTwoConstraints);
-
-        // Size
-        JLabel labelSize = new JLabel("Size");
-        lTwoConstraints.gridx = 4;
-        lTwoConstraints.gridy = 0;
-        lineTwo.add(labelSize, lTwoConstraints);
-
-        JComboBox<String> comboSize = 
-        		new JComboBox<String>
-                      (new String[] { "F", "D", "T", "S", "M", "L", "H", "G", "C" });
-        lTwoConstraints.gridy = 1;
-        lineTwo.add(comboSize, lTwoConstraints);
-        
-        // Gender
-        JLabel labelGender = new JLabel("Gender");
-        lTwoConstraints.gridx = 5;
-        lTwoConstraints.gridy = 0;
-        lineTwo.add(labelGender, lTwoConstraints);
-
-        JComboBox<String> comboGender = new JComboBox<String>(new String[] { "F", "M" });
-        lTwoConstraints.gridy = 1;
-        lineTwo.add(comboGender, lTwoConstraints);
-        
-        mdConsts.gridy = 1;
-        metaData.add(lineTwo, mdConsts);
-	}
-	
-	private void addLineThree() {
-		JPanel lineThree = new JPanel(new GridBagLayout());
-        GridBagConstraints lThreeConstraints = new GridBagConstraints();
-        
-        // Alignment
-        JLabel labelAlign = new JLabel("Alignment");
-        lineThree.add(labelAlign, lThreeConstraints);
-
-        JComboBox<String> comboAlign =
-        		new JComboBox<String>(new String[] 
-        				{ "LG", "NG", "CG", "LN", "TN", "CN", "LE","NE", "CE" });
-        lThreeConstraints.gridy = 1;
-        lineThree.add(comboAlign, lThreeConstraints);
-
-        // Religion/Patron Deity
-        JLabel labelReligion = new JLabel("Religion");
-        lThreeConstraints.gridx = 1;
-        lThreeConstraints.gridy = 0;
-        lineThree.add(labelReligion, lThreeConstraints);
-
-        JTextField textReligion = new JTextField(12);
-        lThreeConstraints.gridy = 1;
-        lineThree.add(textReligion, lThreeConstraints);
-
-        // Height
-        JLabel labelHeight = new JLabel("Height");
-        lThreeConstraints.gridx = 2;
-        lThreeConstraints.gridy = 0;
-        lineThree.add(labelHeight, lThreeConstraints);
-
-        JTextField textHeight = new JTextField(5);
-        lThreeConstraints.gridy = 1;
-        lineThree.add(textHeight, lThreeConstraints);
-
-        // Weight
-        JLabel labelWeight = new JLabel("Weight");
-        lThreeConstraints.gridx = 3;
-        lThreeConstraints.gridy = 0;
-        lineThree.add(labelWeight, lThreeConstraints);
-
-        JTextField textWeight = new JTextField(5);
-        lThreeConstraints.gridy = 1;
-        lineThree.add(textWeight, lThreeConstraints);
-
-        // Looks
-        JLabel labelLooks = new JLabel("Looks");
-        lThreeConstraints.gridx = 4;
-        lThreeConstraints.gridy = 0;
-        lineThree.add(labelLooks, lThreeConstraints);
-
-        JTextField textLooks = new JTextField(12);
-        lThreeConstraints.gridy = 1;
-        lineThree.add(textLooks, lThreeConstraints);
-        
-        mdConsts.gridy = 2;
-        metaData.add(lineThree, mdConsts);
-	}
 }

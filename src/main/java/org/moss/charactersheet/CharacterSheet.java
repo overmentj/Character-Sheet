@@ -12,7 +12,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.SpringLayout;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 
+import org.moss.charactersheet.actions.api.MenuBar;
 import org.moss.charactersheet.aspects.enums.Skill;
 import org.moss.charactersheet.gui.GenerateAnimalGui;
 import org.moss.charactersheet.gui.GenerateCharInfoGui;
@@ -54,7 +57,7 @@ public class CharacterSheet extends JFrame
     /** Page 6 */
     private Container tabPanel6;
 
-    public CharacterSheet()
+	public CharacterSheet()
     {
         init();
     }
@@ -64,9 +67,10 @@ public class CharacterSheet extends JFrame
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Character Sheet");
 
-        layout = new SpringLayout();
-        Container contentPane = this.getContentPane();
+        final Container contentPane = this.getContentPane();
         contentPane.setLayout(new GridLayout(1, 1));
+        
+        layout = new SpringLayout();
 
         JTabbedPane tabbedPanel = new JTabbedPane();
 
@@ -93,7 +97,8 @@ public class CharacterSheet extends JFrame
         tabbedPanel.addTab("Animals", tabPanel6);
 
         contentPane.add(tabbedPanel);
-
+        setJMenuBar(new MenuBar(tabbedPanel, page1Components).createMenuBar());
+        
         this.setPreferredSize(new Dimension(850, 1000));
 
         /*
@@ -174,6 +179,17 @@ public class CharacterSheet extends JFrame
 
     public static void main(String[] args)
     {
+    	try {
+    	    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+    	        if ("Nimbus".equals(info.getName())) {
+    	            UIManager.setLookAndFeel(info.getClassName());
+    	            break;
+    	        }
+    	    }
+    	} catch (Exception e) {
+    	    
+    	}
+    	
         java.awt.EventQueue.invokeLater(new Runnable()
         {
             public void run()

@@ -32,6 +32,7 @@ public class GenerateCombatOptionsGui
     public JPanel generate()
     {
         JPanel combatOptions = new JPanel(new GridBagLayout());
+        combatOptions.setName("CombatOpts");
         combatOptions.setBorder(BorderFactory.createTitledBorder("Combat Options"));
 
         GridBagConstraints constraint = new GridBagConstraints();
@@ -45,6 +46,7 @@ public class GenerateCombatOptionsGui
         combatOptions.add(labelBaseAttack, constraint);
 
         JTextField textBaseAttack = new JTextField(12);
+        textBaseAttack.setName("BaseAttack");
         constraint.gridx = 2;
         constraint.gridy = 0;
         constraint.gridwidth = 3;
@@ -57,6 +59,7 @@ public class GenerateCombatOptionsGui
             int index = (i * 4) + 1;
 
             JTextField weapon = new JTextField(8);
+            weapon.setName("Weapon" + i);
             // weapon.setFont(medium);
             constraint.gridx = 0;
             constraint.gridy = index;
@@ -69,6 +72,7 @@ public class GenerateCombatOptionsGui
             combatOptions.add(JLabelWeapon, constraint);
 
             JTextField attackBonus = new JTextField(8);
+            attackBonus.setName("AttackBonus" + i);
             // attackBonus.setFont(medium);
             constraint.gridx = 1;
             constraint.gridy = index;
@@ -85,6 +89,7 @@ public class GenerateCombatOptionsGui
             constraint.gridwidth = 1;
 
             JTextField damage = new JTextField(4);
+            damage.setName("Damage" + i);
             // damage.setFont(medium);
             constraint.gridx = 3;
             constraint.gridy = index;
@@ -97,6 +102,7 @@ public class GenerateCombatOptionsGui
             combatOptions.add(JLabelDamage, constraint);
 
             JTextField crit = new JTextField(4);
+            crit.setName("Crit" + i);
             // crit.setFont(medium);
             constraint.gridx = 4;
             constraint.gridy = index;
@@ -111,6 +117,7 @@ public class GenerateCombatOptionsGui
             // Line 2
 
             JTextField range = new JTextField(8);
+            range.setName("Range" + i);
             constraint.gridx = 0;
             constraint.gridy = index + 2;
             combatOptions.add(range, constraint);
@@ -122,6 +129,7 @@ public class GenerateCombatOptionsGui
             combatOptions.add(JLabelRange, constraint);
 
             JTextField type = new JTextField(4);
+            type.setName("Type" + i);
             constraint.gridx = 1;
             constraint.gridy = index + 2;
             combatOptions.add(type, constraint);
@@ -133,6 +141,7 @@ public class GenerateCombatOptionsGui
             combatOptions.add(JLabelType, constraint);
 
             JTextField notes = new JTextField(12);
+            notes.setName("Notes" + i);
             constraint.gridx = 2;
             constraint.gridy = index + 2;
             constraint.gridwidth = 3;

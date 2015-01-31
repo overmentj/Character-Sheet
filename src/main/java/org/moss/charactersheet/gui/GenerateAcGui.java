@@ -129,7 +129,7 @@ public class GenerateAcGui
         constraint.gridy = 0;
         armourClass.add(textDex, constraint);
 
-        JLabel labelDex = new JLabel(LabelUtils.multiLine("Dex\nmodifier", true));
+        JLabel labelDex = new JLabel(LabelUtils.multiLine("Dex\nModifier", true));
         labelDex.setFont(small);
         constraint.gridx = 9;
         constraint.gridy = 1;
@@ -148,7 +148,7 @@ public class GenerateAcGui
         constraint.gridy = 0;
         armourClass.add(textSize, constraint);
 
-        JLabel labelSize = new JLabel(LabelUtils.multiLine("Size\nmodifier", true));
+        JLabel labelSize = new JLabel(LabelUtils.multiLine("Size\nModifier", true));
         labelSize.setFont(small);
         constraint.gridx = 11;
         constraint.gridy = 1;
@@ -162,10 +162,10 @@ public class GenerateAcGui
 
         constraint.gridheight = 1; // reset
 
-        JFormattedTextField textNatrual = new JFormattedTextField();
+        JFormattedTextField textNatural = new JFormattedTextField();
         constraint.gridx = 13;
         constraint.gridy = 0;
-        armourClass.add(textNatrual, constraint);
+        armourClass.add(textNatural, constraint);
 
         JLabel labelNatural = new JLabel(LabelUtils.multiLine("Natural\nArmour", true));
         labelNatural.setFont(small);
@@ -238,7 +238,7 @@ public class GenerateAcGui
         constraint.gridy = 2;
         armourClass.add(textFlat, constraint);
 
-        new ArmourClass(total, textArmour, textShield, textDex, textSize, textNatrual, textDeflection, textMisc,
+        new ArmourClass(total, textArmour, textShield, textDex, textSize, textNatural, textDeflection, textMisc,
                         textFlat, textTouch);
 
         return armourClass;
