@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.moss</groupId>
-	<artifactId>Character-Sheet</artifactId>
+	<artifactId>Character-Sheet-Fork</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<build>
 		<testOutputDirectory>target/test-classes</testOutputDirectory>
