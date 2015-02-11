@@ -19,41 +19,36 @@ import org.moss.charactersheet.impl.CharacterInfo;
 import org.moss.charactersheet.impl.CombatStats;
 
 /**
- * API Class for use by CharacterSheet
- * Saves current for to save file
+ * API Class for use by CharacterSheet Saves current for to save file
+ * 
  * @author Jacq
- *
+ * 
  */
 public class SaveAction {
 
 	private static final Map<String, Object> CHAR_ELEMS = new HashMap<>();
 	private static final String CHAR_CLASS_NAME = CharacterInfo.class.getName();
-	private static final String ABILITY_CLASS_NAME = AbilityStats.class.getName();
+	private static final String ABILITY_CLASS_NAME = AbilityStats.class
+			.getName();
 	private static final String COMBAT_CLASS_NAME = CombatStats.class.getName();
-	
+
 	/**
 	 * Uses container information to construct character and save
+	 * 
 	 * @param container
 	 */
 	public static void save(Container container) {
-		JFileChooser fileChooser = new JFileChooser();
-		fileChooser.setFileFilter(new CustomFileFilter());
-		if (fileChooser.showSaveDialog(container) == JFileChooser.APPROVE_OPTION) {
-			File file = fileChooser.getSelectedFile();
-			SaveCharacter action = new SaveCharacter(file);
-			try {
-				action.save(constructCharacter(container));
-				JOptionPane.showMessageDialog(
-						container, "Save Successful", "Save Complete", JOptionPane.INFORMATION_MESSAGE);
-			} catch (Exception xcp) {
-				JOptionPane.showMessageDialog(
-						container, xcp.getMessage(), "An error occured", JOptionPane.ERROR_MESSAGE);
-			}
-		}
+
+		SaveCharacter action = new SaveCharacter();
+		action.save(constructCharacter(container));
+		JOptionPane.showMessageDialog(container, "Save Successful",
+				"Save Complete", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	/**
-	 * Searches for information in container and creates constructs for character
+	 * Searches for information in container and creates constructs for
+	 * character
+	 * 
 	 * @param container
 	 * @return Character
 	 */
@@ -62,27 +57,37 @@ public class SaveAction {
 		for (Component comp : comps) {
 			if (comp instanceof JPanel) {
 				JPanel panel = (JPanel) comp;
-				List<Component> components = Arrays.asList(panel.getComponents());
+				List<Component> components = Arrays.asList(panel
+						.getComponents());
 				if (panel.getName() == null) {
 					// We have to go deeper
 					return constructCharacter(panel);
 				}
 				if (panel.getName().equals("MetaData")) {
-					CHAR_ELEMS.put(CHAR_CLASS_NAME, CharacterInfo.createCharacter(components));
+					CHAR_ELEMS.put(CHAR_CLASS_NAME,
+							CharacterInfo.createCharacter(components));
 				} else if (panel.getName().equals("AbilityScores")) {
-					CHAR_ELEMS.put(ABILITY_CLASS_NAME, AbilityStats.createStats(components));
+					CHAR_ELEMS.put(ABILITY_CLASS_NAME,
+							AbilityStats.createStats(components));
 				} else if (panel.getName().equals("CombatOpts")) {
-					CHAR_ELEMS.put(COMBAT_CLASS_NAME, CombatStats.createCombatStats(components));
+					CHAR_ELEMS.put(COMBAT_CLASS_NAME,
+							CombatStats.createCombatStats(components));
 				}
-			} else if (comp instanceof Container){
+			} else if (comp instanceof Container) {
 				// We have to go deeper!
 				return constructCharacter((Container) comp);
 			}
 		}
-		return new Character(
-				(CharacterInfo) CHAR_ELEMS.get(CHAR_CLASS_NAME),
-				(AbilityStats) CHAR_ELEMS.get(ABILITY_CLASS_NAME),
-				(CombatStats) CHAR_ELEMS.get(COMBAT_CLASS_NAME),
-				null);
+		
+		Character character = new Character();
+		character.setAbilityStats((AbilityStats) CHAR_ELEMS.get(ABILITY_CLASS_NAME));
+		character.setCombatStats((CombatStats) CHAR_ELEMS.get(COMBAT_CLASS_NAME));
+		character.setInfo((CharacterInfo) CHAR_ELEMS.get(CHAR_CLASS_NAME));
+		//character.setAbilityStats(null);
+		//character.setCombatStats(null);
+		//character.setInfo(null);
+		character.setSaveStats(null);
+		
+		return character;
 	}
 }
